@@ -11,7 +11,7 @@ package ags_systemmanagement;
 public class AGS_SystemManagement {
 
     /**
-     * @param args the command line arguments test
+     * @param args the command line arguments 
      */
     public static void main(String[] args) {
        
