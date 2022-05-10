@@ -14,7 +14,8 @@ public class AGS_SystemManagement {
      * @param args the command line arguments 
      */
     public static void main(String[] args) {
-       
+       Trainer_MainMenu MM = new Trainer_MainMenu();
+       MM.setVisible(true);
     }
     
 }
