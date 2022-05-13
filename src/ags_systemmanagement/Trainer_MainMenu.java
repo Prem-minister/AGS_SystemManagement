@@ -35,6 +35,7 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         Trainer_SessionsBtn = new javax.swing.JButton();
         T_Sessions_Label = new javax.swing.JLabel();
         Trainer_LogOutBtn = new javax.swing.JButton();
+        T_MM_Date = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 102));
@@ -94,6 +95,10 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         Trainer_LogOutBtn.setForeground(new java.awt.Color(255, 255, 255));
         Trainer_LogOutBtn.setText("Log Out");
 
+        T_MM_Date.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        T_MM_Date.setForeground(new java.awt.Color(255, 255, 0));
+        T_MM_Date.setText("01/11/2022");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -113,7 +118,9 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
                     .addComponent(T_Sessions_Label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addComponent(T_MM_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Trainer_LogOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
             .addComponent(T_MMLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -134,7 +141,9 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
                     .addComponent(T_UptProfile_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(T_Schedule_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
-                .addComponent(Trainer_LogOutBtn)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Trainer_LogOutBtn)
+                    .addComponent(T_MM_Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(130, 130, 130))
         );
 
@@ -205,6 +214,7 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel T_MMLabel;
+    private javax.swing.JLabel T_MM_Date;
     private javax.swing.JLabel T_Schedule_Label;
     private javax.swing.JLabel T_Sessions_Label;
     private javax.swing.JLabel T_UptProfile_Label;
