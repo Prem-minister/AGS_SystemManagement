@@ -26,21 +26,313 @@ public class Trainer_Profile extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        NameLbl = new javax.swing.JLabel();
+        T_Name = new javax.swing.JTextField();
+        T_EmailLbl = new javax.swing.JLabel();
+        T_Email = new javax.swing.JTextField();
+        T_PhoneLbl = new javax.swing.JLabel();
+        T_Phone = new javax.swing.JTextField();
+        T_DoBLbl = new javax.swing.JLabel();
+        T_DoB = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        T_BankName = new javax.swing.JTextField();
+        BankLbl = new javax.swing.JLabel();
+        BankLbl1 = new javax.swing.JLabel();
+        T_BankNo = new javax.swing.JTextField();
+        T_Upd_Personal = new javax.swing.JButton();
+        T_Upd_Bank = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        BankLbl2 = new javax.swing.JLabel();
+        T_Reset_Pass = new javax.swing.JPasswordField();
+        T_Reset_Confirm = new javax.swing.JPasswordField();
+        BankLbl3 = new javax.swing.JLabel();
+        T_ResetBtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(681, 521));
+
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+
+        jLabel1.setFont(new java.awt.Font("Stencil", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/profile-icon.png"))); // NOI18N
+        jLabel1.setText("PROFILE");
+
+        NameLbl.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        NameLbl.setForeground(new java.awt.Color(255, 255, 255));
+        NameLbl.setLabelFor(T_Name);
+        NameLbl.setText("Name :");
+
+        T_Name.setText("Eg: Ali");
+        T_Name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_NameActionPerformed(evt);
+            }
+        });
+
+        T_EmailLbl.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        T_EmailLbl.setForeground(new java.awt.Color(255, 255, 255));
+        T_EmailLbl.setLabelFor(T_Email);
+        T_EmailLbl.setText("Email :");
+
+        T_Email.setText("Eg: Ali@gmail.com");
+        T_Email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_EmailActionPerformed(evt);
+            }
+        });
+
+        T_PhoneLbl.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        T_PhoneLbl.setForeground(new java.awt.Color(255, 255, 255));
+        T_PhoneLbl.setLabelFor(T_Phone);
+        T_PhoneLbl.setText("Phone :");
+
+        T_Phone.setText("Eg: 012xxxxxxx");
+        T_Phone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_PhoneActionPerformed(evt);
+            }
+        });
+
+        T_DoBLbl.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        T_DoBLbl.setForeground(new java.awt.Color(255, 255, 255));
+        T_DoBLbl.setLabelFor(T_DoB);
+        T_DoBLbl.setText("DoB :");
+
+        T_DoB.setText("YYYY/MM/DD");
+        T_DoB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_DoBActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Personal DETAIl");
+
+        jLabel4.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Bank information");
+
+        T_BankName.setText("Eg: Maybank");
+        T_BankName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_BankNameActionPerformed(evt);
+            }
+        });
+
+        BankLbl.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        BankLbl.setForeground(new java.awt.Color(255, 255, 255));
+        BankLbl.setLabelFor(T_BankName);
+        BankLbl.setText("Bank Name :");
+
+        BankLbl1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        BankLbl1.setForeground(new java.awt.Color(255, 255, 255));
+        BankLbl1.setLabelFor(T_BankNo);
+        BankLbl1.setText("Bank Acc No :");
+
+        T_BankNo.setText("Eg: Maybank");
+        T_BankNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_BankNoActionPerformed(evt);
+            }
+        });
+
+        T_Upd_Personal.setBackground(new java.awt.Color(0, 255, 255));
+        T_Upd_Personal.setText("Update");
+
+        T_Upd_Bank.setBackground(new java.awt.Color(0, 255, 255));
+        T_Upd_Bank.setText("Update");
+
+        jLabel7.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("password reset");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        BankLbl2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        BankLbl2.setForeground(new java.awt.Color(255, 255, 255));
+        BankLbl2.setLabelFor(T_Reset_Pass);
+        BankLbl2.setText("New Password :");
+
+        BankLbl3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        BankLbl3.setForeground(new java.awt.Color(255, 255, 255));
+        BankLbl3.setLabelFor(T_Reset_Confirm);
+        BankLbl3.setText("Confirm Password :");
+
+        T_ResetBtn.setBackground(new java.awt.Color(255, 0, 0));
+        T_ResetBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        T_ResetBtn.setText("RESET");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(T_ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(T_DoBLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(T_DoB, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(T_PhoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(T_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(T_EmailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(T_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(NameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(T_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(T_Upd_Personal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(BankLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(T_BankName, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(BankLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(T_BankNo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(T_Upd_Bank, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(48, 48, 48))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(BankLbl2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(T_Reset_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(322, 322, 322)
+                        .addComponent(BankLbl3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(T_Reset_Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(60, 60, 60))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(NameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(T_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BankLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(T_BankName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(T_EmailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(T_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BankLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(T_BankNo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(T_PhoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(T_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(T_Upd_Bank))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(T_DoBLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(T_DoB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(T_Upd_Personal))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(BankLbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(T_Reset_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BankLbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(T_Reset_Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(T_ResetBtn)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void T_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_NameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_T_NameActionPerformed
+
+    private void T_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_T_EmailActionPerformed
+
+    private void T_PhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_PhoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_T_PhoneActionPerformed
+
+    private void T_DoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_DoBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_T_DoBActionPerformed
+
+    private void T_BankNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_BankNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_T_BankNameActionPerformed
+
+    private void T_BankNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_BankNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_T_BankNoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +370,30 @@ public class Trainer_Profile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BankLbl;
+    private javax.swing.JLabel BankLbl1;
+    private javax.swing.JLabel BankLbl2;
+    private javax.swing.JLabel BankLbl3;
+    private javax.swing.JLabel NameLbl;
+    private javax.swing.JTextField T_BankName;
+    private javax.swing.JTextField T_BankNo;
+    private javax.swing.JTextField T_DoB;
+    private javax.swing.JLabel T_DoBLbl;
+    private javax.swing.JTextField T_Email;
+    private javax.swing.JLabel T_EmailLbl;
+    private javax.swing.JTextField T_Name;
+    private javax.swing.JTextField T_Phone;
+    private javax.swing.JLabel T_PhoneLbl;
+    private javax.swing.JButton T_ResetBtn;
+    private javax.swing.JPasswordField T_Reset_Confirm;
+    private javax.swing.JPasswordField T_Reset_Pass;
+    private javax.swing.JButton T_Upd_Bank;
+    private javax.swing.JButton T_Upd_Personal;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
