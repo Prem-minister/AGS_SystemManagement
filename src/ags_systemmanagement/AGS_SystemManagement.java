@@ -4,6 +4,9 @@
  */
 package ags_systemmanagement;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Prem Sharaan
@@ -11,11 +14,14 @@ package ags_systemmanagement;
 public class AGS_SystemManagement {
 
     /**
-     * @param args the command line arguments 
+     * @param args the command line arguments test
      */
     public static void main(String[] args) {
-       Trainer_MainMenu MM = new Trainer_MainMenu();
-       MM.setVisible(true);
+          Login frame = new Login();
+          Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+          frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+          frame.setVisible(true);
+          frame.setResizable(false);
     }
     
 }
