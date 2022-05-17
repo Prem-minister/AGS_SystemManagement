@@ -4,6 +4,9 @@
  */
 package ags_systemmanagement;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author User
@@ -32,9 +35,9 @@ public class Trainer_Sessions extends javax.swing.JFrame {
         Trainer_Sessions_Name = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         T_Sessions_table = new javax.swing.JTable();
-        T_Sessions_BackBtn = new javax.swing.JLabel();
         T_Sessions_FeedbackBtn = new javax.swing.JButton();
         T_Sessions_PaymentBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(681, 521));
@@ -51,6 +54,7 @@ public class Trainer_Sessions extends javax.swing.JFrame {
         T_Sessions_SearchBtn.setBackground(new java.awt.Color(0, 255, 255));
         T_Sessions_SearchBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         T_Sessions_SearchBtn.setText("Search");
+        T_Sessions_SearchBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         Trainer_Sessions_Name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         Trainer_Sessions_Name.setText("Search by name");
@@ -74,47 +78,56 @@ public class Trainer_Sessions extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(T_Sessions_table);
 
-        T_Sessions_BackBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
-
         T_Sessions_FeedbackBtn.setBackground(new java.awt.Color(255, 255, 0));
         T_Sessions_FeedbackBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         T_Sessions_FeedbackBtn.setText("Add Feedback");
+        T_Sessions_FeedbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         T_Sessions_PaymentBtn.setBackground(new java.awt.Color(255, 255, 51));
         T_Sessions_PaymentBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         T_Sessions_PaymentBtn.setText("Add Payment");
+        T_Sessions_PaymentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jButton1.setBackground(new java.awt.Color(0, 51, 102));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+            .add(jPanel1Layout.createSequentialGroup()
                 .add(28, 28, 28)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(Trainer_Sessions_Name, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 204, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(T_Sessions_SearchBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(31, 31, 31)
-                        .add(T_Sessions_FeedbackBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(T_Sessions_PaymentBtn))
-                    .add(jScrollPane1))
-                .add(31, 31, 31))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(T_Sessions_BackBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(18, 18, 18)
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 589, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .add(jButton1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(Trainer_Sessions_Name, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 204, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(T_Sessions_SearchBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(31, 31, 31)
+                                .add(T_Sessions_FeedbackBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 92, Short.MAX_VALUE)
+                                .add(T_Sessions_PaymentBtn))
+                            .add(jScrollPane1))
+                        .add(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .add(19, 19, 19)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(T_Sessions_BackBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel1)
+                    .add(jButton1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(Trainer_Sessions_Name, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -143,6 +156,17 @@ public class Trainer_Sessions extends javax.swing.JFrame {
     private void Trainer_Sessions_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_Sessions_NameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Trainer_Sessions_NameActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_MainMenu TM = new Trainer_MainMenu();
+        
+        TM.setVisible(true);
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TM.setLocation(dim.width/2-TM.getSize().width/2, dim.height/2-TM.getSize().height/2);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,12 +204,12 @@ public class Trainer_Sessions extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel T_Sessions_BackBtn;
     private javax.swing.JButton T_Sessions_FeedbackBtn;
     private javax.swing.JButton T_Sessions_PaymentBtn;
     private javax.swing.JButton T_Sessions_SearchBtn;
     private javax.swing.JTable T_Sessions_table;
     private javax.swing.JTextField Trainer_Sessions_Name;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

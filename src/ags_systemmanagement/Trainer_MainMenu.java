@@ -4,6 +4,15 @@
  */
 package ags_systemmanagement;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -15,8 +24,9 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
      */
     public Trainer_MainMenu() {
         initComponents();
+        GUI();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,6 +104,11 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         Trainer_LogOutBtn.setBackground(new java.awt.Color(255, 0, 0));
         Trainer_LogOutBtn.setForeground(new java.awt.Color(255, 255, 255));
         Trainer_LogOutBtn.setText("Log Out");
+        Trainer_LogOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Trainer_LogOutBtnActionPerformed(evt);
+            }
+        });
 
         T_MM_Date.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         T_MM_Date.setForeground(new java.awt.Color(255, 255, 0));
@@ -167,15 +182,34 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
 
     private void Trainer_SessionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_SessionsBtnActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_Sessions TSe = new Trainer_Sessions();
+        TSe.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TSe.setLocation(dim.width/2-TSe.getSize().width/2, dim.height/2-TSe.getSize().height/2);
     }//GEN-LAST:event_Trainer_SessionsBtnActionPerformed
 
     private void Trainer_ProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_ProfileBtnActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_Profile tp = new Trainer_Profile();
+        tp.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        tp.setLocation(dim.width/2-tp.getSize().width/2, dim.height/2-tp.getSize().height/2);
     }//GEN-LAST:event_Trainer_ProfileBtnActionPerformed
 
     private void Trainer_ScheduleBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_ScheduleBtn1ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_Schedule TS = new Trainer_Schedule();
+        TS.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TS.setLocation(dim.width/2-TS.getSize().width/2, dim.height/2-TS.getSize().height/2);
     }//GEN-LAST:event_Trainer_ScheduleBtn1ActionPerformed
+
+    private void Trainer_LogOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_LogOutBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Trainer_LogOutBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,6 +220,7 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -210,6 +245,34 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
                 new Trainer_MainMenu().setVisible(true);
             }
         });
+    }
+    
+    public void GUI() {
+        setTitle("Main Menu");
+        setResizable(false);
+        
+        //getting todays date
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date today = new Date();
+        //setting the date in the mainmenu label
+        T_MM_Date.setText(formatter.format(today));
+        
+        //adding closing confirmation 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit?", "Closing Main Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {
+                    //nneed to clear login and return to login page
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                    dispose();
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
