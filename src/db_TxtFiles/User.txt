@@ -1,1 +1,5 @@
-Prem:Test:USR1002
+USR1:Centre Manager:Premsharaan:Prem:Test:Prem@gmail.com:010-01010101
+USR2:Centre Trainer:Ko Ee:Ko:Test:koe@gmail.com:010-01010101
+USR3:Centre Trainer:Ko Ee:Ko:Test:koe@gmail.com:010-01010101
+USR4:Centre Trainer:Joe Mama:Ko:Test:koe@gmail.com:010-01010101
+USR5:Customer:Joe Mama:Ko:Test:koe@gmail.com:010-01010101

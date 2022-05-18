@@ -9,7 +9,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +20,7 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -28,9 +31,8 @@ import javax.swing.JTextField;
  *
  * @author Prem Sharaan
  */
-public class CentreManager_MainMenu extends javax.swing.JFrame {
-     //This variable is for setting project folder directory
-    private String projectDir;
+public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable is for setting project folder directory
+    private String projectDir, userID;
     /**
      * Creates new form CentreManagerMainMenu
      */
@@ -40,18 +42,14 @@ public class CentreManager_MainMenu extends javax.swing.JFrame {
     }
 
      // This method is to delete a temporary user session that has been created during verification
-    private void clearUserSession() {
-        try {
-            // This sets the directory of the project
-            projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\";
-            File userCache = new File(projectDir + "UserCache.txt");
-            if (userCache.exists()) {
-                userCache.delete();
-            }
-        } catch (Exception ex) {
-
-        }
+     
+    //Method for clearing any available user cachr
+    private void clearCache(){
+         deleteSession clearSession = new deleteSession();
+         clearSession.clearUserSession();
     }
+ 
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -442,9 +440,9 @@ public class CentreManager_MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+         int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
-            clearUserSession();
+            clearCache();
             openLogin();
             this.dispose();
         } else {
@@ -465,7 +463,8 @@ public class CentreManager_MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnManageTrainingMouseExited
 
     private void btnManageTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageTrainingActionPerformed
-  
+         openFrame openFrame = new openFrame();
+         openFrame.openManagerManageTrainingSession();
     }//GEN-LAST:event_btnManageTrainingActionPerformed
 
     private void btnManageFeedbackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageFeedbackMouseEntered
@@ -608,7 +607,7 @@ public class CentreManager_MainMenu extends javax.swing.JFrame {
         });
     }
     
-     //SThis styles the username text panel
+      //SThis styles the username text panel
     private void styleUsernameField() {
         txtUsername.setHorizontalAlignment(JTextField.CENTER);
         txtUsername.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -657,8 +656,8 @@ public class CentreManager_MainMenu extends javax.swing.JFrame {
     
     
       //This method is to get username and display it in textfield
-    private void getUsername() {
-       String[] userCredential;
+    private void getUserFullName() {
+       String[] userDetails;
         try {
             // This sets the directory of the project
             projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\";
@@ -667,20 +666,40 @@ public class CentreManager_MainMenu extends javax.swing.JFrame {
             if (!cacheFile.exists()) {
                 cacheFile.createNewFile();
             }
-            Scanner searchUsername = new Scanner(cacheFile);
+            Scanner searchUserFullName = new Scanner(cacheFile);
             // Read till last line of file
-            while (searchUsername.hasNext()) {
+            while (searchUserFullName.hasNext()) {
                 // Read the next line.
-                String inputUsername = searchUsername.nextLine();
+                String inputUsername = searchUserFullName.nextLine();
                 // Split the details by using the colon and store in an array.
-                userCredential = inputUsername.split(":");
-                txtUsername.setText("Welcome " + userCredential[0]);
+                userDetails = inputUsername.split(":");
+                userID = userDetails[1];
+                txtUsername.setText("Welcome " + userDetails[0]);
             }
-            searchUsername.close();
+            searchUserFullName.close();
         } catch (Exception ex) {
 
         }
     }
+    
+     private void loadProfileImage() throws IOException {
+         // This sets the directory of the project
+        projectDir = System.getProperty("user.dir") + "\\src\\ProfileImgSrc\\";
+        File proImg = new File(projectDir + userID + ".jpg");
+        String img;
+        if (proImg.exists()) {
+           img = projectDir + userID + ".jpg";
+        } else {
+           img = projectDir + "defaultProFile.jpg";
+        }
+        BufferedImage bufImg = ImageIO.read(new File(img));
+        Image imgScale = bufImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgScale);
+        lblProfilePic.setIcon(scaledIcon);
+
+    }
+
+   
     
      public void openLogin(){
              Login frame = new Login();
@@ -698,47 +717,55 @@ public class CentreManager_MainMenu extends javax.swing.JFrame {
      
      public void initGUI() {
               
-        //This sets the button to not focus
-        btnLogOut.setFocusable(false);
-        btnTrainingBooking.setFocusable(false);
-        btnManageCustomer.setFocusable(false);
-        btnManageAdmin.setFocusable(false);  
-        btnUpdateProfile.setFocusable(false);
-        btnManageTraining.setFocusable(false);
-        btnManageFeedback.setFocusable(false);
-        btnLoginLog.setFocusable(false);
-        txtUsername.setFocusable(false);
-        
-           
-        //This will display the current time
-        CurrentTime();
-
-        //This will display the current date
-        CurrentDate();
-
-        //This will style the textfield
-        styleUsernameField();
-          
-        //This will get the user's username and set it inside the textfield
-        getUsername();
-        
-        // This class handles window closing event
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                int selection = JOptionPane.showConfirmDialog(null, "Want to exit?", "Closing Main Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (selection == JOptionPane.YES_OPTION) {
-                    openLogin(); 
-                    //This will clear the login session
-                    clearUserSession();
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                    dispose();
-                } else {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        try {
+            //This sets the button to not focus
+            btnLogOut.setFocusable(false);
+            btnTrainingBooking.setFocusable(false);
+            btnManageCustomer.setFocusable(false);
+            btnManageAdmin.setFocusable(false);
+            btnUpdateProfile.setFocusable(false);
+            btnManageTraining.setFocusable(false);
+            btnManageFeedback.setFocusable(false);
+            btnLoginLog.setFocusable(false);
+            txtUsername.setFocusable(false);
+            
+            
+            //This will display the current time
+            CurrentTime();
+            
+            //This will display the current date
+            CurrentDate();
+            
+            //This will style the textfield
+            styleUsernameField();
+            
+            //This will get the user's fullname and set it inside the textfield
+            getUserFullName();
+            
+            //This will load the user profile picture
+            loadProfileImage();
+            
+            // This class handles window closing event
+            addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    int selection = JOptionPane.showConfirmDialog(null, "Want to exit?", "Closing Main Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (selection == JOptionPane.YES_OPTION) {
+                        openLogin();
+                        //This will clear the login session
+                        clearCache();
+                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                        dispose();
+                    } else {
+                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                    }
                 }
-            }
-        });
+            });
+        } catch (IOException ex) {
+            Logger.getLogger(CentreManager_MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
+    
     
     
 
