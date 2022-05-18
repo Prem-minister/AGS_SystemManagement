@@ -61,7 +61,7 @@
                                   <Component id="chkBoxShow" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="lblUserRole" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                              <Component id="userRole" alignment="0" min="-2" pref="298" max="-2" attributes="0"/>
+                              <Component id="cbxUserRole" alignment="0" min="-2" pref="298" max="-2" attributes="0"/>
                               <Component id="lblLoginLogo" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="393" max="-2" attributes="0"/>
@@ -121,7 +121,7 @@
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="lblUserRole" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="userRole" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="cbxUserRole" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnLogin" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -320,7 +320,7 @@
             <Property name="text" type="java.lang.String" value="AGS Management System"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="userRole">
+        <Component class="javax.swing.JComboBox" name="cbxUserRole">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>

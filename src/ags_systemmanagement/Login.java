@@ -15,6 +15,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,16 +25,19 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
 
 /**
  *
  * @author Prem Sharaan
  */
 public class Login extends javax.swing.JFrame {
-    //Setting private string variables
-    private String projectDir, UserUsername, UserID;
-    //private boolean enteredUsername = false, enteredPassword = false;
-
+     //Setting private string variables
+    private boolean enteredUsername = false, enteredPassword = false, selectedUserRole = false;
+    private String projectDir, UserID, UserRole, UserUsername,UserPassword,UserFullName, UserEmail, UserPhoneNumber, dateTime;
+  
     /**
      * Creates new form Login
      */
@@ -40,9 +46,10 @@ public class Login extends javax.swing.JFrame {
         initGUI();
         
     }
+  
 
-       // This method is to create a temporary staff session that stores relevant user detail
-    private void startUserSession() {
+    // This method is to create a temporary staff session that stores relevant user detail
+    private void startUserSession(){
         try {
             // This sets the directory of the project
             projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\";
@@ -57,23 +64,102 @@ public class Login extends javax.swing.JFrame {
         } catch (Exception ex) {
 
         }
+        
     }
-
-   // This method is to delete a temporary staff session that has been created during verification
-    private void clearUserSession() {
+    
+    //Method for clearing any available user cache
+    private void clearCache(){
+         deleteSession clearSession = new deleteSession();
+         clearSession.clearUserSession();
+    }
+ 
+    
+      //Store the records of the session of the user as a log file
+     private void storeLog() {
         try {
-            // This sets the directory of the project
+            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH.mm.ss");
+            LocalDateTime now = LocalDateTime.now();
+            dateTime = dateTimeFormat.format(now);
             projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\";
-            File userCache = new File(projectDir + "UserCache.txt");
-            if (userCache.exists()) {
-                userCache.delete();
+            File logFile = new File(projectDir + "LogFile.txt");
+            if (!logFile.exists()) {
+                logFile.createNewFile();
             }
+            FileWriter fw = new FileWriter(projectDir + "LogFile.txt", true);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.write(UserID + ":" + UserUsername + ":" + UserPassword + ":" + UserFullName + ":" + UserEmail + ":" + UserPhoneNumber + dateTime);
+            pw.close();
         } catch (Exception ex) {
 
         }
+        
+        
     }
-
     
+      
+    private void enableLoginBtn() {
+        if (enteredUsername && enteredPassword) {
+            btnLogin.setEnabled(true);
+            btnLogin.setBackground( new Color(100,255,218));
+        } else {
+            btnLogin.setEnabled(false);
+           
+        }
+     }
+  private void enableLoginBtn(JTextField txtField) {
+         if ("".equals(txtField.getText())) {
+             enteredUsername = false;
+             btnLogin.setBackground(Color.GRAY);
+         } else {
+             enteredUsername = true;
+
+         }
+             enableLoginBtn();
+     }
+
+    private void enableLoginBtn(JPasswordField txtField) {
+        if ("".equals(String.valueOf(txtPassword.getPassword()))) {
+            enteredPassword = false;          
+            btnLogin.setBackground(Color.GRAY);
+        } else {
+            enteredPassword = true;
+        }
+            enableLoginBtn();
+     }
+    
+   /*
+     private void enableLoginBtn(JComboBox comboField) {
+        if (cbxUserRole.getSelectedIndex()> 0) {  
+            selectedUserRole = true;
+        } else {
+            selectedUserRole = false;
+            btnLogin.setBackground(Color.GRAY);         
+        }
+           enableLoginBtn();
+     }
+
+    */
+        //To check what user role and direct the user based on their user role
+    private void  confirmUserRole() throws IOException {
+        if (cbxUserRole.getSelectedIndex() == 1) {
+            openFrame openFrame = new openFrame();
+            openFrame.openCustomerMainMenu();
+            this.dispose();
+        }
+         if (cbxUserRole.getSelectedIndex() == 2) {
+            openFrame openFrame = new openFrame();
+            openFrame.openTrainerMainMenu();
+            this.dispose();
+        }
+         
+        if (cbxUserRole.getSelectedIndex() == 3) {
+            openFrame openFrame = new openFrame();
+            openFrame.openManagerMainMenu();
+            this.dispose();
+        }
+    }
+     
+     
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,7 +183,7 @@ public class Login extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         lblForgotPass = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
-        userRole = new javax.swing.JComboBox<>();
+        cbxUserRole = new javax.swing.JComboBox<>();
         lblUserRole = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -220,9 +306,9 @@ public class Login extends javax.swing.JFrame {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("AGS Management System");
 
-        userRole.setBackground(new java.awt.Color(255, 255, 255));
-        userRole.setForeground(new java.awt.Color(0, 0, 0));
-        userRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "Customer", "Centre Trainers", "Centre Managers" }));
+        cbxUserRole.setBackground(new java.awt.Color(255, 255, 255));
+        cbxUserRole.setForeground(new java.awt.Color(0, 0, 0));
+        cbxUserRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "Customer", "Centre Trainers", "Centre Managers" }));
 
         lblUserRole.setFont(new java.awt.Font("Tahoma", 3, 15)); // NOI18N
         lblUserRole.setForeground(new java.awt.Color(100, 255, 218));
@@ -246,7 +332,7 @@ public class Login extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chkBoxShow))
                             .addComponent(lblUserRole, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userRole, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxUserRole, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblLoginLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(393, 393, 393))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -294,7 +380,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(lblUserRole)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(userRole, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbxUserRole, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -321,7 +407,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackMouseEntered
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-       clearUserSession();
+       clearCache();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsernameMouseClicked
@@ -357,37 +443,23 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_chkBoxShowActionPerformed
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        /* This is not in use anymore
-
-        //Check data whether it matches from the user input
-        //CheckCredentialsMultipleLine(txtUsername.getText(), txtPassword.getText());
-        //Check data line by line
-        //CheckCredentialsLines();
-        validateInput();
-        if (staffVerification()) {
-            JOptionPane.showMessageDialog(null, "Staff Verification is successfull! Redirecting you to the staff main menu.", "Staff Verified Successfully!", JOptionPane.INFORMATION_MESSAGE);
-            new StaffMainFrame().setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, " Staff Verification failed! Your username or password may be wrong.", "Staff Verification Failed!", JOptionPane.ERROR_MESSAGE);
-        }
-        */
+       
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (txtUsername.getText().isBlank() & txtPassword.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "You haven't input the fields!", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (txtUsername.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "You haven't input the Username!", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (txtPassword.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "You haven't input the Password!", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (userVerification()) {
-            JOptionPane.showMessageDialog(null, "User Authentication is successful! Redirecting you to the user main menu.", "User Authentication Successfully!", JOptionPane.INFORMATION_MESSAGE);
-            startUserSession();       
-            openCentreManagerMainMenu();
-            this.dispose();
+       if ( cbxUserRole.getSelectedItem().toString() == "---none---") {  
+           JOptionPane.showMessageDialog(null, "Please select the user role!", "Warning", JOptionPane.WARNING_MESSAGE);
+      }else if (userAuthentication()) {
+            try {
+                JOptionPane.showMessageDialog(null, "User Authentication is successful! Redirecting you to the user main menu.", "User Authentication Successfully!", JOptionPane.INFORMATION_MESSAGE);
+                startUserSession();
+                confirmUserRole();
+                storeLog();
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "User Authentication is not successful! Your username or password may be wrong.", "User Authentication Failed!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "User Authentication is not successful! Your username, password or User Role may be wrong.", "User Authentication Failed!", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -439,9 +511,9 @@ public class Login extends javax.swing.JFrame {
     
     
     
-    //This method is to verify the staff using the staff username and  staff password
+   //This method is to verify the user using the user username, password and userole
     //This checks every credentials for multiple line
-    private boolean userVerification() {
+    private boolean userAuthentication() {
         boolean userVerified = false;
         // This array is to store all lines
         String[] userDetails;
@@ -449,6 +521,7 @@ public class Login extends javax.swing.JFrame {
             // This is to get the username and password from text field temporary
             String tempUsername = txtUsername.getText();
             String tempPassword = String.valueOf(txtPassword.getPassword());
+            String tempUserRole = String.valueOf(cbxUserRole.getSelectedItem());
 
             // This sets the directory of the project
             projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\";
@@ -462,15 +535,21 @@ public class Login extends javax.swing.JFrame {
             Scanner readFile = new Scanner(userFile);
             // Read till last line of file
             while (readFile.hasNext()) {
-                String staffInput = readFile.nextLine();
+                String userInput = readFile.nextLine();
 
                 // Split the details by using the colon and store in an array.
-                userDetails = staffInput.split(":");
+                userDetails = userInput.split(":");
 
                 // Check every line for the credential to be matched
-                if (tempUsername.equals(userDetails[0]) && tempPassword.equals(userDetails[1])) {
-                    UserID = userDetails[2].replace("USR", "");
-                    UserUsername = userDetails[0];
+                if (tempUserRole.equals(userDetails[1]) && tempUsername.equals(userDetails[3]) && tempPassword.equals(userDetails[4])) {
+                    //UserID = userDetails[0].replace("USR", "");
+                    UserID = userDetails[0];
+                    UserRole = userDetails[1];
+                    UserFullName = userDetails[2];
+                    UserUsername = userDetails[3];
+                    UserPassword = userDetails[4];
+                    UserEmail = userDetails [5];
+                    UserPhoneNumber = userDetails[6];
                     userVerified = true;
                 }
             }
@@ -484,6 +563,8 @@ public class Login extends javax.swing.JFrame {
     }
    
     
+    
+     
   //This method for Jframe initiation
     public void initGUI() {
         //Initializing the logo
@@ -492,24 +573,96 @@ public class Login extends javax.swing.JFrame {
         ImageIcon imageLogin = new ImageIcon(projectDir + "logo.png");
         Image imgLogin = imageLogin.getImage();
         lblLoginLogo.setIcon(new ImageIcon(imgLogin));
+        
+        //setting the frame name
+        this.setTitle("Login Page");
           
         //This sets the items not focusable
         btnBack.setFocusable(false);
+        
+        //Disabling the login button
+        btnLogin.setEnabled(false);
+        btnLogin.setBackground(Color.GRAY);
+        
 
+         // This is  an anon class handles textfield changes for username input
+        txtUsername.getDocument().addDocumentListener(new userDocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+               enableLoginBtn(txtUsername);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                enableLoginBtn(txtUsername);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+               enableLoginBtn(txtUsername);
+
+            }
+        });
+
+        // This anon class handles textfield changes for password input
+        txtPassword.getDocument().addDocumentListener(new userDocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                enableLoginBtn(txtPassword);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+               enableLoginBtn(txtPassword);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                enableLoginBtn(txtPassword);
+
+            }
+        });
+        
+        /*
+        // This anon class handles textfield changes for user role combobpx     
+        ((JTextField)cbxUserRole.getEditor().getEditorComponent()).getDocument().addDocumentListener(new userDocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                enableLoginBtn(cbxUserRole);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+               enableLoginBtn(cbxUserRole);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                enableLoginBtn(cbxUserRole);
+
+            }
+        });
+      */
+        
+        //To handle the closing window
        addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e){
                 int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Closing Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (selection == JOptionPane.YES_OPTION) {
-                    clearUserSession();
+                if (selection == JOptionPane.YES_OPTION) {               
+                    clearCache();
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }
         });
+       
+      
     }
-    
-    
+   
     public void openCentreManagerMainMenu(){
              CentreManager_MainMenu frame = new CentreManager_MainMenu();
              Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -517,10 +670,10 @@ public class Login extends javax.swing.JFrame {
              frame.setVisible(true);
              frame.setResizable(false);
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JComboBox<String> cbxUserRole;
     private javax.swing.JCheckBox chkBoxShow;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -533,6 +686,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
-    private javax.swing.JComboBox<String> userRole;
     // End of variables declaration//GEN-END:variables
 }
