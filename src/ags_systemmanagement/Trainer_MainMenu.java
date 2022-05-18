@@ -263,7 +263,6 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
                 int selection = JOptionPane.showConfirmDialog(null, "Want to exit?", "Closing Main Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (selection == JOptionPane.YES_OPTION) {
                     //nneed to clear login and return to login page
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                     dispose();
                 } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
