@@ -4,18 +4,54 @@
  */
 package ags_systemmanagement;
 
+import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Prem Sharaan
  */
 public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
-
+   private final String userDB = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt";
+    private String userID, profileImgDB, profileImgDir;
+    private int newUserID;
+    private final String prefixID = "USR";
+    DecimalFormat deciFormat = new DecimalFormat("0000");
     /**
      * Creates new form RegisterNewCustomer
      */
     public CentreManager_RegisterNewUser() {
         initComponents();
+        initGUI();
         
+    }
+    
+  
+    //Method for clearing any available user cachr
+    private void clearCache(){
+         deleteSession clearSession = new deleteSession();
+         clearSession.clearUserSession();
     }
 
     /**
@@ -31,12 +67,12 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         btnGoBack = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        lblSelectedPic = new javax.swing.JLabel();
+        btnRegister = new javax.swing.JButton();
+        lblProfilePic = new javax.swing.JLabel();
         btnUploadImg = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         lblUsername1 = new javax.swing.JLabel();
-        userRole = new javax.swing.JComboBox<>();
+        chkUserRole = new javax.swing.JComboBox<>();
         txtNewUsername = new javax.swing.JTextField();
         lblUsername = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
@@ -45,7 +81,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
         lblRetypePassword = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtFullName = new javax.swing.JTextField();
-        cbxGender = new javax.swing.JComboBox<>();
+        chkGender = new javax.swing.JComboBox<>();
         lblGender = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         txtNumber = new javax.swing.JFormattedTextField();
@@ -83,22 +119,25 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate.setBackground(new java.awt.Color(204, 255, 204));
-        btnUpdate.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(0, 51, 51));
-        btnUpdate.setText("Register");
-        btnUpdate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRegister.setBackground(new java.awt.Color(204, 255, 204));
+        btnRegister.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRegister.setForeground(new java.awt.Color(0, 51, 51));
+        btnRegister.setText("Register");
+        btnRegister.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegister.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnUpdateMouseEntered(evt);
+                btnRegisterMouseEntered(evt);
             }
         });
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                btnRegisterActionPerformed(evt);
             }
         });
+
+        lblProfilePic.setMaximumSize(new java.awt.Dimension(100, 100));
+        lblProfilePic.setMinimumSize(new java.awt.Dimension(100, 100));
 
         btnUploadImg.setBackground(new java.awt.Color(0, 102, 102));
         btnUploadImg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -134,9 +173,10 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
         lblUsername1.setForeground(new java.awt.Color(100, 255, 218));
         lblUsername1.setText("User Role :");
 
-        userRole.setBackground(new java.awt.Color(255, 255, 255));
-        userRole.setForeground(new java.awt.Color(0, 0, 0));
-        userRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "Customer", "Centre Trainers", "Centre Managers" }));
+        chkUserRole.setBackground(new java.awt.Color(255, 255, 255));
+        chkUserRole.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        chkUserRole.setForeground(new java.awt.Color(0, 0, 0));
+        chkUserRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "Customer", "Centre Trainers", "Centre Managers" }));
 
         txtNewUsername.setBackground(new java.awt.Color(255, 255, 255));
         txtNewUsername.setFont(new java.awt.Font("Avenir Next", 0, 15)); // NOI18N
@@ -184,14 +224,14 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
             }
         });
 
-        cbxGender.setBackground(new java.awt.Color(255, 255, 255));
-        cbxGender.setFont(new java.awt.Font("Avenir Next", 0, 15)); // NOI18N
-        cbxGender.setForeground(new java.awt.Color(0, 0, 0));
-        cbxGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----", "Male", "Female" }));
-        cbxGender.setBorder(null);
-        cbxGender.addActionListener(new java.awt.event.ActionListener() {
+        chkGender.setBackground(new java.awt.Color(255, 255, 255));
+        chkGender.setFont(new java.awt.Font("Avenir Next", 0, 15)); // NOI18N
+        chkGender.setForeground(new java.awt.Color(0, 0, 0));
+        chkGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----", "Male", "Female" }));
+        chkGender.setBorder(null);
+        chkGender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxGenderActionPerformed(evt);
+                chkGenderActionPerformed(evt);
             }
         });
 
@@ -257,7 +297,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
                                 .addComponent(btnUploadImg, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(288, 288, 288)
-                                .addComponent(lblSelectedPic, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblProfilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(132, 132, 132)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPassword)
@@ -274,19 +314,19 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
                                         .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cbxGender, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(chkGender, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtRetypePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtNewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(userRole, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(chkUserRole, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(lblUsername1)
                                 .addComponent(lblUsername))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(677, 677, 677)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -303,19 +343,19 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(87, 87, 87)
-                        .addComponent(lblSelectedPic, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblProfilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnUploadImg, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(198, 198, 198))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblUsername1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userRole, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(chkUserRole, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,7 +374,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
                             .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbxGender, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chkGender, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblGender, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -368,18 +408,25 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGoBackMouseEntered
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
-
+        int selection = JOptionPane.showConfirmDialog(null, "Going back to main menu will cancel the ongoing user registration. Continue?", "Returning to Main Menu!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (selection == JOptionPane.YES_OPTION) {
+            this.dispose();
+            openFrame openFrame = new openFrame();
+            openFrame.openManagerMainMenu();
+        }
     }//GEN-LAST:event_btnGoBackActionPerformed
 
-    private void btnUpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseEntered
+    private void btnRegisterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateMouseEntered
+    }//GEN-LAST:event_btnRegisterMouseEntered
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        registerUser((String)chkUserRole.getSelectedItem(), txtNewUsername.getText(), txtPassword.getText(), txtRetypePassword.getText(), txtFullName.getText(), (String) chkGender.getSelectedItem(), txtNumber.getText(), txtEmail.getText());
+
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnUploadImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadImgActionPerformed
+      getProfileImage();
     }//GEN-LAST:event_btnUploadImgActionPerformed
 
     private void btnClearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseEntered
@@ -387,7 +434,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearMouseEntered
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        // TODO add your handling code here:
+         clearTxtFields();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtNewUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewUsernameActionPerformed
@@ -398,12 +445,13 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFullNameActionPerformed
 
-    private void cbxGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGenderActionPerformed
+    private void chkGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkGenderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbxGenderActionPerformed
+    }//GEN-LAST:event_chkGenderActionPerformed
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
-
+        UserEmailValidation invalidate = new UserEmailValidation();
+        invalidate.runValidate(txtEmail, true);
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
@@ -448,12 +496,426 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
         });
     }
 
+          
+    // This method clears the text fields
+    private void clearTxtFields(){
+        try {
+            chkUserRole.setSelectedIndex(0);
+            txtNewUsername.setText("");
+            txtPassword.setText("");
+            txtRetypePassword.setText("");
+            txtFullName.setText("");
+            chkGender.setSelectedIndex(0);
+            txtEmail.setText("");
+            txtNumber.setText("");
+            userID = "";
+            
+            profileImgDB =  System.getProperty("user.dir") + "\\src\\ProfileImgSrc\\";
+            File defaultImg = new File(profileImgDB + "defaultProFile.jpg");
+            BufferedImage buffImg = ImageIO.read(defaultImg);
+            Image imgScale = buffImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            ImageIcon scaledImg = new ImageIcon(imgScale);
+            lblProfilePic.setIcon(scaledImg);
+        } catch (IOException ex) {
+            Logger.getLogger(CentreManager_RegisterNewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    }
+    
+   
+        // This is a new exception class
+    public void emptyInputFields() throws Exception {
+        UserEmailValidation invalidate = new UserEmailValidation();
+        if ("".equals(txtNewUsername.getText())) {
+            throw new Exception("Empty user username");
+        }
+        if ("".equals(String.valueOf(txtPassword.getPassword()))) {
+            throw new Exception("Empty user password");
+        }
+        if ("".equals(String.valueOf(txtRetypePassword.getPassword()))) {
+            throw new Exception("Empty user retype password");
+        }
+        if ("".equals(txtFullName.getText())) {
+            throw new Exception("Empty user full name");
+        }
+        if ("".equals(txtNumber.getText())) {
+            throw new Exception("Empty user phone number");
+        }
+        if ("".equals(txtEmail.getText())) {
+            throw new Exception("Empty user email");
+        }
+
+        if (invalidate.runValidate(txtEmail, false)) {
+            throw new Exception("Invalid user email address format");
+        }
+    }
+    
+    
+     //This method raise message for empty fields, password comparison and username validation.
+    private void validateInput() {
+        if (chkUserRole.getSelectedIndex()== 0 && "".equals(txtNewUsername.getText()) && "".equals(txtFullName.getText()) && "".equals(txtNumber.getText()) && "".equals(txtEmail.getText()) && chkGender.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Invalid input! Please input all the fields to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
+        } else if (chkUserRole.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "User Role is not selected!", "User Role unselected!", JOptionPane.WARNING_MESSAGE);     
+        } else if ("".equals(txtNewUsername.getText())) {
+            JOptionPane.showMessageDialog(null, "Invalid input! Please input username to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
+        } else if ("".equals(String.valueOf(txtPassword.getPassword()))) {
+            JOptionPane.showMessageDialog(null, "Invalid input! Pleass input password to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
+        } else if ("".equals(String.valueOf(txtRetypePassword.getPassword()))) {
+            JOptionPane.showMessageDialog(null, "Invalid input! Please input retype password to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
+        } else if ("".equals(txtFullName.getText())) {
+            JOptionPane.showMessageDialog(null, "Invalid input! Please input full name to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
+        } else if (chkGender.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Gender is not selected!", "Gender unselected!", JOptionPane.WARNING_MESSAGE);
+        } else if ("".equals(txtEmail.getText())) {
+            JOptionPane.showMessageDialog(null, "Invalid input! Please input email to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
+        } else if ("   -       ".equals(txtNumber.getText())) {
+            JOptionPane.showMessageDialog(null, "Invalid input! Please input phone number to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
+        } else if (!comparePassword()) {
+            JOptionPane.showMessageDialog(null, "Password is not same!", "Password mismatch!", JOptionPane.WARNING_MESSAGE);
+        } else if(usernameValidation(txtNewUsername.getText())) {
+            JOptionPane.showMessageDialog(null, "Username is already taken by another user! Use a different Username to proceed.", "Username is in use!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+ 
+    
+     // This method handles all validation related to the fields
+    private void staffInputCharacterValidator() {
+        txtNewUsername.getDocument().addDocumentListener(new userDocumentListener() {
+            UserUsernameValidation invalidate = new UserUsernameValidation();
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtNewUsername);
+                invalidate.setRegex("testing");
+                invalidate.getRegex();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtNewUsername);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtNewUsername);
+            }
+
+        });
+        
+        txtPassword.getDocument().addDocumentListener(new userDocumentListener() {
+            UserPasswordValidation invalidate = new UserPasswordValidation();
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtPassword);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtPassword);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtPassword);
+            }
+        });
+        
+        txtRetypePassword.getDocument().addDocumentListener(new userDocumentListener() {
+            UserPasswordValidation invalidate = new UserPasswordValidation();
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtRetypePassword);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtRetypePassword);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtRetypePassword);
+            }
+        });
+        
+          txtFullName.getDocument().addDocumentListener(new userDocumentListener() {
+            UserFullNameValidation invalidate = new UserFullNameValidation();
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtFullName);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtFullName);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                invalidate.runValidate(txtFullName);
+            }
+        }); 
+       
+    }
+
+    
+    
+     //This method is to increment the userID
+    private void userIDIncrementor() {
+        boolean hasUserIDRecord = false;
+        // This array is to store all lines
+        String[] userDetails = null;
+        try {
+            File userFile = new File(userDB);
+            if (!userFile.exists()) {
+                userFile.createNewFile();
+            }
+            Scanner readFile;
+            try {
+                // Read lines from the file until no more are left.
+                readFile = new Scanner(userFile);
+                while (readFile.hasNext()) {
+                    // Read the next line.
+                    String nextUser = readFile.nextLine();
+
+                    // Split the line by using the colon ":" and store into  an array.
+                    userDetails = nextUser.split(":");
+                    userDetails[0] = userDetails[0].replace("USR", "");
+                    hasUserIDRecord = true;
+                }
+                readFile.close();
+                if (!hasUserIDRecord) {
+                    JOptionPane.showMessageDialog(null, "The system does not find any user details inside the text file", "User Record is empty!", JOptionPane.ERROR_MESSAGE);
+                    newUserID = 1;
+                } else {
+                    newUserID = Integer.parseInt(userDetails[0]) + 1;
+                }
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(CentreManager_RegisterNewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "Invalid input User ID", "Invalid input type!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+ 
+    //This method is to check whether the username is available or not
+    public boolean usernameValidation(String userUsername) {
+        boolean notFound = false;
+        // This array is to store all lines
+        String[] userDetails;
+        try {
+            // This sets the file which going to be accessed
+            File userFile = new File(userDB);
+            if (!userFile.exists()) {
+                userFile.createNewFile();
+            }
+            Scanner searchUsername = new Scanner(userFile);
+            // Read till last line of file
+            while (searchUsername.hasNext()) {
+                // Read the next line.
+                String inputUsername = searchUsername.nextLine();
+                // Split the details by using the colon and store in an array.
+                userDetails = inputUsername.split(":");
+                if (userUsername.equals(userDetails[3])) {
+                    notFound = true;
+                }
+            }
+            searchUsername.close();
+        } catch (Exception ex) {
+
+        }
+        return notFound;
+    }
+    
+    
+      // This method handles password comparison 
+    private boolean comparePassword() {
+        boolean isSimilar = false;
+        String firstPass = String.valueOf(txtPassword.getPassword());
+        String secondPass = String.valueOf(txtRetypePassword.getPassword());
+        if ("".equals(firstPass) || "".equals(secondPass)) {
+            isSimilar = false;
+        } else if (firstPass.equals(secondPass)) {
+            isSimilar = true;
+        }
+        return isSimilar;
+    }
+    
+     private void loadDefaultImage() throws IOException {
+         // This sets the directory of the project
+                profileImgDB = System.getProperty("user.dir") + "\\src\\ProfileImgSrc\\";
+                File proImgSrc = new File(profileImgDB + "defaultProFile.jpg");
+                BufferedImage bufImg = ImageIO.read(proImgSrc);
+                Image imgScale = bufImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(imgScale);
+                lblProfilePic.setIcon(scaledIcon);
+      }
+
+    
+      private void getProfileImage() {
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            //improve this later to allow more extensions
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Only jpg allowed", "jpg");
+            fileChooser.setFileFilter(filter);
+            int selected = fileChooser.showOpenDialog(null);
+            //this open dialog to pick the imaege
+            if (selected == JFileChooser.APPROVE_OPTION) { 
+                File file = fileChooser.getSelectedFile(); 
+                //storing the directory of the image into a variable
+                String getImageDir = file.getAbsolutePath();
+                BufferedImage bufImg = ImageIO.read(new File(getImageDir));
+                Image imgScale = bufImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                ImageIcon imgIcon = new ImageIcon(imgScale);
+                lblProfilePic.setIcon(imgIcon);
+                profileImgDir = getImageDir; 
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "There were an error occured getting the image!!");
+        }
+
+    }
+      
+      
+     private void saveProfileImg() {
+       profileImgDB = System.getProperty("user.dir") + "\\src\\ProfileImgSrc\\";
+        
+         if (profileImgDir == null) {
+            profileImgDir = profileImgDB + "defaultProFile.jpg";
+         }
+
+            String newImgName =  profileImgDB+userID + "." + "jpg";
+            File path = new File(profileImgDir); 
+            File newImg = new File(newImgName);  
+            File originalImgPath = new File(profileImgDB);
+
+        try {
+            Files.copy(path.toPath(), newImg.toPath(), StandardCopyOption.REPLACE_EXISTING); 
+            boolean success = originalImgPath.renameTo(newImg);
+
+            if (!success) {
+                
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        
+        
+        
+    }  
+     
+     
+     // This method handles the staff registration
+    private void registerUser(String userUserRole, String userUsername, String userPassword, String userRetypePassword, String userFullName, String userGender, String userNumber, String userEmail) {
+        usernameValidation(txtNewUsername.getText());
+        try {
+            //This throws the exception
+            emptyInputFields();
+            // To check username availability
+            if (usernameValidation(txtNewUsername.getText())) {
+                throw new Exception("Username is already in use by another user.");
+            }
+            // This compare the password and retype password
+            if (!comparePassword()) {
+                throw new Exception("Password and retype password entered not same!");
+            }
+           
+            // This is will be displayed when the combo box is selected default
+             if (chkUserRole.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "User Role not selected!", "User Role unselected!", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            if (chkGender.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Gender not selected!", "Gender unselected!", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            try {
+                userID = prefixID + deciFormat.format(newUserID);
+                FileWriter fw = new FileWriter(userDB, true);
+                BufferedWriter bw  = new BufferedWriter(fw);
+                bw.write(userID + ":" + userUserRole +":"+ userFullName + ":" + userUsername+ ":"+ userPassword +  ":" + userGender + ":" + userNumber + ":" + userEmail + ":" +"true"+"\n");
+                JOptionPane.showMessageDialog(null, userFullName + " has been successfully registered!", "User account successfully created!", JOptionPane.INFORMATION_MESSAGE);
+                bw.close();
+                saveProfileImg();
+                userIDIncrementor();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(CentreManager_RegisterNewUser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(CentreManager_RegisterNewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception e) {
+            validateInput();
+
+        }
+    } 
+     
+    
+  
+     //This method is for initial start of the frame
+    public void initGUI() {
+     
+        //This will padding for the textfields
+        txtNewUsername.setBorder(BorderFactory.createCompoundBorder(txtNewUsername.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        txtPassword.setBorder(BorderFactory.createCompoundBorder(txtPassword.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        txtFullName.setBorder(BorderFactory.createCompoundBorder(txtFullName.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        txtRetypePassword.setBorder(BorderFactory.createCompoundBorder(txtRetypePassword.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        txtEmail.setBorder(BorderFactory.createCompoundBorder(txtEmail.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        txtNumber.setBorder(BorderFactory.createCompoundBorder(txtNumber.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+
+        //Disable autofucous in buttons
+        btnGoBack.setFocusable(false);
+        btnRegister.setFocusable(false);
+        btnClear.setFocusable(false);
+        btnUploadImg.setFocusable(false);
+
+        //This sets the increment staff id for the new staff
+        userIDIncrementor();
+
+        try {
+            //Load default profile image for user
+            loadDefaultImage();
+        } catch (IOException ex) {
+            Logger.getLogger(CentreManager_RegisterNewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // This class handles window closing event
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit?", "Closing User Register", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {
+                   //This will clear the login session
+                    clearCache();
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                    dispose();
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
+
+        staffInputCharacterValidator();
+    }
+
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnGoBack;
-    private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnUploadImg;
-    private javax.swing.JComboBox<String> cbxGender;
+    private javax.swing.JComboBox<String> chkGender;
+    private javax.swing.JComboBox<String> chkUserRole;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblEmail;
@@ -461,8 +923,8 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNumber;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblProfilePic;
     private javax.swing.JLabel lblRetypePassword;
-    private javax.swing.JLabel lblSelectedPic;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblUsername1;
@@ -472,6 +934,5 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtNumber;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JPasswordField txtRetypePassword;
-    private javax.swing.JComboBox<String> userRole;
     // End of variables declaration//GEN-END:variables
 }

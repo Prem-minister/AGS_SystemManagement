@@ -3,3 +3,20 @@ USR2:Centre Trainer:Ko Ee:Ko:Test:koe@gmail.com:010-01010101
 USR3:Centre Trainer:Ko Ee:Ko:Test:koe@gmail.com:010-01010101
 USR4:Centre Trainer:Joe Mama:Ko:Test:koe@gmail.com:010-01010101
 USR5:Customer:Joe Mama:Ko:Test:koe@gmail.com:010-01010101
+USR0006:Customer:Monkey D Luffy:Luffy:Test:Male:023-4234234:luffy@gmail.com
+USR0007:Centre Trainers:bgfbgfb:tret:Test:Female:333-2432432:tem@gmail.com
+USR0008:Centre Trainer:Luffy D:Luffy:Test:Male:023-0403243:test@gmail.com:true
+USR0009:Centre Trainer:The Rock:Rock11:Test:Male:023-0210312:test@gmail.com:true
+USR0010:Centre Trainer:The Rock:Rock11:Test:Male:023-0210312:test@gmail.com:true
+USR0012:Customer:te:ggg:11:Male:033-1111111:pr@gmail.com:true
+USR0013:Centre Manager:res:1:1:Male:010-1001011:re@gmail.com:true
+USR0014:Centre Manager:koee:koee:1:Male:010-1001011:koee@gmail.com:true
+USR0015:Centre Trainer:koee:ko:1:Male:032-4324343:ko@gmail.com:true
+USR0016:Centre Trainer:ko:koe:1:Female:030-3030303:re@gmail.com:true
+USR0017:Centre Trainer:e:e:1:Male:202-0202022:r@gmail.com:true
+USR0018:Customer:re:12us:1:Male:010-1010101:2@gmail.com:true
+USR0019:Centre Manager:Lampard:lamp11:11:Male:010-1010101:lampard@gmail.com:true
+USR0020:Customer:t:tes:1:Female:323-2423432:te@gmail.com:true
+USR0021:Customer:r:2121:1:Female:010-10101  :r@gmail.com:true
+USR0022:Centre Manager:r:21211:1:Female:030-3030303:r@gmail.com:true
+USR0023:Customer:r:24:1:Female:020-2020222:3@gmail.com:true

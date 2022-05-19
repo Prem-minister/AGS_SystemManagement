@@ -4,20 +4,108 @@
  */
 package ags_systemmanagement;
 
+import com.toedter.calendar.JTextFieldDateEditor;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Prem Sharaan
  */
 public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
-
+    private final String trainingSlotsDB = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt";
+    private final String userDB = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt";
+    private String trainingSessionID,trainerID, formattedDate, todayFormattedDate;
+    private int newTrainingID;
+    private Date trainingDate;
+    private final String userPrefixID = "TRS";
+    DecimalFormat deciFormat = new DecimalFormat("0000");
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date today = new Date();
+    
     /**
      * Creates new form ScheduleTrainingSession
      */
     public CentreManager_ScheduleTraining() {
         initComponents();
-        
+        initGUI();
     }
 
+    
+       //Method for clearing any available user cachr
+    private void clearCache(){
+         deleteSession clearSession = new deleteSession();
+         clearSession.clearUserSession();
+    }
+ 
+    
+    private void enableBtn(){
+       trainingDate = dateTraining.getDate();    
+       if (trainingDate != null && chkTrainerID.getSelectedIndex()> 0 && chkTrainerStartTime.getSelectedIndex() > 0 && chkTrainerEndTime.getSelectedIndex() > 0) {
+            btnAdd.setEnabled(true);
+            btnClear.setEnabled(true);
+        } else {
+            btnAdd.setEnabled(false);
+            btnClear.setEnabled(false);
+        }
+    }
+    
+      
+     //This gets the training slot details from the textfile to the table
+     private void getTrainingSlotDetails() {
+        try {
+            todayFormattedDate= dateFormat.format(today);
+            DateFormat dateFormatTable = new SimpleDateFormat("dd MMMM yy");
+            FileReader fr = new FileReader(trainingSlotsDB);
+            BufferedReader br = new BufferedReader(fr);
+            //This sets the table into a table model
+            DefaultTableModel model = (DefaultTableModel) tblTrainingSession.getModel();
+            //This is to  get line  by line from the text file
+            Object[] tableLines = br.lines().toArray();
+            //This is to retrieve the content from the lines in the text file and set the content in to the jtable
+            for (int i = 0; i < tableLines.length; i++) {         
+                String detailsline = tableLines[i].toString().trim();
+                String[] staffDataRow = detailsline.split(":");
+                      String trainingID = staffDataRow[0];
+                      String trainerName = staffDataRow[2];
+                      Date date = dateFormat.parse(staffDataRow[3]);
+                      String formatTableDate = dateFormatTable.format(date);
+                      String startTime = staffDataRow[4];
+                      String endTime = staffDataRow[5];
+                      String status = staffDataRow[7];
+                      if (status == "true"){
+                        status = "Booked";
+                      }else{
+                        status = "Not Booked";
+                      }
+                   if(staffDataRow[3].compareTo(todayFormattedDate) >= 0){
+                       System.out.println(staffDataRow[3] + " " + todayFormattedDate);
+                       model.addRow(new Object[] {trainingID, trainerName, formatTableDate, startTime,endTime, status});
+                   }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CentreManager_ScheduleTraining.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,18 +119,20 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblSystemName = new javax.swing.JLabel();
         btnGoBack = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         lblTrainerID = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
         lblTime = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblStaff = new javax.swing.JTable();
         chkTrainerID = new javax.swing.JComboBox<>();
-        chkTrainerStartTime = new javax.swing.JComboBox<>();
-        dateTrainingDate = new com.toedter.calendar.JDateChooser();
+        dateTraining = new com.toedter.calendar.JDateChooser();
         lblEndTime = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTrainingSession = new javax.swing.JTable();
+        chkTrainerStartTime = new javax.swing.JComboBox<>();
         chkTrainerEndTime = new javax.swing.JComboBox<>();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,20 +165,20 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate.setBackground(new java.awt.Color(204, 255, 204));
-        btnUpdate.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(0, 51, 51));
-        btnUpdate.setText("Add");
-        btnUpdate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAdd.setBackground(new java.awt.Color(204, 255, 204));
+        btnAdd.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(0, 51, 51));
+        btnAdd.setText("Add");
+        btnAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnUpdateMouseEntered(evt);
+                btnAddMouseEntered(evt);
             }
         });
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -121,52 +211,22 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         lblTime.setForeground(new java.awt.Color(100, 255, 218));
         lblTime.setText("Training Start Time :");
 
-        jScrollPane1.setBackground(new java.awt.Color(204, 204, 204));
-
-        tblStaff.setBackground(new java.awt.Color(255, 255, 255));
-        tblStaff.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        tblStaff.setForeground(new java.awt.Color(0, 0, 0));
-        tblStaff.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Username", "Password", "Staff ID", "Full Name", "Gender", "Phone Number", "Email"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tblStaff.setToolTipText("");
-        tblStaff.setSelectionBackground(new java.awt.Color(51, 0, 0));
-        tblStaff.setSelectionForeground(new java.awt.Color(255, 204, 204));
-        tblStaff.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblStaffMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblStaff);
-
         chkTrainerID.setBackground(new java.awt.Color(255, 255, 255));
         chkTrainerID.setForeground(new java.awt.Color(0, 0, 0));
         chkTrainerID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---" }));
+        chkTrainerID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkTrainerIDActionPerformed(evt);
+            }
+        });
 
-        chkTrainerStartTime.setBackground(new java.awt.Color(255, 255, 255));
-        chkTrainerStartTime.setForeground(new java.awt.Color(0, 0, 0));
-        chkTrainerStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "10:00 a.m", "11:00 a.m", "12:00 a.m", "1:00  p.m", "2:00  p.m", "3:00  p.m", "4:00  p.m", "5:00  p.m", "6:00  p.m", "7:00  p.m", "8:00  p.m", "9:00  p.m", "10:00 p.m" }));
-
-        dateTrainingDate.setBackground(new java.awt.Color(255, 255, 255));
-        dateTrainingDate.setDateFormatString("dd MMM yyyy");
-        dateTrainingDate.setMaxSelectableDate(new java.util.Date(253370736000000L));
-        dateTrainingDate.setMinSelectableDate(new java.util.Date(-62135798400000L));
-        dateTrainingDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        dateTraining.setBackground(new java.awt.Color(255, 255, 255));
+        dateTraining.setDateFormatString("dd MMM yyyy");
+        dateTraining.setMaxSelectableDate(new java.util.Date(253370736000000L));
+        dateTraining.setMinSelectableDate(new java.util.Date(-62135798400000L));
+        dateTraining.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                dateTrainingDatePropertyChange(evt);
+                dateTrainingPropertyChange(evt);
             }
         });
 
@@ -174,9 +234,64 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         lblEndTime.setForeground(new java.awt.Color(100, 255, 218));
         lblEndTime.setText("Training End Time :");
 
+        jScrollPane1.setBackground(new java.awt.Color(204, 204, 204));
+
+        tblTrainingSession.setBackground(new java.awt.Color(255, 255, 255));
+        tblTrainingSession.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        tblTrainingSession.setForeground(new java.awt.Color(0, 0, 0));
+        tblTrainingSession.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Training ID", "Trainer Name", "Date", "Start Time", "End Time", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblTrainingSession.setToolTipText("");
+        tblTrainingSession.setSelectionBackground(new java.awt.Color(0, 51, 51));
+        tblTrainingSession.setSelectionForeground(new java.awt.Color(204, 255, 204));
+        tblTrainingSession.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTrainingSessionMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblTrainingSession);
+
+        chkTrainerStartTime.setBackground(new java.awt.Color(255, 255, 255));
+        chkTrainerStartTime.setForeground(new java.awt.Color(0, 0, 0));
+        chkTrainerStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "10.00 a.m", "11.00 a.m", "12.00 a.m", "1.00  p.m", "2.00  p.m", "3.00  p.m", "4.00  p.m", "5.00  p.m", "6.00  p.m", "7.00  p.m", "8.00  p.m", "9.00  p.m", "10.00 p.m" }));
+        chkTrainerStartTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkTrainerStartTimeActionPerformed(evt);
+            }
+        });
+
         chkTrainerEndTime.setBackground(new java.awt.Color(255, 255, 255));
         chkTrainerEndTime.setForeground(new java.awt.Color(0, 0, 0));
-        chkTrainerEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "10:00 a.m", "11:00 a.m", "12:00 a.m", "1:00  p.m", "2:00  p.m", "3:00  p.m", "4:00  p.m", "5:00  p.m", "6:00  p.m", "7:00  p.m", "8:00  p.m", "9:00  p.m", "10:00 p.m" }));
+        chkTrainerEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "10.00 a.m", "11.00 a.m", "12.00 a.m", "1.00  p.m", "2.00  p.m", "3.00  p.m", "4.00  p.m", "5.00  p.m", "6.00  p.m", "7.00  p.m", "8.00  p.m", "9.00  p.m", "10.00 p.m" }));
+        chkTrainerEndTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkTrainerEndTimeActionPerformed(evt);
+            }
+        });
+
+        lblName.setFont(new java.awt.Font("Corsiva Hebrew", 0, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(100, 255, 218));
+        lblName.setText("Trainer Name :");
+
+        txtName.setBackground(new java.awt.Color(255, 255, 255));
+        txtName.setFont(new java.awt.Font("Lao Sangam MN", 1, 16)); // NOI18N
+        txtName.setForeground(new java.awt.Color(0, 0, 0));
+        txtName.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        txtName.setPreferredSize(new java.awt.Dimension(89, 22));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,35 +307,35 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
                 .addGap(68, 68, 68))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(59, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTrainerID)
-                                    .addComponent(lblDate))
-                                .addGap(75, 75, 75))
+                                .addComponent(lblTrainerID)
+                                .addGap(103, 103, 103))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEndTime)
-                                    .addComponent(lblTime))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chkTrainerStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateTrainingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(chkTrainerEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(84, 84, 84)
+                                    .addComponent(lblTime)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblEndTime))
+                                    .addComponent(lblDate)
+                                    .addComponent(lblName))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(chkTrainerID, 0, 262, Short.MAX_VALUE)
+                            .addComponent(dateTraining, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                            .addComponent(chkTrainerStartTime, 0, 262, Short.MAX_VALUE)
+                            .addComponent(chkTrainerEndTime, 0, 262, Short.MAX_VALUE)
+                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(102, 102, 102))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(214, 214, 214)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,26 +355,30 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(chkTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(55, 55, 55)
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblName))
+                        .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateTrainingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
+                            .addComponent(dateTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(chkTrainerStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTime))
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblEndTime)
-                            .addComponent(chkTrainerEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkTrainerEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEndTime))
                         .addGap(85, 85, 85)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addGap(78, 78, 78)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,33 +402,53 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGoBackMouseEntered
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
-
+       int selection = JOptionPane.showConfirmDialog(null, "Going back to main menu will cancel the ongoing adding training sessions. Continue?", "Returning to Main Menu!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (selection == JOptionPane.YES_OPTION) {
+            this.dispose();
+            openFrame openFrame = new openFrame();
+            openFrame.openManagerMainMenu();
+        }
     }//GEN-LAST:event_btnGoBackActionPerformed
 
-    private void btnUpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseEntered
+    private void btnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateMouseEntered
+    }//GEN-LAST:event_btnAddMouseEntered
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        addTrainingSlots((String) chkTrainerID.getSelectedItem(), txtName.getText(), dateTraining.getDate(),(String)chkTrainerStartTime.getSelectedItem(),(String) chkTrainerEndTime.getSelectedItem());
+
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnClearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_btnClearMouseEntered
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        // TODO add your handling code here:
+        clearTxtFields();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void tblStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStaffMouseClicked
+    private void dateTrainingPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateTrainingPropertyChange
+       enableBtn();
 
-    }//GEN-LAST:event_tblStaffMouseClicked
+    }//GEN-LAST:event_dateTrainingPropertyChange
 
-    private void dateTrainingDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateTrainingDatePropertyChange
-        // TODO add your handling code here:
+    private void tblTrainingSessionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTrainingSessionMouseClicked
 
-    }//GEN-LAST:event_dateTrainingDatePropertyChange
+    }//GEN-LAST:event_tblTrainingSessionMouseClicked
+
+    private void chkTrainerStartTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTrainerStartTimeActionPerformed
+        enableBtn();
+    }//GEN-LAST:event_chkTrainerStartTimeActionPerformed
+
+    private void chkTrainerEndTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTrainerEndTimeActionPerformed
+        enableBtn();
+
+    }//GEN-LAST:event_chkTrainerEndTimeActionPerformed
+
+    private void chkTrainerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTrainerIDActionPerformed
+        enableBtn();
+       getTrainerName();
+    }//GEN-LAST:event_chkTrainerIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,23 +487,269 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
             }
         });
     }
+    
+     private void clearTxtFields(){
+            chkTrainerID.setSelectedIndex(0);
+            txtName.setText("");
+            dateTraining.setDate(null);          
+            chkTrainerStartTime.setSelectedIndex(0);
+            chkTrainerEndTime.setSelectedIndex(0);
+            trainingSessionID = "";
+    }
+    
+    
+    
+    public final void getTrainerID() {    
+        try {
+           File userFile = new File(userDB);
+           Scanner readFile = new Scanner(userFile);
+            while (readFile.hasNextLine()){
+                 String line = readFile.nextLine();
+                 String detailArray[] = line.split(":");
+                 if ("Centre Trainer".equals(detailArray[1])) {
+                     chkTrainerID.addItem(detailArray[0]);
+                 }
+         
+            }
+            readFile.close();
+        } catch (Exception e) {
+
+        }
+
+    }
+    
+    
+     public final void getTrainerName() {    
+        try {
+           trainerID = chkTrainerID.getSelectedItem().toString(); 
+           File userFile = new File(userDB);
+           Scanner readFile = new Scanner(userFile);
+            while (readFile.hasNextLine()){
+                 String line = readFile.nextLine();
+                 String detailArray[] = line.split(":");
+                 if (trainerID.equals(detailArray[0])) {
+                    txtName.setText(" " +(detailArray[2]));
+                 }
+         
+            }
+            readFile.close();
+        } catch (Exception e) {
+
+        }
+
+    }
+     
+    
+    //This method is to increment the trainingsessionID
+    private void trainingIDIncrementor() {
+        boolean hasTrainingIDRecord = false;
+        // This array is to store all lines
+        String[] trainingDetails = null;
+        try {
+            // This sets the directory of the project
+            File trainingFile = new File(trainingSlotsDB);
+            if (!trainingFile.exists()) {
+                trainingFile.createNewFile();
+            }
+            Scanner readFile;
+            try {
+                // Read lines from the file until no more are left.
+                readFile = new Scanner(trainingFile);
+                while (readFile.hasNext()) {
+                    // Read the next line.
+                    String nextTraining = readFile.nextLine();
+
+                    // Split the line by using the colon ":" and store into  an array.
+                    trainingDetails = nextTraining.split(":");
+                    trainingDetails[0] = trainingDetails[0].replace("TRS", "");
+                    hasTrainingIDRecord = true;
+                }
+                readFile.close();
+                if (!hasTrainingIDRecord) {
+                    JOptionPane.showMessageDialog(null, "The system does not find any training session details inside the text file", "Training Record is empty!", JOptionPane.ERROR_MESSAGE);
+                    newTrainingID = 1;
+                } else {
+                    newTrainingID = Integer.parseInt(trainingDetails[0]) + 1;
+                }
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(CentreManager_ScheduleTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "Invalid input Training ID", "Invalid ID!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+  
+    
+     private void validateInput() {
+        if (chkTrainerStartTime.getSelectedIndex() >= chkTrainerEndTime.getSelectedIndex()) {
+             chkTrainerStartTime.setSelectedIndex(0);
+             chkTrainerEndTime.setSelectedIndex(0);
+             JOptionPane.showMessageDialog(null, "Invalid End Time Selection! Please input end time bigger than the start time.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
+        } else if(recordExist((String) chkTrainerID.getSelectedItem(),dateTraining.getDate(), (String) chkTrainerStartTime.getSelectedItem(),(String) chkTrainerEndTime.getSelectedItem())){ 
+             JOptionPane.showMessageDialog(null, "Training Session Record Exists.", "Record Exists!", JOptionPane.ERROR_MESSAGE);
+        }
+      
+     }
+    
+    
+    
+    //This method is to check whether the selected record already exist or nope
+    public boolean recordExist(String trainerID, Date trainingDate, String startTime, String endTime ) {
+        boolean notFound = false;
+        // This array is to store all lines
+        String[] trainingDetails;
+
+        try {
+            // This sets the file which going to be accessed
+            File trainingFile = new File(trainingSlotsDB);
+            if (!trainingFile.exists()) {
+                trainingFile.createNewFile();
+            }
+            Scanner searchDetails = new Scanner(trainingFile);
+            // Read till last line of file
+            while (searchDetails.hasNext()) {
+                // Read the next line.
+                String inputTraining = searchDetails.nextLine();
+                // Split the details by using the colon and store in an array.
+                trainingDetails = inputTraining.split(":");
+                //formatting date
+                formattedDate = dateFormat.format(trainingDate);
+                if (trainerID.equals(trainingDetails[1]) && formattedDate.equals(trainingDetails[3]) && startTime.equals(trainingDetails[4]) &&  endTime.equals(trainingDetails[5]) ) {
+                    notFound = true;
+                }
+            }
+            searchDetails.close();
+        } catch (Exception ex) {
+
+        }
+        return notFound;
+    }
+
+    
+    
+    // This method handles the staff registration
+    private void addTrainingSlots(String trainerID, String trainerName, Date trainingDate, String trainingStartTime, String trainingEndTime) {
+         recordExist((String) chkTrainerID.getSelectedItem(),dateTraining.getDate(), (String) chkTrainerStartTime.getSelectedItem(),(String) chkTrainerEndTime.getSelectedItem());     
+          try {          
+             // To check whether inserted record exists
+              if (recordExist((String) chkTrainerID.getSelectedItem(),dateTraining.getDate(), (String) chkTrainerStartTime.getSelectedItem(),(String) chkTrainerEndTime.getSelectedItem())){
+                throw new Exception("Record Exists.");
+              }
+              
+              //This throws and shows the message when user selected start time bigger than end time
+              if (chkTrainerStartTime.getSelectedIndex() >= chkTrainerEndTime.getSelectedIndex()) {
+                throw new Exception("Invalid Start Time or End Time!");
+              }
+            try {
+                trainingSessionID = deciFormat.format(newTrainingID);
+                formattedDate= dateFormat.format(trainingDate);
+                FileWriter fw = new FileWriter(trainingSlotsDB, true);
+                BufferedWriter bw  = new BufferedWriter(fw);
+                bw.write(userPrefixID + trainingSessionID + ":" + trainerID + ":" + trainerName+ ":" + formattedDate + ":" + trainingStartTime + ":" +  trainingEndTime + ":" +  "*"  + ":"+ "true" + "\n");
+                JOptionPane.showMessageDialog(null, "New Training Session has be addedd successfully", "Training Session successfully added!", JOptionPane.INFORMATION_MESSAGE);
+                bw.close();
+                trainingIDIncrementor();
+                 //this will refresh the table when it is successful
+                 DefaultTableModel model = (DefaultTableModel) tblTrainingSession.getModel();
+                 model.setRowCount(0);
+                 getTrainingSlotDetails();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(CentreManager_ScheduleTraining.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(CentreManager_ScheduleTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception e) {
+               validateInput();
+        }
+    }
+
+
+    
+    //This method for Jframe initiation
+    public void initGUI() {
+
+        //setting the frame name
+        this.setTitle("Scheduling Training Sesssions");
+                   
+        //This will padding for the textfields
+        // chkTrainerID.setBorder(BorderFactory.createCompoundBorder(chkTrainerID.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        // txtName.setBorder(BorderFactory.createCompoundBorder(txtName.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        //dateTraining.setBorder(BorderFactory.createCompoundBorder(dateTraining.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        //chkTrainerStartTime.setBorder(BorderFactory.createCompoundBorder(chkTrainerStartTime.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+        //chkTrainerEndTime.setBorder(BorderFactory.createCompoundBorder(chkTrainerEndTime.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
+          
+        //This sets the items not focusable
+        btnAdd.setFocusable(false);
+        btnClear.setFocusable(false);
+        btnGoBack.setFocusable(false);
+        tblTrainingSession.setFocusable(false);
+        
+        //This disbables the fields
+         btnAdd.setEnabled(false);
+         btnClear.setEnabled(false);
+         
+         //This makes the texfield not editable
+         txtName.setEditable(false);
+         
+         JTextFieldDateEditor editor = (JTextFieldDateEditor) dateTraining.getDateEditor();
+         editor.setEditable(false);
+      
+        //This will restrict from changing contents in the table
+        tblTrainingSession.setDefaultEditor(Object.class, null);
+        
+        //Disable past dates from date picker
+        dateTraining.getJCalendar().setMinSelectableDate(today);
+
+
+        //Getting Trainer IDs
+        getTrainerID();
+        
+        
+        //get training details into table
+        getTrainingSlotDetails(); 
+        
+        
+        //Increment the training session ID
+        trainingIDIncrementor();
+        
+        
+        //To handle the closing window
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e){
+                int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Closing Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {               
+                    clearCache();
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
+       
+      
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnGoBack;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> chkTrainerEndTime;
     private javax.swing.JComboBox<String> chkTrainerID;
     private javax.swing.JComboBox<String> chkTrainerStartTime;
-    private com.toedter.calendar.JDateChooser dateTrainingDate;
+    private com.toedter.calendar.JDateChooser dateTraining;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblEndTime;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSystemName;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTrainerID;
-    private javax.swing.JTable tblStaff;
+    private javax.swing.JTable tblTrainingSession;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

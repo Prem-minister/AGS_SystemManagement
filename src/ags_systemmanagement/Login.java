@@ -10,18 +10,15 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -74,7 +71,7 @@ public class Login extends javax.swing.JFrame {
     }
  
     
-      //Store the records of the session of the user as a log file
+        //Store the records of the session of the user as a log file
      private void storeLog() {
         try {
             DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH.mm.ss");
@@ -86,14 +83,13 @@ public class Login extends javax.swing.JFrame {
                 logFile.createNewFile();
             }
             FileWriter fw = new FileWriter(projectDir + "LogFile.txt", true);
-            PrintWriter pw = new PrintWriter(fw);
-            pw.write(UserID + ":" + UserUsername + ":" + UserPassword + ":" + UserFullName + ":" + UserEmail + ":" + UserPhoneNumber + dateTime);
-            pw.close();
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(UserID + ":" + UserUsername + ":" + UserPassword + ":" + UserFullName + ":" + UserEmail + ":" + UserPhoneNumber + ":"+ dateTime + "\n");
+            bw.close();
         } catch (Exception ex) {
 
         }
-        
-        
+         
     }
     
       
@@ -663,13 +659,7 @@ public class Login extends javax.swing.JFrame {
       
     }
    
-    public void openCentreManagerMainMenu(){
-             CentreManager_MainMenu frame = new CentreManager_MainMenu();
-             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-             frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
-             frame.setVisible(true);
-             frame.setResizable(false);
-    }
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnLogin;
