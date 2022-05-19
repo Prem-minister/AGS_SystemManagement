@@ -6,18 +6,39 @@ package ags_systemmanagement;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Arrays;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ko ee
  */
-public class Trainer_Profile extends javax.swing.JFrame {
+public class Trainer_Profile extends JFrame implements KeyListener {
+    
+    Trainer T;
+    private char[] reset_pass, confirm_pass;
 
     /**
      * Creates new form Trainer_Profile
      */
-    public Trainer_Profile() {
+    public Trainer_Profile(Trainer U) {
         initComponents();
+        setTrainer(U);
+        GUI();
+        
+        
+    }
+
+    private Trainer_Profile() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public void setTrainer(Trainer T) {
+        this.T = T; 
+//        System.out.println(this.T.user_name);
     }
 
     /**
@@ -154,6 +175,11 @@ public class Trainer_Profile extends javax.swing.JFrame {
 
         T_Upd_Bank.setBackground(new java.awt.Color(0, 255, 255));
         T_Upd_Bank.setText("Update");
+        T_Upd_Bank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Upd_BankActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -173,6 +199,11 @@ public class Trainer_Profile extends javax.swing.JFrame {
         T_ResetBtn.setBackground(new java.awt.Color(255, 0, 0));
         T_ResetBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         T_ResetBtn.setText("RESET");
+        T_ResetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_ResetBtnActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 51, 102));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
@@ -333,9 +364,10 @@ public class Trainer_Profile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
     private void T_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_NameActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_T_NameActionPerformed
 
     private void T_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_EmailActionPerformed
@@ -366,6 +398,51 @@ public class Trainer_Profile extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         TM.setLocation(dim.width/2-TM.getSize().width/2, dim.height/2-TM.getSize().height/2);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void T_ResetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_ResetBtnActionPerformed
+        // TODO add your handling code here:
+        
+        // Checking whether the pass and confirmation pass match
+        if (reset_pass.length != confirm_pass.length) {
+            // Alert Dialog to if password not match
+            JOptionPane.showMessageDialog(null, "Password and Confirmation Password not match, Try again!", "Password Mismatch", HEIGHT);
+        } else {
+            if(Arrays.equals(reset_pass, confirm_pass)){
+                //setting user_password
+                T.setUser_password(String.valueOf(reset_pass));
+                
+                //need to update txt file
+                
+                
+                // Dialog to says password have been resetted
+                JOptionPane.showMessageDialog(null, "Password Has Been Resetted!", "Password Resetted", 1); 
+            }
+        }
+    }//GEN-LAST:event_T_ResetBtnActionPerformed
+
+    private void T_Upd_BankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Upd_BankActionPerformed
+        // TODO add your handling code here:
+        String B_Name = T_BankName.getText();
+        String B_No = T_BankNo.getText();
+        
+        try{
+            if(!B_Name.isBlank() && !B_No.isBlank()){
+                T.setBankName(B_Name);
+                T.setBankNo(B_No);
+                
+                //need to update to file
+                 
+                JOptionPane.showMessageDialog(null, "Bank Details have been Updated", "Bank Info", 1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Some Fields is Blank! Please Enter all info ", "Fail To Upadte", 2);
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e, "Error", 2);
+        }
+        
+        
+        
+    }//GEN-LAST:event_T_Upd_BankActionPerformed
 
     /**
      * @param args the command line arguments
@@ -401,6 +478,33 @@ public class Trainer_Profile extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    public void GUI(){
+        // Adding Key listener to fields
+        T_Name.addKeyListener(this);
+        T_Email.addKeyListener(this);
+        T_Phone.addKeyListener(this);
+        T_BankName.addKeyListener(this);
+        T_BankNo.addKeyListener(this);
+        T_DoB.addKeyListener(this);
+        
+        // Add
+        
+        T_Reset_Pass.addKeyListener(this);
+        T_Reset_Confirm.addKeyListener(this);
+        
+        if(T!=null) {
+            T_Name.setText(T.user_name);
+            T_Email.setText(T.user_email);
+            T_Phone.setText(T.user_contact);
+            T_BankName.setText(T.BankName);
+            T_BankNo.setText(T.BankNo);
+        }
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BankLbl;
@@ -429,4 +533,51 @@ public class Trainer_Profile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    // Update what user typed
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+        //checking whether the source is T_Name
+        if(e.getSource() == T_Name){
+            T.setUser_name(T_Name.getText());
+        }
+        
+        if(e.getSource() == T_Phone){
+            T.setUser_contact(T_Phone.getText());
+        }
+        
+        if(e.getSource() == T_Email){
+            T.setUser_email(T_Email.getText());
+        }
+        
+        if(e.getSource() == T_BankName){
+            T.setBankName(T_BankName.getText());
+        }
+        
+        if(e.getSource() == T_BankNo){
+            T.setBankNo(T_BankNo.getText());
+        }
+        
+        if(e.getSource() == T_DoB){
+        }
+        
+        if(e.getSource() == T_Reset_Pass){
+            reset_pass =  T_Reset_Pass.getPassword();
+        }
+        
+        if(e.getSource() == T_Reset_Confirm){
+            confirm_pass = T_Reset_Confirm.getPassword();
+        }
+        
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
 }

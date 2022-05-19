@@ -112,7 +112,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ags_systemmanagement/rsc/searchIcon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="Sessions"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="T_Sessions_SearchBtn">

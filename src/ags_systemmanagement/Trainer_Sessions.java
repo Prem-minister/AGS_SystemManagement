@@ -49,7 +49,7 @@ public class Trainer_Sessions extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/searchIcon.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Sessions");
 
         T_Sessions_SearchBtn.setBackground(new java.awt.Color(0, 255, 255));
         T_Sessions_SearchBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N

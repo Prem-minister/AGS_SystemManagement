@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class Trainer_MainMenu extends javax.swing.JFrame {
 
+    public Trainer U;
     /**
      * Creates new form Trainer_MainMenu
      */
@@ -192,7 +193,7 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
     private void Trainer_ProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_ProfileBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        Trainer_Profile tp = new Trainer_Profile();
+        Trainer_Profile tp = new Trainer_Profile(U);
         tp.setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         tp.setLocation(dim.width/2-tp.getSize().width/2, dim.height/2-tp.getSize().height/2);
@@ -251,11 +252,19 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         setTitle("Main Menu");
         setResizable(false);
         
+        System.out.print("test");
+        
         //getting todays date
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date today = new Date();
         //setting the date in the mainmenu label
         T_MM_Date.setText(formatter.format(today));
+        
+        //getting Logged in User
+        //......
+        U = new Trainer("USR10", "TEST", "Test@gmail.com", "TEST", "TEST","TEST", "maybank", "12312312312");
+        
+        
         
         //adding closing confirmation 
         addWindowListener(new WindowAdapter() {
