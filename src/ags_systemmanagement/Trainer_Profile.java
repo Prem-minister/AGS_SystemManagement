@@ -38,7 +38,7 @@ public class Trainer_Profile extends JFrame implements KeyListener {
     
     public void setTrainer(Trainer T) {
         this.T = T; 
-//        System.out.println(this.T.user_name);
+        System.out.println(this.T.user_name);
     }
 
     /**
@@ -172,6 +172,11 @@ public class Trainer_Profile extends JFrame implements KeyListener {
 
         T_Upd_Personal.setBackground(new java.awt.Color(0, 255, 255));
         T_Upd_Personal.setText("Update");
+        T_Upd_Personal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Upd_PersonalActionPerformed(evt);
+            }
+        });
 
         T_Upd_Bank.setBackground(new java.awt.Color(0, 255, 255));
         T_Upd_Bank.setText("Update");
@@ -443,6 +448,11 @@ public class Trainer_Profile extends JFrame implements KeyListener {
         
         
     }//GEN-LAST:event_T_Upd_BankActionPerformed
+
+    private void T_Upd_PersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Upd_PersonalActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_T_Upd_PersonalActionPerformed
 
     /**
      * @param args the command line arguments

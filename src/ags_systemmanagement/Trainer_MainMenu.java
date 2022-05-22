@@ -8,8 +8,17 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,8 +29,10 @@ import javax.swing.JOptionPane;
 public class Trainer_MainMenu extends javax.swing.JFrame {
 
     public Trainer U;
+    private String projectDir, userID;
     /**
      * Creates new form Trainer_MainMenu
+     * @throws java.io.IOException
      */
     public Trainer_MainMenu() {
         initComponents();
@@ -212,6 +223,29 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Trainer_LogOutBtnActionPerformed
 
+     //This method is to get userID and display it in textfield
+    private void getUserID() {
+       String[] userDetails;
+        try {
+            // This sets the directory of the project
+            projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\";
+            // This sets the file which going to be accessed
+            File cacheFile = new File(projectDir + "UserCache.txt");
+            if (!cacheFile.exists()) {
+                cacheFile.createNewFile();
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(cacheFile));
+            String line;
+            while((line = reader.readLine()) != null){
+                String[] data = line.split(":");
+                userID = data[1];
+            }
+            reader.close();
+        } catch (Exception ex) {
+            System.out.println("Error" + ex);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -243,12 +277,12 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Trainer_MainMenu().setVisible(true);
+                    new Trainer_MainMenu().setVisible(true);           
             }
         });
     }
     
-    public void GUI() {
+    public void GUI(){
         setTitle("Main Menu");
         setResizable(false);
         
@@ -261,8 +295,37 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         T_MM_Date.setText(formatter.format(today));
         
         //getting Logged in User
-        //......
-        U = new Trainer("USR10", "TEST", "Test@gmail.com", "TEST", "TEST","TEST", "maybank", "12312312312");
+        getUserID();
+        
+        
+        String[] userData = null;
+        String line;
+        if(userID != null){
+            //getting all user infor for that logged in user
+            try{
+                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\User.txt\\"));
+            
+                while((line = rd.readLine()) != null){
+                    userData = line.split(":");
+                    if(userData[0].equals(userID)){
+                        break;
+                    }
+                    //clear userdata if it is not the correct user
+                    Arrays.fill(userData, null);
+                }
+                rd.close();
+
+                if(userData != null){
+                    U = new Trainer(userData[0], userData[2], userData[3], userData[5], userData[6], userData[7], userData[8], userData[10], userData[11]);
+                }
+            } catch(IOException e){
+                
+            }
+            
+            System.out.print("hello" + U.user_name);
+            
+        }
+        
         
         
         

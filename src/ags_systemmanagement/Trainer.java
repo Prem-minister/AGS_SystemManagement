@@ -27,11 +27,11 @@ public class Trainer extends Users{
     public void setBankNo(String BankNo) {
         this.BankNo = BankNo;
     }
+
     
     
-    
-    public Trainer(String user_ID, String user_name, String user_email,String user_type, String user_contact,String user_password, String BankName, String BankNo) {
-        super(user_ID, user_name, user_email,user_type, user_contact, user_password);
+    public Trainer(String user_ID, String user_name, String user_password,String user_gender, String user_DOB,String user_Contact, String user_Email,String BankName, String BankNo) {
+        super(user_ID, user_name, user_password, user_gender, user_DOB, user_Contact,user_Email);
         this.BankName = BankName;
         this.BankNo = BankNo;
     }
