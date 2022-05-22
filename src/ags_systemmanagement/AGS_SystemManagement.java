@@ -17,12 +17,15 @@ public class AGS_SystemManagement {
      * @param args the command line arguments test
      */
     public static void main(String[] args) {
-           //CentreManager_ScheduleTraining frame = new CentreManager_ScheduleTraining();
-          Login frame = new Login();
+          //CentreManager_ScheduleTraining frame = new CentreManager_ScheduleTraining();
+          //Login frame = new Login();
+          //CentreManager_RegisterNewUser frame = new CentreManager_RegisterNewUser();
+          //Customer_MainMenu frame = new Customer_MainMenu();
+          CentreManager_BookingTrainingSession frame = new CentreManager_BookingTrainingSession();
           Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
           frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
           frame.setVisible(true);
-          frame.setResizable(false);
+          frame.setResizable(false);;
     }
     
 }

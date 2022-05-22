@@ -60,7 +60,15 @@ class deleteSession {
 }
 
 // This class to easily open required frames withouht calling it again and again
- class openFrame{   
+ class openFrame{  
+       public void openLogin() {
+            Login frame = new Login();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+       }
+     
     public void openManagerMainMenu() {
             CentreManager_MainMenu frame = new CentreManager_MainMenu();
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -86,6 +94,32 @@ class deleteSession {
     } 
    public void openManagerManageTrainingSession() {
             CentreManager_ScheduleTraining frame  = new CentreManager_ScheduleTraining();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+   
+   
+    public void openRegisterUser() {
+            CentreManager_RegisterNewUser frame  = new CentreManager_RegisterNewUser();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+    
+       
+   public void openScheduleTrainingSlots() {
+            CentreManager_ScheduleTraining frame  = new CentreManager_ScheduleTraining();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+  
+   public void openBookingTrainingSession() {
+            CentreManager_BookingTrainingSession frame  = new CentreManager_BookingTrainingSession();
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
             frame.setVisible(true);
@@ -247,6 +281,33 @@ class UserEmailValidation extends StringValidation {
             invalidEmail = true;
         };
         return invalidEmail;
+    }
+    
+}
+
+
+// This subclass handles fees validation
+class TrainingFeesValidation extends StringValidation {
+    
+    public TrainingFeesValidation() {
+        super();
+        setPopup("Entered invalid fees format!", "Payment must contains RM and Numbers only. (eg. RM1.00)");
+        setRegex("MYR+[0-9]+\\.[0-9]{2}$");
+    }
+    
+    public boolean runValidate(JTextField txt, boolean dispenseMessage){
+        boolean invalidFees = false;
+        String input = txt.getText();
+        boolean matching = input.matches("RM+[0-9]+\\.[0-9]{2}$");
+        if (matching == false && !"".equals(input)) {
+            if (dispenseMessage) {
+                runPopup();
+            }
+            String output = "";
+            txt.setText(output);
+            invalidFees = true;
+        };
+        return invalidFees;
     }
     
 }

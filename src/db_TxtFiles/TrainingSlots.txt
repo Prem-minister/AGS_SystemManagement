@@ -3,8 +3,8 @@ TRS0014:USR4: Joe Mama:2022-05-18:10.00 a.m:11.00 a.m:*:true
 TRS0015:USR4: Joe Mama:2022-05-19:10.00 a.m:11.00 a.m:*:true
 TRS0016:USR4: Joe Mama:2022-05-19:10.00 a.m:11.00 a.m:*:true
 TRS0017:USR4: Joe Mama:2022-05-19:10.00 a.m:11.00 a.m:*:true
-TRS0018:USR4: Joe Mama:2022-05-19:10.00 a.m:11.00 a.m:*:true
-TRS0019:USR2: Ko Ee:2022-05-19:10.00 a.m:11.00 a.m:*:true
-TRS0020:USR3: Ko Ee:2022-05-19:10.00 a.m:11.00 a.m:*:true
+TRS0018:USR4: Joe Mama:2022-05-22:10.00 a.m:11.00 a.m:*:true
+TRS0019:USR2: Ko Ee:2022-05-22:10.00 a.m:11.00 a.m:*:true
+TRS0020:USR3: Ko Ee:2022-05-22:10.00 a.m:11.00 a.m:*:true
 TRS0021:USR4: Joe Mama:2022-05-26:2.00  p.m:4.00  p.m:*:true
 TRS0022:USR3: Ko Ee:2022-05-26:11.00 a.m:12.00 a.m:*:true
