@@ -221,6 +221,20 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
 
     private void Trainer_LogOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_LogOutBtnActionPerformed
         // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+            
+            if(cache.delete()){
+                System.out.print("Cache Deleted!");
+                this.dispose();
+                openFrame openFrame = new openFrame();
+                openFrame.openLogin();
+            } else {
+                System.out.print("Cache not deleted");
+            }
+            
+        }
     }//GEN-LAST:event_Trainer_LogOutBtnActionPerformed
 
      //This method is to get userID and display it in textfield
@@ -296,15 +310,16 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         
         //getting Logged in User
         getUserID();
+        System.out.print(userID);
         
         
         String[] userData = null;
         String line;
-        if(userID != null){
+        if(!userID.isEmpty()){
             //getting all user infor for that logged in user
             try{
-                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\User.txt\\"));
-            
+                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
+
                 while((line = rd.readLine()) != null){
                     userData = line.split(":");
                     if(userData[0].equals(userID)){
@@ -314,16 +329,12 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
                     Arrays.fill(userData, null);
                 }
                 rd.close();
-
-                if(userData != null){
-                    U = new Trainer(userData[0], userData[2], userData[3], userData[5], userData[6], userData[7], userData[8], userData[10], userData[11]);
+                if(userData[0] != null){
+                    U = new Trainer(userData[0], userData[3], userData[4], userData[5], userData[6], userData[7], userData[8], userData[10], userData[11]);
                 }
             } catch(IOException e){
                 
             }
-            
-            System.out.print("hello" + U.user_name);
-            
         }
         
         
@@ -332,10 +343,16 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         //adding closing confirmation 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                int selection = JOptionPane.showConfirmDialog(null, "Want to exit?", "Closing Main Menu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (selection == JOptionPane.YES_OPTION) {
-                    //nneed to clear login and return to login page
-                    dispose();
+                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+
+                        if(cache.delete()){
+                            System.out.print("Cache Deleted!");
+                            dispose();
+                        } else {
+                            System.out.print("Cache not deleted");
+                        }
                 } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }

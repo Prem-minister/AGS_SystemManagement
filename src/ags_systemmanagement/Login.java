@@ -298,6 +298,11 @@ public class Login extends javax.swing.JFrame {
         lblTitle.setText("AGS Management System");
 
         cbxUserRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "Customer", "Centre Trainer", "Centre Manager" }));
+        cbxUserRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUserRoleActionPerformed(evt);
+            }
+        });
 
         lblUserRole.setFont(new java.awt.Font("Tahoma", 3, 15)); // NOI18N
         lblUserRole.setForeground(new java.awt.Color(100, 255, 218));
@@ -460,6 +465,10 @@ public class Login extends javax.swing.JFrame {
     private void lblForgotPassMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgotPassMouseExited
        this.lblForgotPass.setForeground(Color.GRAY);
     }//GEN-LAST:event_lblForgotPassMouseExited
+
+    private void cbxUserRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUserRoleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxUserRoleActionPerformed
                                     
 
     /**

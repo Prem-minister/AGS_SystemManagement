@@ -10,7 +10,23 @@ package ags_systemmanagement;
  */
 public class Trainer extends Users{
     public String BankName;
-    public String BankNo;
+    public String BankNo, reset_pass, confirm_pass;
+
+    public String getReset_pass() {
+        return reset_pass;
+    }
+
+    public void setReset_pass(String reset_pass) {
+        this.reset_pass = reset_pass;
+    }
+
+    public String getConfirm_pass() {
+        return confirm_pass;
+    }
+
+    public void setConfirm_pass(String confirm_pass) {
+        this.confirm_pass = confirm_pass;
+    }
 
     public String getBankName() {
         return BankName;

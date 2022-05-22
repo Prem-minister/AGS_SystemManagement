@@ -8,6 +8,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,7 +26,6 @@ import javax.swing.JOptionPane;
 public class Trainer_Profile extends JFrame implements KeyListener {
     
     Trainer T;
-    private char[] reset_pass, confirm_pass;
 
     /**
      * Creates new form Trainer_Profile
@@ -406,23 +412,77 @@ public class Trainer_Profile extends JFrame implements KeyListener {
 
     private void T_ResetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_ResetBtnActionPerformed
         // TODO add your handling code here:
-        
+        String reset_pass = T.getReset_pass();
+        String confirm_pass = T.getConfirm_pass();
         // Checking whether the pass and confirmation pass match
-        if (reset_pass.length != confirm_pass.length) {
-            // Alert Dialog to if password not match
-            JOptionPane.showMessageDialog(null, "Password and Confirmation Password not match, Try again!", "Password Mismatch", HEIGHT);
-        } else {
-            if(Arrays.equals(reset_pass, confirm_pass)){
-                //setting user_password
-                T.setUser_password(String.valueOf(reset_pass));
-                
-                //need to update txt file
-                
-                
-                // Dialog to says password have been resetted
-                JOptionPane.showMessageDialog(null, "Password Has Been Resetted!", "Password Resetted", 1); 
+        try{
+            if (reset_pass == null) {
+                // Alert Dialog to if password not match
+                JOptionPane.showMessageDialog(null, "Password Cannot be blank!, Try again!", "Password Blank", HEIGHT);
+            } else if(!reset_pass.equals(confirm_pass)) {
+                System.out.println(String.valueOf(reset_pass));
+                JOptionPane.showMessageDialog(null, "Password and Confirmation Password not match, Try again!", "Password Mismatch", HEIGHT);
+            } else {
+                if(reset_pass.equals(confirm_pass)){
+                    //setting user_password
+                    T.setUser_password(String.valueOf(reset_pass));
+
+                    //need to update txt file
+                    //Reading user db
+
+                        BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
+
+                        String[] user;
+                        String line;
+
+                        //Writting a temp file
+                        BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
+                        //updating file with new bank information for the correct id
+                        //while loop for each line in user.txt
+                        while((line = rd.readLine())!= null){
+                            //splitting the userdata
+                            user = line.split(":");
+                            //comparing the editting user 
+                            if(user[0].equals(T.user_ID)){
+                                for(int i=0; i<user.length; i++){
+                                    if(i!= 4){
+                                        wr.write(user[i] + ":");
+                                    } else {
+                                        System.out.print(T.user_password);
+                                        wr.write(T.user_password+ ":");
+                                    }
+                                }
+                                wr.write("\n");
+                            } else {
+                                for(int i=0; i<user.length; i++){
+                                    wr.write(user[i] + ":");
+                                }
+                                wr.write("\n");
+                            }
+                            //clearing array
+                            Arrays.fill(user,null);
+                        }
+
+                        rd.close();
+                        wr.close();
+
+                        File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt");
+                        File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
+
+                        //deleting the old user file and renaming the temp file to new user file
+                        fileToDelete.delete();
+                        fileToChangeName.renameTo(fileToDelete);
+
+                        // Dialog to says password have been resetted
+                        JOptionPane.showMessageDialog(null, "Password Has Been Resetted!", "Password Resetted", 1);
+
+
+                }
             }
+        } catch(Exception e){
+            
         }
+        
     }//GEN-LAST:event_T_ResetBtnActionPerformed
 
     private void T_Upd_BankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Upd_BankActionPerformed
@@ -435,8 +495,53 @@ public class Trainer_Profile extends JFrame implements KeyListener {
                 T.setBankName(B_Name);
                 T.setBankNo(B_No);
                 
-                //need to update to file
-                 
+                //Reading user db
+                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
+                
+                String[] user;
+                String line;
+                
+                //Writting a temp file
+                BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
+                //updating file with new bank information for the correct id
+                //while loop for each line in user.txt
+                while((line = rd.readLine())!= null){
+                    //splitting the userdata
+                    user = line.split(":");
+                    //comparing the editting user 
+                    if(user[0].equals(T.user_ID)){
+                        for(int i=0; i<user.length; i++){
+                            if(i!= 10 && i!=11){
+                                wr.write(user[i] + ":");
+                            } else {
+                                if(i==10){
+                                    wr.write(T.BankName + ":");
+                                } else {
+                                    wr.write(T.BankNo + ":");
+                                }
+                            }
+                        }
+                        wr.write("\n");
+                    } else {
+                        for(int i=0; i<user.length; i++){
+                            wr.write(user[i] + ":");
+                        }
+                        wr.write("\n");
+                    }
+                    //clearing array
+                    Arrays.fill(user,null);
+                }
+                
+                rd.close();
+                wr.close();
+                
+                File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt");
+                File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
+                
+                //deleting the old user file and renaming the temp file to new user file
+                fileToDelete.delete();
+                fileToChangeName.renameTo(fileToDelete);
+                
                 JOptionPane.showMessageDialog(null, "Bank Details have been Updated", "Bank Info", 1);
             } else {
                 JOptionPane.showMessageDialog(null, "Some Fields is Blank! Please Enter all info ", "Fail To Upadte", 2);
@@ -448,10 +553,69 @@ public class Trainer_Profile extends JFrame implements KeyListener {
         
         
     }//GEN-LAST:event_T_Upd_BankActionPerformed
-
+    // when user click update profile button
     private void T_Upd_PersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Upd_PersonalActionPerformed
         // TODO add your handling code here:
-        
+        try{
+            if(!T.getUser_name().isBlank() && !T.getUser_email().isBlank() && !T.getUser_contact().isBlank() && !T.getUser_DOB().isBlank()){
+                //Reading user db
+                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
+                
+                String[] user;
+                String line;
+                
+                //Writting a temp file
+                BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
+                //updating file with new bank information for the correct id
+                //while loop for each line in user.txt
+                while((line = rd.readLine())!= null){
+                    //splitting the userdata
+                    user = line.split(":");
+                    //comparing the editting user 
+                    if(user[0].equals(T.user_ID)){
+                        for(int i=0; i<user.length; i++){
+                            if(i!= 3 && i!=6 && i!=7 && i!=8){
+                                wr.write(user[i] + ":");
+                            } else {
+                                if(i==3){
+                                    wr.write(T.user_name + ":");
+                                } else if(i==6){
+                                    wr.write(T.user_DOB + ":");
+                                } else if(i==7){
+                                    wr.write(T.user_contact + ":");
+                                } else {
+                                    wr.write(T.user_email + ":");
+                                }
+                            }
+                        }
+                        wr.write("\n");
+                    } else {
+                        for(int i=0; i<user.length; i++){
+                            wr.write(user[i] + ":");
+                        }
+                        wr.write("\n");
+                    }
+                    //clearing array
+                    Arrays.fill(user,null);
+                }
+                
+                rd.close();
+                wr.close();
+                
+                File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt");
+                File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
+                
+                //deleting the old user file and renaming the temp file to new user file
+                fileToDelete.delete();
+                fileToChangeName.renameTo(fileToDelete);
+                
+                JOptionPane.showMessageDialog(null, "Bank Details have been Updated", "Bank Info", 1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Some Fields is Blank! Please Enter all info ", "Fail To Upadte", 2);
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e, "Error", 2);
+        }
     }//GEN-LAST:event_T_Upd_PersonalActionPerformed
 
     /**
@@ -511,7 +675,28 @@ public class Trainer_Profile extends JFrame implements KeyListener {
             T_Phone.setText(T.user_contact);
             T_BankName.setText(T.BankName);
             T_BankNo.setText(T.BankNo);
+            T_DoB.setText(T.user_DOB);
         }
+        
+        
+        //adding closing confirmation 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {
+                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+
+                        if(cache.delete()){
+                            System.out.print("Cache Deleted!");
+                            dispose();
+                        } else {
+                            System.out.print("Cache not deleted");
+                        }
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
         
     }
     
@@ -552,6 +737,18 @@ public class Trainer_Profile extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         
+        
+        
+        
+        
+        
+        
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
         //checking whether the source is T_Name
         if(e.getSource() == T_Name){
             T.setUser_name(T_Name.getText());
@@ -574,20 +771,16 @@ public class Trainer_Profile extends JFrame implements KeyListener {
         }
         
         if(e.getSource() == T_DoB){
+            T.setUser_DOB(T_DoB.getText());
         }
         
         if(e.getSource() == T_Reset_Pass){
-            reset_pass =  T_Reset_Pass.getPassword();
+            System.out.print(String.valueOf(T_Reset_Pass.getPassword()));
+            T.setReset_pass(String.valueOf(T_Reset_Pass.getPassword()));
         }
         
         if(e.getSource() == T_Reset_Confirm){
-            confirm_pass = T_Reset_Confirm.getPassword();
+            T.setConfirm_pass(String.valueOf(T_Reset_Confirm.getPassword()));
         }
-        
-        
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
     }
 }
