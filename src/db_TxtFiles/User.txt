@@ -1,5 +1,3 @@
-USR1:Centre Manager:Premsharaan:Prem:Test:Prem@gmail.com:010-01010101
-USR2:Centre Trainer:Ko Ee:Ko:Test:koe@gmail.com:010-01010101
-USR3:Centre Trainer:Ko Ee:Ko:Test:koe@gmail.com:010-01010101
-USR4:Centre Trainer:Joe Mama:Ko:Test:koe@gmail.com:010-01010101
-USR5:Customer:Joe Mama:Ko:Test:koe@gmail.com:010-01010101
+USR0030:Centre Trainer:tes:Testie11:1:Female:2022-05-03:030-3030303:rem@gmail.com:true:Maybank:0330449220333333
+USR0031:Customer:prem:r4:1:Male:2022-05-04:020-2020202:re@gmail.com:true
+USR0032:Centre Trainer:rhhhhh:11221:1:Male:2022-05-02:020-2020200:3@gmail.com:true:Affin Bank / Affin Islamic Bank:3223432432423434
