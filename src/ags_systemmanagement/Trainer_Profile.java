@@ -4,17 +4,41 @@
  */
 package ags_systemmanagement;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Arrays;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ko ee
  */
-public class Trainer_Profile extends javax.swing.JFrame {
+public class Trainer_Profile extends JFrame implements KeyListener {
+    
+    Trainer T;
+    private char[] reset_pass, confirm_pass;
 
     /**
      * Creates new form Trainer_Profile
      */
-    public Trainer_Profile() {
+    public Trainer_Profile(Trainer U) {
         initComponents();
+        setTrainer(U);
+        GUI();
+        
+        
+    }
+
+    private Trainer_Profile() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public void setTrainer(Trainer T) {
+        this.T = T; 
+        System.out.println(this.T.user_name);
     }
 
     /**
@@ -45,12 +69,12 @@ public class Trainer_Profile extends javax.swing.JFrame {
         T_Upd_Personal = new javax.swing.JButton();
         T_Upd_Bank = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         BankLbl2 = new javax.swing.JLabel();
         T_Reset_Pass = new javax.swing.JPasswordField();
         T_Reset_Confirm = new javax.swing.JPasswordField();
         BankLbl3 = new javax.swing.JLabel();
         T_ResetBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(681, 521));
@@ -148,17 +172,24 @@ public class Trainer_Profile extends javax.swing.JFrame {
 
         T_Upd_Personal.setBackground(new java.awt.Color(0, 255, 255));
         T_Upd_Personal.setText("Update");
+        T_Upd_Personal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Upd_PersonalActionPerformed(evt);
+            }
+        });
 
         T_Upd_Bank.setBackground(new java.awt.Color(0, 255, 255));
         T_Upd_Bank.setText("Update");
+        T_Upd_Bank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Upd_BankActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("password reset");
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         BankLbl2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         BankLbl2.setForeground(new java.awt.Color(255, 255, 255));
@@ -173,6 +204,20 @@ public class Trainer_Profile extends javax.swing.JFrame {
         T_ResetBtn.setBackground(new java.awt.Color(255, 0, 0));
         T_ResetBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         T_ResetBtn.setText("RESET");
+        T_ResetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_ResetBtnActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(0, 51, 102));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -227,14 +272,14 @@ public class Trainer_Profile extends javax.swing.JFrame {
                                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(58, 58, 58)
                                         .addComponent(jLabel4))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jButton1)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(T_ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -302,13 +347,13 @@ public class Trainer_Profile extends javax.swing.JFrame {
                     .addComponent(T_Reset_Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(T_ResetBtn)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(26, 26, 26))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -324,9 +369,10 @@ public class Trainer_Profile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
     private void T_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_NameActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_T_NameActionPerformed
 
     private void T_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_EmailActionPerformed
@@ -348,6 +394,65 @@ public class Trainer_Profile extends javax.swing.JFrame {
     private void T_BankNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_BankNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_T_BankNoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:'
+        this.setVisible(false);
+        Trainer_MainMenu TM = new Trainer_MainMenu();
+        TM.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TM.setLocation(dim.width/2-TM.getSize().width/2, dim.height/2-TM.getSize().height/2);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void T_ResetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_ResetBtnActionPerformed
+        // TODO add your handling code here:
+        
+        // Checking whether the pass and confirmation pass match
+        if (reset_pass.length != confirm_pass.length) {
+            // Alert Dialog to if password not match
+            JOptionPane.showMessageDialog(null, "Password and Confirmation Password not match, Try again!", "Password Mismatch", HEIGHT);
+        } else {
+            if(Arrays.equals(reset_pass, confirm_pass)){
+                //setting user_password
+                T.setUser_password(String.valueOf(reset_pass));
+                
+                //need to update txt file
+                
+                
+                // Dialog to says password have been resetted
+                JOptionPane.showMessageDialog(null, "Password Has Been Resetted!", "Password Resetted", 1); 
+            }
+        }
+    }//GEN-LAST:event_T_ResetBtnActionPerformed
+
+    private void T_Upd_BankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Upd_BankActionPerformed
+        // TODO add your handling code here:
+        String B_Name = T_BankName.getText();
+        String B_No = T_BankNo.getText();
+        
+        try{
+            if(!B_Name.isBlank() && !B_No.isBlank()){
+                T.setBankName(B_Name);
+                T.setBankNo(B_No);
+                
+                //need to update to file
+                 
+                JOptionPane.showMessageDialog(null, "Bank Details have been Updated", "Bank Info", 1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Some Fields is Blank! Please Enter all info ", "Fail To Upadte", 2);
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e, "Error", 2);
+        }
+        
+        
+        
+    }//GEN-LAST:event_T_Upd_BankActionPerformed
+
+    private void T_Upd_PersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Upd_PersonalActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_T_Upd_PersonalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,6 +488,33 @@ public class Trainer_Profile extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    public void GUI(){
+        // Adding Key listener to fields
+        T_Name.addKeyListener(this);
+        T_Email.addKeyListener(this);
+        T_Phone.addKeyListener(this);
+        T_BankName.addKeyListener(this);
+        T_BankNo.addKeyListener(this);
+        T_DoB.addKeyListener(this);
+        
+        // Add
+        
+        T_Reset_Pass.addKeyListener(this);
+        T_Reset_Confirm.addKeyListener(this);
+        
+        if(T!=null) {
+            T_Name.setText(T.user_name);
+            T_Email.setText(T.user_email);
+            T_Phone.setText(T.user_contact);
+            T_BankName.setText(T.BankName);
+            T_BankNo.setText(T.BankNo);
+        }
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BankLbl;
@@ -404,11 +536,58 @@ public class Trainer_Profile extends javax.swing.JFrame {
     private javax.swing.JPasswordField T_Reset_Pass;
     private javax.swing.JButton T_Upd_Bank;
     private javax.swing.JButton T_Upd_Personal;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    // Update what user typed
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+        //checking whether the source is T_Name
+        if(e.getSource() == T_Name){
+            T.setUser_name(T_Name.getText());
+        }
+        
+        if(e.getSource() == T_Phone){
+            T.setUser_contact(T_Phone.getText());
+        }
+        
+        if(e.getSource() == T_Email){
+            T.setUser_email(T_Email.getText());
+        }
+        
+        if(e.getSource() == T_BankName){
+            T.setBankName(T_BankName.getText());
+        }
+        
+        if(e.getSource() == T_BankNo){
+            T.setBankNo(T_BankNo.getText());
+        }
+        
+        if(e.getSource() == T_DoB){
+        }
+        
+        if(e.getSource() == T_Reset_Pass){
+            reset_pass =  T_Reset_Pass.getPassword();
+        }
+        
+        if(e.getSource() == T_Reset_Confirm){
+            confirm_pass = T_Reset_Confirm.getPassword();
+        }
+        
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
 }

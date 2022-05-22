@@ -61,6 +61,11 @@ public class Trainer_Feedback extends javax.swing.JFrame {
         jLabel2.setText("Select Sessions :");
 
         Trainer_Feedback_SessionCbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Trainer_Feedback_SessionCbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Trainer_Feedback_SessionCboxActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,6 +199,10 @@ public class Trainer_Feedback extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void Trainer_Feedback_SessionCboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_Feedback_SessionCboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Trainer_Feedback_SessionCboxActionPerformed
 
     /**
      * @param args the command line arguments

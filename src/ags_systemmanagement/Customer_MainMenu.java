@@ -32,6 +32,8 @@ public class Customer_MainMenu extends javax.swing.JFrame {
         C_UptProfile_Label = new javax.swing.JLabel();
         C_Schedule_Label = new javax.swing.JLabel();
         C_ScheduleBtn1 = new javax.swing.JButton();
+        Trainer_LogOutBtn = new javax.swing.JButton();
+        T_MM_Date = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,11 +72,25 @@ public class Customer_MainMenu extends javax.swing.JFrame {
             }
         });
 
+        Trainer_LogOutBtn.setBackground(new java.awt.Color(255, 0, 0));
+        Trainer_LogOutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Trainer_LogOutBtn.setText("Log Out");
+
+        T_MM_Date.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        T_MM_Date.setForeground(new java.awt.Color(255, 255, 0));
+        T_MM_Date.setText("01/11/2022");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T_MMLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(T_MMLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(T_MM_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Trainer_LogOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(143, 143, 143)
@@ -91,7 +107,11 @@ public class Customer_MainMenu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(T_MMLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 321, Short.MAX_VALUE))
+                .addGap(282, 282, 282)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Trainer_LogOutBtn)
+                    .addComponent(T_MM_Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(89, 89, 89)
@@ -168,6 +188,8 @@ public class Customer_MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel C_Schedule_Label;
     private javax.swing.JLabel C_UptProfile_Label;
     private javax.swing.JLabel T_MMLabel;
+    private javax.swing.JLabel T_MM_Date;
+    private javax.swing.JButton Trainer_LogOutBtn;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
