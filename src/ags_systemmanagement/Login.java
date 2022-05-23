@@ -304,7 +304,7 @@ public class Login extends javax.swing.JFrame {
 
         cbxUserRole.setBackground(new java.awt.Color(255, 255, 255));
         cbxUserRole.setForeground(new java.awt.Color(0, 0, 0));
-        cbxUserRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "Customer", "Centre Trainers", "Centre Managers" }));
+        cbxUserRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "Customer", "Centre Trainer", "Centre Manager" }));
 
         lblUserRole.setFont(new java.awt.Font("Tahoma", 3, 15)); // NOI18N
         lblUserRole.setForeground(new java.awt.Color(100, 255, 218));
@@ -537,7 +537,7 @@ public class Login extends javax.swing.JFrame {
                 userDetails = userInput.split(":");
 
                 // Check every line for the credential to be matched
-                if (tempUserRole.equals(userDetails[1]) && tempUsername.equals(userDetails[3]) && tempPassword.equals(userDetails[4])) {
+                if (tempUserRole.equals(userDetails[1]) && tempUsername.equals(userDetails[3]) && tempPassword.equals(userDetails[4]) && "true".equals(userDetails[9]) ) {
                     //UserID = userDetails[0].replace("USR", "");
                     UserID = userDetails[0];
                     UserRole = userDetails[1];

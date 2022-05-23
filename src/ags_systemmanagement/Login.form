@@ -332,8 +332,8 @@
               <StringArray count="4">
                 <StringItem index="0" value="---none---"/>
                 <StringItem index="1" value="Customer"/>
-                <StringItem index="2" value="Centre Trainers"/>
-                <StringItem index="3" value="Centre Managers"/>
+                <StringItem index="2" value="Centre Trainer"/>
+                <StringItem index="3" value="Centre Manager"/>
               </StringArray>
             </Property>
           </Properties>

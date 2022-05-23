@@ -691,7 +691,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
         }
         
         if (userDOB.getDate()== null) {
-            throw new Exception("Empty user email");
+            throw new Exception("Empty user dob");
         }
         
         if ("".equals(txtEmail.getText())) {
@@ -714,8 +714,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
     
     
      //This method raise message for empty fields, password comparison and username validation.
-    private void validateInput() {
-        
+    private void validateInput() { 
          if (chkUserRole.getSelectedIndex()== 0 && "".equals(txtNewUsername.getText()) && "".equals(txtFullName.getText()) && "".equals(txtNumber.getText()) && "".equals(txtEmail.getText()) && chkGender.getSelectedIndex() == 0 && userDOB.getDate()== null) {
             JOptionPane.showMessageDialog(null, "Invalid input! Please input all the fields to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
         } else if (chkUserRole.getSelectedIndex() == 0) {
@@ -1014,7 +1013,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
                 if(userUserRole == "Centre Trainer"){
                    bw.write(userID + ":" + userUserRole +":"+ userFullName + ":" + userUsername+ ":"+ userPassword +  ":" + userGender + ":" + formattedDob + ":" + userNumber + ":" + userEmail + ":" +"true"+ ":" + bankName + ":"+ bankNum + "\n");
                 }else{
-                   bw.write(userID + ":" + userUserRole +":"+ userFullName + ":" + userUsername+ ":"+ userPassword +  ":" + userGender + ":" + formattedDob + ":" +userNumber + ":" + userEmail + ":" +"true"+"\n");
+                   bw.write(userID + ":" + userUserRole +":"+ userFullName + ":" + userUsername+ ":"+ userPassword +  ":" + userGender + ":" + formattedDob + ":" +userNumber + ":" + userEmail + ":" +"true"+ ":" + "-" + ":"+ "-" +"\n");
                 }
                 JOptionPane.showMessageDialog(null, userFullName + " has been successfully registered!", "User account successfully created!", JOptionPane.INFORMATION_MESSAGE);
                 bw.close();

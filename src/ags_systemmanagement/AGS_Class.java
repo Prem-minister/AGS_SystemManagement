@@ -125,6 +125,15 @@ class deleteSession {
             frame.setVisible(true);
             frame.setResizable(false);
     } 
+     
+   public void openManagerManageUser() {
+            CentreManager_ManageUser frame  = new CentreManager_ManageUser();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+   
  }
 
 
@@ -292,7 +301,7 @@ class TrainingFeesValidation extends StringValidation {
     public TrainingFeesValidation() {
         super();
         setPopup("Entered invalid fees format!", "Payment must contains RM and Numbers only. (eg. RM1.00)");
-        setRegex("MYR+[0-9]+\\.[0-9]{2}$");
+        setRegex("RM+[0-9]+\\.[0-9]{2}$");
     }
     
     public boolean runValidate(JTextField txt, boolean dispenseMessage){

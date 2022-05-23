@@ -21,7 +21,8 @@ public class AGS_SystemManagement {
           //Login frame = new Login();
           //CentreManager_RegisterNewUser frame = new CentreManager_RegisterNewUser();
           //Customer_MainMenu frame = new Customer_MainMenu();
-          CentreManager_BookingTrainingSession frame = new CentreManager_BookingTrainingSession();
+          //CentreManager_BookingTrainingSession frame = new CentreManager_BookingTrainingSession();
+          CentreManager_ManageUser frame = new CentreManager_ManageUser();
           Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
           frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
           frame.setVisible(true);

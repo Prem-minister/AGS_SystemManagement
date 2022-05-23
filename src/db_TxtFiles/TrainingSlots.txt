@@ -8,3 +8,7 @@ TRS0019:USR2: Ko Ee:2022-05-22:10.00 a.m:11.00 a.m:*:true
 TRS0020:USR3: Ko Ee:2022-05-22:10.00 a.m:11.00 a.m:*:true
 TRS0021:USR4: Joe Mama:2022-05-26:2.00  p.m:4.00  p.m:*:true
 TRS0022:USR3: Ko Ee:2022-05-26:11.00 a.m:12.00 a.m:*:true
+TRS0023:USR2: Ko Ee:2022-05-23:10.00 a.m:11.00 a.m:*:true
+TRS0024:USR3: Ko Ee:2022-05-23:10.00 a.m:11.00 a.m:*:true
+TRS0025:USR4: Joe Mama:2022-05-23:2.00  p.m:4.00  p.m:*:true
+TRS0026:USR3: Ko Ee:2022-05-26:11.00 a.m:12.00 a.m:*:true
