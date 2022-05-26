@@ -48,7 +48,7 @@
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Component id="T_MM_Date" min="-2" pref="135" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="Trainer_LogOutBtn" min="-2" pref="92" max="-2" attributes="0"/>
+                  <Component id="Customer_LogOutBtn" min="-2" pref="92" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -74,7 +74,7 @@
                   <Component id="T_MMLabel" min="-2" pref="87" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="Trainer_LogOutBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Customer_LogOutBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="T_MM_Date" alignment="3" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -166,7 +166,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="C_ScheduleBtn1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="Trainer_LogOutBtn">
+        <Component class="javax.swing.JButton" name="Customer_LogOutBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -176,6 +176,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Log Out"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Customer_LogOutBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="T_MM_Date">
           <Properties>

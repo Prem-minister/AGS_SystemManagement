@@ -6,6 +6,11 @@ package ags_systemmanagement;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +23,7 @@ public class Trainer_Sessions extends javax.swing.JFrame {
      */
     public Trainer_Sessions() {
         initComponents();
+        GUI();
     }
 
     /**
@@ -82,6 +88,11 @@ public class Trainer_Sessions extends javax.swing.JFrame {
         T_Sessions_FeedbackBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         T_Sessions_FeedbackBtn.setText("Add Feedback");
         T_Sessions_FeedbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        T_Sessions_FeedbackBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Sessions_FeedbackBtnActionPerformed(evt);
+            }
+        });
 
         T_Sessions_PaymentBtn.setBackground(new java.awt.Color(255, 255, 51));
         T_Sessions_PaymentBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -169,6 +180,10 @@ public class Trainer_Sessions extends javax.swing.JFrame {
         TM.setLocation(dim.width/2-TM.getSize().width/2, dim.height/2-TM.getSize().height/2);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void T_Sessions_FeedbackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Sessions_FeedbackBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_T_Sessions_FeedbackBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -202,6 +217,29 @@ public class Trainer_Sessions extends javax.swing.JFrame {
                 new Trainer_Sessions().setVisible(true);
             }
         });
+    }
+    
+    
+    
+    public void GUI(){
+        //adding closing confirmation 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {
+                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+
+                        if(cache.delete()){
+                            System.out.print("Cache Deleted!");
+                            dispose();
+                        } else {
+                            System.out.print("Cache not deleted");
+                        }
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

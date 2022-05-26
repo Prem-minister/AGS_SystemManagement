@@ -416,7 +416,7 @@ public class Trainer_Profile extends JFrame implements KeyListener {
         String confirm_pass = T.getConfirm_pass();
         // Checking whether the pass and confirmation pass match
         try{
-            if (reset_pass == null) {
+            if (reset_pass == null || reset_pass.isEmpty()) {
                 // Alert Dialog to if password not match
                 JOptionPane.showMessageDialog(null, "Password Cannot be blank!, Try again!", "Password Blank", HEIGHT);
             } else if(!reset_pass.equals(confirm_pass)) {
@@ -609,7 +609,7 @@ public class Trainer_Profile extends JFrame implements KeyListener {
                 fileToDelete.delete();
                 fileToChangeName.renameTo(fileToDelete);
                 
-                JOptionPane.showMessageDialog(null, "Bank Details have been Updated", "Bank Info", 1);
+                JOptionPane.showMessageDialog(null, "User Details have been Updated", "User Info", 1);
             } else {
                 JOptionPane.showMessageDialog(null, "Some Fields is Blank! Please Enter all info ", "Fail To Upadte", 2);
             }

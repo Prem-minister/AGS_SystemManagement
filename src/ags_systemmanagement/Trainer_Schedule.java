@@ -6,6 +6,11 @@ package ags_systemmanagement;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +23,7 @@ public class Trainer_Schedule extends javax.swing.JFrame {
      */
     public Trainer_Schedule() {
         initComponents();
+        GUI();
     }
 
     /**
@@ -170,6 +176,33 @@ public class Trainer_Schedule extends javax.swing.JFrame {
             }
         });
     }
+    
+     public void GUI(){
+         
+         //gets todays date
+         
+         
+        //adding closing confirmation, log out and clear cache file 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {
+                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+
+                        if(cache.delete()){
+                            System.out.print("Cache Deleted!");
+                            dispose();
+                        } else {
+                            System.out.print("Cache not deleted");
+                        }
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });   
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser T_Schedule_Date;
