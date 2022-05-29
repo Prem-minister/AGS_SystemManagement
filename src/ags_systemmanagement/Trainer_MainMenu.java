@@ -195,7 +195,7 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
     private void Trainer_SessionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_SessionsBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        Trainer_Sessions TSe = new Trainer_Sessions();
+        Trainer_Sessions TSe = new Trainer_Sessions(U);
         TSe.setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         TSe.setLocation(dim.width/2-TSe.getSize().width/2, dim.height/2-TSe.getSize().height/2);
@@ -213,7 +213,7 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
     private void Trainer_ScheduleBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_ScheduleBtn1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        Trainer_Schedule TS = new Trainer_Schedule();
+        Trainer_Schedule TS = new Trainer_Schedule(U);
         TS.setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         TS.setLocation(dim.width/2-TS.getSize().width/2, dim.height/2-TS.getSize().height/2);

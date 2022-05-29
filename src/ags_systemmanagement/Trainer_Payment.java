@@ -13,10 +13,21 @@ public class Trainer_Payment extends javax.swing.JFrame {
     /**
      * Creates new form Trainer_Payment
      */
-    public Trainer_Payment() {
+    Trainer T;
+    
+    public Trainer_Payment(Trainer T) {
         initComponents();
+        setTrainer(T);
+        
     }
-
+    
+    public void setTrainer(Trainer T) {
+        this.T = T;
+    }
+    
+    public Trainer_Payment() {
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
