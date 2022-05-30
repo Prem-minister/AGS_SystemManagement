@@ -9,8 +9,10 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JFrame;
@@ -27,6 +29,7 @@ public class Trainer_Feedback extends javax.swing.JFrame {
      */
     Trainer T;
     String[] Training_ID;
+    String LastLine;
     
     public Trainer_Feedback(Trainer T) {
         initComponents();
@@ -96,7 +99,7 @@ public class Trainer_Feedback extends javax.swing.JFrame {
 
         Trainer_Feedback_Rating.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setForeground(new java.awt.Color(204, 0, 0));
         jRadioButton1.setText("1");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,22 +109,22 @@ public class Trainer_Feedback extends javax.swing.JFrame {
 
         Trainer_Feedback_Rating.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton2.setForeground(new java.awt.Color(255, 0, 51));
         jRadioButton2.setText("2");
 
         Trainer_Feedback_Rating.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton3.setForeground(new java.awt.Color(255, 0, 51));
         jRadioButton3.setText("3");
 
         Trainer_Feedback_Rating.add(jRadioButton4);
         jRadioButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton4.setForeground(new java.awt.Color(255, 0, 51));
         jRadioButton4.setText("4");
 
         Trainer_Feedback_Rating.add(jRadioButton5);
         jRadioButton5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jRadioButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton5.setForeground(new java.awt.Color(255, 0, 0));
         jRadioButton5.setText("5");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -250,13 +253,35 @@ public class Trainer_Feedback extends javax.swing.JFrame {
             String[] Data;
             while ((line = readFB.readLine()) != null) {
                Data = line.split(":");
+               System.out.println(Trainer_Feedback_SessionCbox.getSelectedItem() + Data[1]);
                if(Data[1].equals(Trainer_Feedback_SessionCbox.getSelectedItem())){
                    T_Feedback_Msg.setText(Data[3]);
                    Trainer_Feedback_AddBtn.setEnabled(false);
                    //need to add radio btn
+                   switch(Data[2]){
+                       case "1" : jRadioButton1.setSelected(true); break;
+                       case "2" : jRadioButton2.setSelected(true); break;
+                       case "3" : jRadioButton3.setSelected(true); break;
+                       case "4" : jRadioButton4.setSelected(true); break;
+                       case "5" : jRadioButton5.setSelected(true); break;
+                       
+                   }
+                   Arrays.fill(Data, null);
+
+                   break;
+                } else {
+                   Trainer_Feedback_AddBtn.setEnabled(true);
+                   T_Feedback_Msg.setText("");
+                   
+                   jRadioButton1.setSelected(false); 
+                    jRadioButton2.setSelected(false); 
+                    jRadioButton3.setSelected(false); 
+                    jRadioButton4.setSelected(false); 
+                    jRadioButton5.setSelected(false);
+                    
+                    Arrays.fill(Data, null);
                }
                 
-                Arrays.fill(Data, null);
 
             }
             
@@ -278,8 +303,60 @@ public class Trainer_Feedback extends javax.swing.JFrame {
         TS.setLocation(dim.width/2-TS.getSize().width/2, dim.height/2-TS.getSize().height/2);
     }//GEN-LAST:event_backBTNActionPerformed
 
+    
+    public String getSelectedButton(){
+        String selected = "";
+        if(jRadioButton1.isSelected()){
+            selected = jRadioButton1.getText();
+        } else if(jRadioButton2.isSelected()){
+            selected = jRadioButton2.getText();
+        } else if(jRadioButton3.isSelected()){
+            selected = jRadioButton3.getText();
+        } else if(jRadioButton4.isSelected()){
+            selected = jRadioButton4.getText();
+        } else if(jRadioButton5.isSelected()){
+            selected = jRadioButton5.getText();
+        }
+        
+        System.out.println(selected);
+        return selected;
+    }
+    
+    
     private void Trainer_Feedback_AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_Feedback_AddBtnActionPerformed
         // TODO add your handling code here:
+        try{
+            
+            BufferedReader r = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt"));
+            String line;
+            String[] data;
+            
+            while((line = r.readLine()) != null){
+               LastLine = line;
+            }
+            r.close();
+            
+            String[] data123 = LastLine.split(":");
+            String idd = data123[0];
+            String[] id = idd.split("B");
+            int id_adding = Integer.parseInt(id[1]);
+            id_adding = id_adding +1;
+            
+            BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt", true));
+            if(!T_Feedback_Msg.getText().isBlank())
+            {
+                wr.write("FB" + id_adding + ":" + Trainer_Feedback_SessionCbox.getSelectedItem() + ":" + getSelectedButton() + ":" + T_Feedback_Msg.getText()+ ":" + T.user_ID + "\n");
+                JOptionPane.showMessageDialog(null, "Successfully added feedback", "Feedback Added", 1);
+                Trainer_Feedback_AddBtn.setEnabled(false);
+            } else{
+                JOptionPane.showMessageDialog(null, "Feedback Message cannot be blank", "Missing fields", 1);
+            }
+            
+            wr.close();
+            
+        } catch (IOException e){
+            
+        }
     }//GEN-LAST:event_Trainer_Feedback_AddBtnActionPerformed
 
     /**
@@ -320,7 +397,7 @@ public class Trainer_Feedback extends javax.swing.JFrame {
      public void GUI(){
         
          try{
-            
+             //GETTING ALL SESSIONS FROM THIS TRAINER
             BufferedReader getCount = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
             String line, line2;
             String[] Data;
@@ -355,9 +432,8 @@ public class Trainer_Feedback extends javax.swing.JFrame {
          } catch(IOException e){
              
          }
-         //GETTING ALL SESSIONS FROM THIS TRAINER
-         
-        
+
+          
         //adding closing confirmation 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
