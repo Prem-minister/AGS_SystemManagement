@@ -668,8 +668,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
    
         // This is a new exception class
     public void emptyInputFields() throws Exception {
-        UserEmailValidation invalidate = new UserEmailValidation();
-        
+        UserEmailValidation invalidate = new UserEmailValidation();        
         if (chkUserRole.getSelectedIndex() == 0) {
             throw new Exception("Empty user role");
         }
@@ -749,7 +748,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
     }
     
      // This method handles all validation related to the fields
-    private void staffInputCharacterValidator() {
+    private void userInputCharacterValidator() {
         txtNewUsername.getDocument().addDocumentListener(new userDocumentListener() {
             UserUsernameValidation invalidate = new UserUsernameValidation();
 
@@ -1106,7 +1105,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
             }
         });
 
-        staffInputCharacterValidator();
+        userInputCharacterValidator();
     }
 
     

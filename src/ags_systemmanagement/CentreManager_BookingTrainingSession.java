@@ -17,9 +17,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,8 +40,8 @@ import javax.swing.table.DefaultTableModel;
 public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
      private final String trainingSlotsDB = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt";
      private final String userDB = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt";
-     private final String paymentsDB = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Payments.txt";
      private String cusID,trainerID, trainingID, todayFormattedDate, formattedDate;
+     DecimalFormat deciFormat = new DecimalFormat("0000");
      private Date trainingDate;
      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
      Date today = new Date();
@@ -61,7 +63,7 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
  
     private void enableBtn(){
        trainingDate = dateTraining.getDate();    
-       if (chkCustomerID.getSelectedIndex()>0 && trainingDate != null && chkTrainerID.getSelectedIndex()> 0 && chkTrainerTime.getSelectedIndex() > 0 &&  !txtFees.getText().equals("")) {
+       if (chkCustomerID.getSelectedIndex()>0 && trainingDate != null && chkTrainerID.getSelectedIndex()> 0 && chkTrainerTime.getSelectedIndex() > 0 &&  !txtFees.getText().isEmpty()) {
             btnBook.setEnabled(true);
             btnClear.setEnabled(true);
         } else {
@@ -132,13 +134,14 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
         lblTime = new javax.swing.JLabel();
         chkTrainerID = new javax.swing.JComboBox<>();
         chkTrainerTime = new javax.swing.JComboBox<>();
-        txtFees = new javax.swing.JFormattedTextField();
         lblPaymentAmount = new javax.swing.JLabel();
         dateTraining = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTrainingSession = new javax.swing.JTable();
         txtCusName = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
+        txtFees = new javax.swing.JTextField();
+        btnManage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -249,28 +252,6 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
             }
         });
 
-        txtFees.setBackground(new java.awt.Color(255, 255, 255));
-        txtFees.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204), 2));
-        txtFees.setForeground(new java.awt.Color(0, 0, 0));
-        txtFees.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
-        txtFees.setToolTipText("");
-        txtFees.setFont(new java.awt.Font("Avenir Next", 0, 12)); // NOI18N
-        txtFees.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFeesFocusLost(evt);
-            }
-        });
-        txtFees.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFeesActionPerformed(evt);
-            }
-        });
-        txtFees.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtFeesKeyPressed(evt);
-            }
-        });
-
         lblPaymentAmount.setFont(new java.awt.Font("Corsiva Hebrew", 0, 18)); // NOI18N
         lblPaymentAmount.setForeground(new java.awt.Color(100, 255, 218));
         lblPaymentAmount.setText("Fees :");
@@ -326,119 +307,162 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
         lblName.setForeground(new java.awt.Color(100, 255, 218));
         lblName.setText("Customer Name:");
 
+        txtFees.setBackground(new java.awt.Color(255, 255, 255));
+        txtFees.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        txtFees.setForeground(new java.awt.Color(0, 0, 0));
+        txtFees.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(153, 255, 204)));
+        txtFees.setCaretColor(new java.awt.Color(237, 237, 237));
+        txtFees.setMinimumSize(new java.awt.Dimension(64, 20));
+        txtFees.setPreferredSize(new java.awt.Dimension(64, 20));
+        txtFees.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFeesFocusLost(evt);
+            }
+        });
+        txtFees.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFeesActionPerformed(evt);
+            }
+        });
+        txtFees.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFeesKeyPressed(evt);
+            }
+        });
+
+        btnManage.setBackground(new java.awt.Color(204, 255, 204));
+        btnManage.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnManage.setForeground(new java.awt.Color(0, 51, 51));
+        btnManage.setText("Manage Booking");
+        btnManage.setActionCommand("Update");
+        btnManage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        btnManage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnManage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnManageMouseEntered(evt);
+            }
+        });
+        btnManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitle)
-                    .addComponent(lblSystemName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 812, Short.MAX_VALUE)
-                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDate, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTrainerID, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblCustomerID)
-                                .addGap(35, 35, 35)))
+                        .addGap(75, 75, 75)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtCusName, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(chkCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(chkTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dateTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblTitle)
+                            .addComponent(lblSystemName))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnManage, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblPaymentAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtFees, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(chkTrainerTime, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(2, 2, 2)))
-                .addGap(58, 58, 58)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 808, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                                .addContainerGap(99, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblPaymentAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtFees, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(4, 4, 4))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblName)
+                                            .addComponent(lblDate)
+                                            .addComponent(lblTrainerID)
+                                            .addComponent(lblCustomerID)
+                                            .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(16, 16, 16)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(txtCusName, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(chkCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(chkTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(dateTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(14, 14, 14)
+                                                .addComponent(chkTrainerTime, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(63, 63, 63))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(125, 125, 125)
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)
+                                .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 808, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(134, 134, 134))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(178, 178, 178)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCusName, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblName))
+                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(lblSystemName)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTitle)))
-                        .addGap(98, 98, 98)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chkCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCusName, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName))
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chkTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chkTrainerTime, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPaymentAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFees, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
+                    .addComponent(dateTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkTrainerID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkTrainerTime, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFees, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPaymentAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(81, 81, 81))
+                .addGap(216, 216, 216))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(lblSystemName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTitle))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnManage, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(224, 224, 224))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1369, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
         );
 
         pack();
@@ -449,7 +473,12 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGoBackMouseEntered
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
-
+        int selection = JOptionPane.showConfirmDialog(null, "Going back to main menu will cancel the ongoing booking training sessions. Continue?", "Returning to Main Menu!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (selection == JOptionPane.YES_OPTION) {
+            this.dispose();
+            openFrame openFrame = new openFrame();
+            openFrame.openManagerMainMenu();
+        }
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookMouseEntered
@@ -457,7 +486,8 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBookMouseEntered
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
-        bookSlot((String)chkCustomerID.getSelectedItem(), txtFees.getText(), (String) chkTrainerID.getSelectedItem());
+     
+         bookSlot((String)chkCustomerID.getSelectedItem(), txtFees.getText(), (String) chkTrainerID.getSelectedItem());
         //addPayment(trainerID, (String) chkCustomerID.getSelectedItem(), (String) chkTrainerID.getSelectedItem(), txtFees.getText(), today); 
     }//GEN-LAST:event_btnBookActionPerformed
 
@@ -470,21 +500,13 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void dateTrainingPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateTrainingPropertyChange
-         if(dateTraining.getDate() != null){         
-             if(checkTrainingSlots(dateTraining.getDate())){
-                   enableBtn();
-                 
-              }else{                    
-                    int selection = JOptionPane.showConfirmDialog(null, "There is no  training session  available for the date. Would you like to schedule one?", "No session found!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (selection == JOptionPane.YES_OPTION) {
-                         this.dispose();
-                         openFrame openFrame = new openFrame();
-                         openFrame.openScheduleTrainingSlots();
-                         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                     }else if(selection == JOptionPane.NO_OPTION){
-                         dateTraining.setDate(null);
-                         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-               }
+        
+        if(dateTraining.getDate() != null){         
+             if(!checkTrainingSlots(dateTraining.getDate())){
+                    JOptionPane.showMessageDialog(null, "There is no  training session available for the date. Please schedule sessions to book! ", "No session found!", JOptionPane.ERROR_MESSAGE);
+                    dateTraining.setDate(null);
+               }else{                                    
+                    enableBtn();     
              }
              
          }
@@ -494,11 +516,6 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
     private void tblTrainingSessionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTrainingSessionMouseClicked
 
     }//GEN-LAST:event_tblTrainingSessionMouseClicked
-
-    private void txtFeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFeesActionPerformed
-        enableBtn();
-         
-    }//GEN-LAST:event_txtFeesActionPerformed
 
     private void chkCustomerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCustomerIDActionPerformed
         enableBtn();
@@ -515,12 +532,27 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
     }//GEN-LAST:event_chkTrainerTimeActionPerformed
 
     private void txtFeesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFeesFocusLost
-     
+       TrainingFeesValidation vd = new TrainingFeesValidation();
+        vd.runValidate(txtFees, true);
     }//GEN-LAST:event_txtFeesFocusLost
 
+    private void txtFeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFeesActionPerformed
+
+    }//GEN-LAST:event_txtFeesActionPerformed
+
     private void txtFeesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFeesKeyPressed
-      
+       enableBtn();
     }//GEN-LAST:event_txtFeesKeyPressed
+
+    private void btnManageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnManageMouseEntered
+
+    private void btnManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageActionPerformed
+             this.dispose();
+             openFrame openFrame = new openFrame();
+             openFrame.openManagerManageBookingSession();
+    }//GEN-LAST:event_btnManageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -567,29 +599,25 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
             chkTrainerID.setSelectedIndex(0);
             dateTraining.setDate(null);          
             chkTrainerTime.setSelectedIndex(0);
-            txtFees.setText("");
-           
+            txtFees.setText("");           
     }
     
-      private void validateInput() {
-        TrainingFeesValidation invalidate = new TrainingFeesValidation();
-        invalidate.runValidate(txtFees, true);
+    private void validateInput() { 
+         if ("".equals(txtFees.getText()) || "RM".equals(txtFees.getText()) ) {
+                JOptionPane.showMessageDialog(null, "Invalid input! Please input training fees to book.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);     
+        }   
      }
-      
-      
+       
       
      public void emptyInputFields() throws Exception {
-         TrainingFeesValidation invalidate = new TrainingFeesValidation();
-        if (txtFees.getText() == "") {
+        TrainingFeesValidation invalidate = new TrainingFeesValidation();
+        if ("".equals(txtFees.getText())|| "RM".equals(txtFees.getText())) {
             throw new Exception("Empty fees");
         }
-        
+       
       }
       
-    
-    
-    
-    
+   
     public final void getCustomerID() {    
         try {
            File userFile = new File(userDB);
@@ -681,31 +709,23 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
         return slotFound;
     }
      
-
-
        //This method will update new staff details
     private void bookSlot(String userID, String fees, String trainingID) {
         //This sets the file directory
         File trainingFile = new File(trainingSlotsDB);
-        File paymentFile = new File(paymentsDB);
-         
         ArrayList<String> trainingArray = new ArrayList<>();  //This is for temporary array to hold the staff data
         try {
-            
-           if (!paymentFile.exists()) {
-                paymentFile.createNewFile();
-           }
-                        
-            try ( FileReader fr = new FileReader(trainingFile)) {
+          try ( FileReader fr = new FileReader(trainingFile)) {
                 Scanner readFile = new Scanner(fr);
                 String detailLine;
                 String[] detailArr;  //This temp array is to store the details which is gonna be updated                                     
                 while ((detailLine = readFile.nextLine()) != null) {
                     //This is to split each line using colon to check if the username is present
                     detailArr = detailLine.split(":");
-                    //If the username is present, add the old data
+                    //If the training is present, add the old data
                     //Add the new data in the temporary array
-                    if (detailArr[0].equals(trainingID)) {
+                                    
+                    if (detailArr[0].equals(trainingID) && "*".equals(detailArr[6])) {
                         trainingArray.add(detailArr[0] + ":"
                                 + detailArr[1]+ ":"
                                 + detailArr[2] + ":"
@@ -713,7 +733,8 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
                                 + detailArr[4] + ":"
                                 + detailArr[5]+ ":"
                                 + userID+ ":"
-                                + detailArr[7] );
+                                + fees + ":" 
+                                + detailArr[8]);
                     } else {
                         //search other doesnt match and add the line
                         trainingArray.add(detailLine);
@@ -728,9 +749,13 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
         }
 
         try {
-            //This throws the exception  
-            emptyInputFields();
-                boolean hasUpdated = false;
+             TrainingFeesValidation invalidate = new TrainingFeesValidation();
+            if("".equals(txtFees.getText())){
+              JOptionPane.showMessageDialog(null, "Invalid input! Please input training fees to book.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);     
+            }else if (invalidate.runValidate(txtFees, false)){
+                 throw new Exception("Invalid payment format");   
+            }else{                  
+             boolean hasUpdated = false;
                 //this is to set the bufferd write to write the data into temporary array again back to text file        
                 try (PrintWriter pw = new PrintWriter(trainingFile)) {
                     for (String str : trainingArray) {
@@ -748,49 +773,23 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
                         getTrainingSlotDetails();
                     }
 
-                }       
+                }      
+        } 
+                
         } catch (Exception e) {
             validateInput();
+
         }
 
     }
     
     
-        // This method handles the staff registration
-//    private void addPayment(String trainerID, String userID, String traininID, String fees, Date issueDate) {
-//          try {          
-//             
-//            try {
-//                trainingSessionID = deciFormat.format(newTrainingID);
-//                formattedDate= dateFormat.format(trainingDate);
-//                FileWriter fw = new FileWriter(trainingSlotsDB, true);
-//                BufferedWriter bw  = new BufferedWriter(fw);
-//                bw.write(userPrefixID + trainingSessionID + ":" + trainerID + ":" + trainerName+ ":" + formattedDate + ":" + trainingStartTime + ":" +  trainingEndTime + ":" +  "*"  + "\n");
-//                JOptionPane.showMessageDialog(null, "New Training Session has be addedd successfully", "Training Session successfully added!", JOptionPane.INFORMATION_MESSAGE);
-//                bw.close();
-//                trainingIDIncrementor();
-//                 //this will refresh the table when it is successful
-//                 DefaultTableModel model = (DefaultTableModel) tblTrainingSession.getModel();
-//                 model.setRowCount(0);
-//                 getTrainingSlotDetails();
-//                 clearTxtFields();
-//            } catch (FileNotFoundException ex) {
-//                Logger.getLogger(CentreManager_ScheduleTraining.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (IOException ex) {
-//                Logger.getLogger(CentreManager_ScheduleTraining.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } catch (Exception e) {
-//               validateInput();
-//        }
-//    }
-//    
-//    
    
     //This method for Jframe initiation
     public void initGUI() {
 
         //setting the frame name
-        this.setTitle("Scheduling Training Sesssions");
+        this.setTitle("Booking Training Sesssions");
                    
         //This will padding for the textfields
         txtCusName.setBorder(BorderFactory.createCompoundBorder(txtCusName.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
@@ -800,6 +799,7 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
         btnBook.setFocusable(false);
         btnClear.setFocusable(false);
         btnGoBack.setFocusable(false);
+        btnManage.setFocusable(false);
         tblTrainingSession.setFocusable(false);
         tblTrainingSession.setDefaultEditor(Object.class, null);
 
@@ -828,9 +828,6 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
         //Getting Customer IDs
         getCustomerID();
         
-        
-        txtFees.setText("RM");
-    
         //To handle the closing window
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e){
@@ -852,6 +849,7 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
     private javax.swing.JButton btnBook;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnGoBack;
+    private javax.swing.JButton btnManage;
     private javax.swing.JComboBox<String> chkCustomerID;
     private javax.swing.JComboBox<String> chkTrainerID;
     private javax.swing.JComboBox<String> chkTrainerTime;
@@ -868,6 +866,6 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
     private javax.swing.JLabel lblTrainerID;
     private javax.swing.JTable tblTrainingSession;
     private javax.swing.JTextField txtCusName;
-    private javax.swing.JFormattedTextField txtFees;
+    private javax.swing.JTextField txtFees;
     // End of variables declaration//GEN-END:variables
 }

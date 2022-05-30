@@ -68,11 +68,11 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         lblTime = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
         pnlBtn3 = new javax.swing.JPanel();
-        btnManageFeedback = new javax.swing.JButton();
-        btnUpdateProfile = new javax.swing.JButton();
-        btnLoginLog = new javax.swing.JButton();
         btnRegisterUser = new javax.swing.JButton();
         btnManageUser = new javax.swing.JButton();
+        btnLoginLog = new javax.swing.JButton();
+        btnManageFeedback = new javax.swing.JButton();
+        btnUpdateProfile = new javax.swing.JButton();
         pnlBtn1 = new javax.swing.JPanel();
         btnTrainingBooking = new javax.swing.JButton();
         pnlProfilePic = new javax.swing.JPanel();
@@ -128,67 +128,6 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         pnlBtn3.setBackground(new java.awt.Color(68, 68, 68));
         pnlBtn3.setLayout(new java.awt.GridLayout(2, 2, 5, 5));
 
-        btnManageFeedback.setBackground(new java.awt.Color(102, 0, 255));
-        btnManageFeedback.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnManageFeedback.setForeground(new java.awt.Color(37, 42, 52));
-        btnManageFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/managefeedbac.png"))); // NOI18N
-        btnManageFeedback.setBorder(null);
-        btnManageFeedback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnManageFeedback.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnManageFeedbackMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnManageFeedbackMouseExited(evt);
-            }
-        });
-        btnManageFeedback.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageFeedbackActionPerformed(evt);
-            }
-        });
-        pnlBtn3.add(btnManageFeedback);
-
-        btnUpdateProfile.setBackground(new java.awt.Color(0, 204, 204));
-        btnUpdateProfile.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnUpdateProfile.setForeground(new java.awt.Color(37, 42, 52));
-        btnUpdateProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/updateprofile.png"))); // NOI18N
-        btnUpdateProfile.setBorder(null);
-        btnUpdateProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUpdateProfile.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnUpdateProfileMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnUpdateProfileMouseExited(evt);
-            }
-        });
-        btnUpdateProfile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateProfileActionPerformed(evt);
-            }
-        });
-        pnlBtn3.add(btnUpdateProfile);
-
-        btnLoginLog.setBackground(new java.awt.Color(153, 153, 255));
-        btnLoginLog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/loginlog.png"))); // NOI18N
-        btnLoginLog.setBorder(null);
-        btnLoginLog.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLoginLog.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLoginLogMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLoginLogMouseExited(evt);
-            }
-        });
-        btnLoginLog.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginLogActionPerformed(evt);
-            }
-        });
-        pnlBtn3.add(btnLoginLog);
-
         btnRegisterUser.setBackground(new java.awt.Color(51, 51, 255));
         btnRegisterUser.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnRegisterUser.setForeground(new java.awt.Color(37, 42, 52));
@@ -230,6 +169,67 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
             }
         });
         pnlBtn3.add(btnManageUser);
+
+        btnLoginLog.setBackground(new java.awt.Color(153, 153, 255));
+        btnLoginLog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/loginlog.png"))); // NOI18N
+        btnLoginLog.setBorder(null);
+        btnLoginLog.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLoginLog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLoginLogMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLoginLogMouseExited(evt);
+            }
+        });
+        btnLoginLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginLogActionPerformed(evt);
+            }
+        });
+        pnlBtn3.add(btnLoginLog);
+
+        btnManageFeedback.setBackground(new java.awt.Color(102, 0, 255));
+        btnManageFeedback.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnManageFeedback.setForeground(new java.awt.Color(37, 42, 52));
+        btnManageFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/managefeedbac.png"))); // NOI18N
+        btnManageFeedback.setBorder(null);
+        btnManageFeedback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnManageFeedback.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnManageFeedbackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnManageFeedbackMouseExited(evt);
+            }
+        });
+        btnManageFeedback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageFeedbackActionPerformed(evt);
+            }
+        });
+        pnlBtn3.add(btnManageFeedback);
+
+        btnUpdateProfile.setBackground(new java.awt.Color(0, 204, 204));
+        btnUpdateProfile.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnUpdateProfile.setForeground(new java.awt.Color(37, 42, 52));
+        btnUpdateProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/updateprofile.png"))); // NOI18N
+        btnUpdateProfile.setBorder(null);
+        btnUpdateProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUpdateProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnUpdateProfileMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnUpdateProfileMouseExited(evt);
+            }
+        });
+        btnUpdateProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateProfileActionPerformed(evt);
+            }
+        });
+        pnlBtn3.add(btnUpdateProfile);
 
         pnlBtn1.setBackground(new java.awt.Color(68, 68, 68));
         pnlBtn1.setLayout(new java.awt.GridLayout(1, 1, 5, 5));
@@ -540,7 +540,9 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
     }//GEN-LAST:event_btnLoginLogMouseExited
 
     private void btnLoginLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginLogActionPerformed
-        // TODO add your handling code here:
+         this.dispose();
+         openFrame openFrame = new openFrame();
+         openFrame.openLoginActivity();
     }//GEN-LAST:event_btnLoginLogActionPerformed
 
     /**
@@ -688,6 +690,7 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
             btnManageTraining.setFocusable(false);
             btnManageFeedback.setFocusable(false);
             btnLoginLog.setFocusable(false);
+            btnViewSession.setFocusable(false);
             txtUsername.setFocusable(false);
             
             

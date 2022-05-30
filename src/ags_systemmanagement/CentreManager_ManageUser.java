@@ -1218,7 +1218,7 @@ public class CentreManager_ManageUser extends javax.swing.JFrame {
     
    
      // This method handles all validation related to the fields
-    private void staffInputCharacterValidator() {
+    private void userInputCharacterValidator() {
         txtNewUsername.getDocument().addDocumentListener(new userDocumentListener() {
             UserUsernameValidation invalidate = new UserUsernameValidation();
 
@@ -1328,9 +1328,7 @@ public class CentreManager_ManageUser extends javax.swing.JFrame {
       
       
      private void updateProfileImg() {
-       profileImgDB = System.getProperty("user.dir") + "\\src\\ProfileImgSrc\\";
-   
-
+            profileImgDB = System.getProperty("user.dir") + "\\src\\ProfileImgSrc\\";
             String newImgName =  profileImgDB+userID + "." + "jpg";
             File path = new File(profileImgDir); 
             File newImg = new File(newImgName);  
@@ -1595,7 +1593,7 @@ public class CentreManager_ManageUser extends javax.swing.JFrame {
             }
         });
 
-        staffInputCharacterValidator();
+       userInputCharacterValidator();
     
     }
     
