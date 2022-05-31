@@ -549,7 +549,7 @@ public class Login extends javax.swing.JFrame {
         lblLoginLogo.setIcon(new ImageIcon(imgLogin));
         
         //setting the frame name
-        this.setTitle("Login Page");
+        this.setTitle("Login");
           
     
         //Disabling the login button

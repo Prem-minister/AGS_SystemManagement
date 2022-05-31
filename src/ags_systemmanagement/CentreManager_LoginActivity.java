@@ -411,7 +411,10 @@ public class CentreManager_LoginActivity extends javax.swing.JFrame {
     
        //This method is for initial start of the frame
     public void initGUI() {
-     
+       //setting the frame name
+        this.setTitle("Login Activity Records");
+         
+        
         //This will padding for the textfields
         txtFilter.setBorder(BorderFactory.createCompoundBorder(txtFilter.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
  

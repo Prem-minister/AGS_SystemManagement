@@ -1456,7 +1456,7 @@ public class CentreManager_ManageUser extends javax.swing.JFrame {
     
      //This method delete user accounts but the details will be still there
     private void deleteUser() {
-      File file = new File(userDB);
+        File file = new File(userDB);
         ArrayList<String> userArray = new ArrayList<>();  //This is for temporary array to hold the user data
         try {
                     
@@ -1534,6 +1534,9 @@ public class CentreManager_ManageUser extends javax.swing.JFrame {
     
     
     public void initGUI(){
+          //setting the frame name
+        this.setTitle("Manage User");
+         
         //This will padding for the textfields
         txtNewUsername.setBorder(BorderFactory.createCompoundBorder(txtNewUsername.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
         txtPassword.setBorder(BorderFactory.createCompoundBorder(txtPassword.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));

@@ -4,6 +4,15 @@
  */
 package ags_systemmanagement;
 
+import com.itextpdf.io.exceptions.IOException;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.Style;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import java.awt.Desktop;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -29,7 +38,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
     private final String projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt";
-    private final String pdfSource = System.getProperty("user.dir") + "\\src\\pdf\\TrainingSlots.pdf";    
+    private final String pdfDir = System.getProperty("user.dir") + "\\src\\pdf\\ManagerTrainingSlots.pdf";    
     private boolean filter = false;
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -67,6 +76,7 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField();
         btnClear2 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,7 +136,7 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Training ID", "Trainer ID", "Trainer Name", "Training Date", "Start Time", "End Time", "User ID", "Fees", "Payment Status"
+                "Training ID", "Trainer ID", "Trainer Name", "Training Date", "Start Time", "End Time", "Customer ID", "Fees", "Payment Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -174,6 +184,23 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(153, 153, 255));
+        btnSave.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(102, 0, 102));
+        btnSave.setText("Save PDF");
+        btnSave.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSaveMouseEntered(evt);
+            }
+        });
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -196,11 +223,16 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
                         .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnClear2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(327, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 919, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1005, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,20 +255,20 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
                         .addComponent(btnClear2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1058, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1115, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE)
         );
 
         pack();
@@ -290,6 +322,20 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
             Logger.getLogger(CentreManager_ViewTrainingSession.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnClear2ActionPerformed
+
+    private void btnSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveMouseEntered
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        try {
+            saveTrainingSessionRecords();
+        } catch (IOException ex) {
+            Logger.getLogger(CentreManager_ViewTrainingSession.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CentreManager_ViewTrainingSession.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,7 +461,7 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
                 String starttime = userDataRow[4];
                 String endtime = userDataRow[5];
                 String userID = userDataRow[6];
-                String fees = userDataRow[7];
+                String fees = "RM" + userDataRow[7];
                 String paymentstatus = userDataRow[8];
                 
                 if ("*".equals(userID)){
@@ -458,11 +504,87 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
          return Records;
     }
     
+       
+      private void saveTrainingSessionRecords() throws IOException, FileNotFoundException{
+               
+            PdfWriter wr = new PdfWriter(pdfDir);
+            PdfDocument pdffile = new PdfDocument(wr);
+            Document doct = new Document(pdffile);
+            
+            Style titlestyle = new Style();
+            titlestyle.setBold().setFontSize(18f).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER);
+            
+            String title = "Training Session Records of the Customers";
+            Paragraph doctitle = new Paragraph(title).addStyle(titlestyle);
+            
+            float columnWidth[] = {150f,150f,150f,150f,150f,150f,150f,150f,150f};
+            Table tbl = new Table(columnWidth);
+            doct.add(doctitle);
+            tbl.addCell("Training ID").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Trainer ID").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Trainer Name").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Training Date").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Start Time").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("End Time").setFontColor(new DeviceRgb(23, 23, 23));            
+            tbl.addCell("Customer ID").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Fees").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Payment Status").setFontColor(new DeviceRgb(23, 23, 23));
+            
+            
+            
+            for(int i = 0; i < tblTrainingSessionRecords.getRowCount(); i++){
+                String trainingID = tblTrainingSessionRecords.getValueAt(i, 0).toString();
+                String trainerID = tblTrainingSessionRecords.getValueAt(i, 1).toString();
+                String trainername = tblTrainingSessionRecords.getValueAt(i, 2).toString();
+                String trainingdate = tblTrainingSessionRecords.getValueAt(i, 3).toString();
+                String starttime = tblTrainingSessionRecords.getValueAt(i, 4).toString();
+                String endtime = tblTrainingSessionRecords.getValueAt(i, 5).toString();
+                String cusID = tblTrainingSessionRecords.getValueAt(i, 6).toString();
+                String fees = tblTrainingSessionRecords.getValueAt(i, 7).toString();
+                String paymentstatus = tblTrainingSessionRecords.getValueAt(i, 8).toString();
+                              
+                tbl.addCell(trainingID);
+                tbl.addCell(trainerID);
+                tbl.addCell(trainername);
+                tbl.addCell(trainingdate);
+                tbl.addCell(starttime);
+                tbl.addCell(endtime);
+                tbl.addCell(cusID);
+                tbl.addCell(fees);
+                tbl.addCell(paymentstatus);
+
+            }
+            
+           //write into the pdf
+           doct.add(tbl);
+           doct.close();
+        
+          JOptionPane.showMessageDialog(null, "Training Session Records Printed Successfully in PDF!", "Records Printed!", JOptionPane.INFORMATION_MESSAGE);
+       
+       if (Desktop.isDesktopSupported()) {
+          try {
+              File myFile = new File(pdfDir);             
+              Desktop.getDesktop().open(myFile);
+          } catch (IOException ex) {
+              // no application registered for PDFs
+          }     catch (java.io.IOException ex) {
+                    Logger.getLogger(CentreManager_ViewTrainingSession.class.getName()).log(Level.SEVERE, null, ex);
+           }
+         }
+
+    }
+          
+       
+       
+       
     
           //This method is for initial start of the frame
     public void initGUI() {
      
         try {
+               //setting the frame name
+                this.setTitle("View Training Session");
+         
             //This will padding for the textfields
             txtFilter.setBorder(BorderFactory.createCompoundBorder(txtFilter.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
             
@@ -470,6 +592,7 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
             btnGoBack.setFocusable(false);
             btnFilter.setFocusable(false);
             btnClear2.setFocusable(false);
+            btnSave.setFocusable(false);
             tblTrainingSessionRecords.setFocusable(false);
             tblTrainingSessionRecords.setDefaultEditor(Object.class, null);
             
@@ -525,6 +648,7 @@ public class CentreManager_ViewTrainingSession extends javax.swing.JFrame {
     private javax.swing.JButton btnClear2;
     private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnGoBack;
+    private javax.swing.JButton btnSave;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblName;

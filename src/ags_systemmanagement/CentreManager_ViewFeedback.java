@@ -4,6 +4,16 @@
  */
 package ags_systemmanagement;
 
+
+import com.itextpdf.io.exceptions.IOException;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.Style;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import java.awt.Desktop;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -25,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CentreManager_ViewFeedback extends javax.swing.JFrame {
     private final String projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt";
-    private final String pdfSource = System.getProperty("user.dir") + "\\src\\pdf\\Feedback.pdf";    
+    private final String pdfDir = System.getProperty("user.dir") + "\\src\\pdf\\ManagerFeedback.pdf";    
     private boolean filter = false;
     /**
      * Creates new form CentreManager_ViewFeedback
@@ -62,6 +72,7 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField();
         btnClear2 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +180,23 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(153, 153, 255));
+        btnSave.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(102, 0, 102));
+        btnSave.setText("Save PDF");
+        btnSave.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSaveMouseEntered(evt);
+            }
+        });
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -178,7 +206,7 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 975, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 26, Short.MAX_VALUE))
+                        .addGap(0, 68, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblName)
                         .addGap(26, 26, 26)
@@ -191,10 +219,14 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTitle)
-                            .addComponent(lblSystemName))
+                            .addComponent(lblSystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,18 +249,20 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
                         .addComponent(btnClear2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(58, 58, 58)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1118, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 887, Short.MAX_VALUE)
         );
 
         pack();
@@ -274,6 +308,20 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
         getFeedbackRecords();
         txtFilter.setText("");
     }//GEN-LAST:event_btnClear2ActionPerformed
+
+    private void btnSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveMouseEntered
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        try {
+            saveFeedbackRecords();
+        } catch (IOException ex) {
+            Logger.getLogger(CentreManager_ViewFeedback.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CentreManager_ViewFeedback.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,10 +450,72 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
          return Records;
     }
     
+       
+       
+       
+       private void saveFeedbackRecords() throws IOException, FileNotFoundException{
+               
+            PdfWriter wr = new PdfWriter(pdfDir);
+            PdfDocument pdffile = new PdfDocument(wr);
+            Document doct = new Document(pdffile);
+            
+            Style titlestyle = new Style();
+            titlestyle.setBold().setFontSize(18f).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER);
+            
+            String title = "Feedback Records from the Customers";
+            Paragraph doctitle = new Paragraph(title).addStyle(titlestyle);
+            
+            float columnWidth[] = {150f,150f,150f,150f,150f};
+            Table tbl = new Table(columnWidth);
+            doct.add(doctitle);
+            tbl.addCell("Feedback ID").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Training ID").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Rating").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Feedback").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("User ID").setFontColor(new DeviceRgb(23, 23, 23));
+            
+            
+            for(int i = 0; i < tblFeedbackRecords.getRowCount(); i++){
+                String feedbackID = tblFeedbackRecords.getValueAt(i, 0).toString();
+                String trainingID = tblFeedbackRecords.getValueAt(i, 1).toString();
+                String rating = tblFeedbackRecords.getValueAt(i, 2).toString();
+                String feedback = tblFeedbackRecords.getValueAt(i, 3).toString();
+                String userID = tblFeedbackRecords.getValueAt(i, 4).toString();
+                
+                tbl.addCell(feedbackID);
+                tbl.addCell(trainingID);
+                tbl.addCell(rating);
+                tbl.addCell(feedback);
+                tbl.addCell(userID);
+                
+            }
+            
+           //write into the pdf
+           doct.add(tbl);
+           doct.close();
+        
+          JOptionPane.showMessageDialog(null, "Feedback Records Printed Successfully in PDF!", "Records Printed!", JOptionPane.INFORMATION_MESSAGE);
+       
+       if (Desktop.isDesktopSupported()) {
+          try {
+              File myFile = new File(pdfDir);             
+              Desktop.getDesktop().open(myFile);
+          } catch (IOException ex) {
+              //nothing happened
+          }     catch (java.io.IOException ex) {
+                Logger.getLogger(CentreManager_ViewFeedback.class.getName()).log(Level.SEVERE, null, ex);
+           }
+         }
+    }
+       
+        
     
           //This method is for initial start of the frame
     public void initGUI() {
-     
+       //setting the frame name
+        this.setTitle("View Feedback");
+         
+        
         //This will padding for the textfields
         txtFilter.setBorder(BorderFactory.createCompoundBorder(txtFilter.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
  
@@ -413,6 +523,7 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
         btnGoBack.setFocusable(false);
         btnFilter.setFocusable(false);
         btnClear2.setFocusable(false);
+        btnSave.setFocusable(false);
         tblFeedbackRecords.setFocusable(false);
         tblFeedbackRecords.setDefaultEditor(Object.class, null);
       
@@ -466,6 +577,7 @@ public class CentreManager_ViewFeedback extends javax.swing.JFrame {
     private javax.swing.JButton btnClear2;
     private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnGoBack;
+    private javax.swing.JButton btnSave;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblName;

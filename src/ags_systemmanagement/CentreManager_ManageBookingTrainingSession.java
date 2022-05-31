@@ -42,6 +42,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
      DecimalFormat deciFormat = new DecimalFormat("0000");
      private Date trainingDate;
      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+     DateFormat convDate = new SimpleDateFormat("dd MMMM yy");
      Date today = new Date();
     /**
      * Creates new form CentreManager_ManageBookingTrainingSession
@@ -81,7 +82,6 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
      private void getBookedTrainingSlotDetails() {
         try {
             todayFormattedDate= dateFormat.format(today);
-            DateFormat dateFormatTable = new SimpleDateFormat("dd MMMM yy");
             FileReader fr = new FileReader(trainingSlotsDB);
             BufferedReader br = new BufferedReader(fr);
             //This sets the table into a table model
@@ -96,12 +96,12 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
                       String trainerid = userDataRow[1];
                       String trainerName = userDataRow[2];
                       Date date = dateFormat.parse(userDataRow[3]);
-                      String formatTableDate = dateFormatTable.format(date);
+                      String formatTableDate = convDate.format(date);
                       String startTime = userDataRow[4];
                       String endTime = userDataRow[5];
                       String status = userDataRow[6];
                       String cusid = userDataRow[6];
-                      String fees = userDataRow[7]; 
+                      String fees = "RM" + userDataRow[7]; 
                       String userFullName = "";
                       
                       if ("*".equals(status)){
@@ -419,7 +419,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
                 .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitle)
-                    .addComponent(lblSystemName))
+                    .addComponent(lblSystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68))
@@ -475,7 +475,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(134, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -497,7 +497,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTrainerName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTrainerName, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTrainingTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -543,7 +543,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
          try {
-             updateBook((String)chkCustomerID.getSelectedItem(), txtFees.getText(), (String) chkTrainingID.getSelectedItem());
+             updateBook();
          } catch (Exception ex) {
              Logger.getLogger(CentreManager_ManageBookingTrainingSession.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -559,7 +559,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
 
     private void chkCustomerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCustomerIDActionPerformed
           enableUpdate();
-//        getCustomerName();
+          getCustomerName();
     }//GEN-LAST:event_chkCustomerIDActionPerformed
 
     private void txtFeesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFeesFocusLost
@@ -581,9 +581,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
     private void chkTrainingIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTrainingIDActionPerformed
         enableUpdate();
         enableDelete();
-        searchTrainingID((String)chkTrainingID.getSelectedItem());
-       recordExist(trainerID, txtTrainingDate.getText(), txtTrainingTime.getText(), (String) chkCustomerID.getSelectedItem(), txtFees.getText());
-            
+        searchTrainingID((String)chkTrainingID.getSelectedItem());            
     }//GEN-LAST:event_chkTrainingIDActionPerformed
 
     private void btnDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseEntered
@@ -646,8 +644,8 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
       private void validateInput(){      
          if ("".equals(txtFees.getText()) || "RM".equals(txtFees.getText()) ) {
                 JOptionPane.showMessageDialog(null, "Invalid input! Please input valid training fees to update booking. Eg RM10.10", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);     
-         }else if (recordExist(trainerID, txtTrainingDate.getText(), txtTrainingTime.getText(), (String) chkCustomerID.getSelectedItem(), txtFees.getText())){
-             JOptionPane.showMessageDialog(null, "Booking Record Exists.", "Booking 7Exists!", JOptionPane.ERROR_MESSAGE);
+         }else if(recordExist(txtTrainingDate.getText(), txtTrainingTime.getText(), (String) chkCustomerID.getSelectedItem())){
+             JOptionPane.showMessageDialog(null, "The customer has booked training session for picked date and time", "Booking Exists!", JOptionPane.ERROR_MESSAGE);
          }
              
      }
@@ -730,7 +728,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
         boolean hasRecord = false;
         String[] trainingDetails;   // This array is to store all lines
         try {
-            DateFormat dateFormatTable = new SimpleDateFormat("dd MMMM yy");
+
             // This sets the file which going to be accessed
             File trainingFile = new File(trainingSlotsDB); 
             Scanner searchTrainingID = new Scanner(trainingFile);
@@ -748,7 +746,7 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
                     cusID = trainingDetails[6];
                     chkCustomerID.setSelectedItem(cusID);
                     Date date = dateFormat.parse(trainingDetails[3]);
-                    String formatTableDate = dateFormatTable.format(date);
+                    String formatTableDate = convDate.format(date);
                     txtTrainingDate.setText(formatTableDate);                  
                     txtTrainingTime.setText(trainingDetails[4] + " - "  + trainingDetails[5]);
                     txtFees.setText(trainingDetails[7]);
@@ -783,9 +781,10 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
 
     }
     
-       
-    //This method is to check whether the selected record already exist or nope
-    public boolean recordExist(String trainerID, String trainingDate, String trainingTime, String cusID, String fees) {
+
+    
+     //This method is to check whether the selected record already exist or nope
+    public boolean recordExist(String trainingdate, String trainingTime, String cusID) {
         boolean notFound = false;
         // This array is to store all lines
          String[] trainingDetails;
@@ -800,10 +799,10 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
                 String inputTraining = searchDetails.nextLine();
                 // Split the details by using the colon and store in an array.
                 trainingDetails = inputTraining.split(":");
-                //formatting date
-                formattedDate = dateFormat.format(trainingDate);
+                formattedDate =dateFormat.format(convDate.parse(trainingdate));
                 System.out.println(formattedDate);
-                if (trainerID.equals(formattedDate.equals(trainingDetails[3]) && trainingtime[0].equals(trainingDetails[4]) &&  trainingtime[1].equals(trainingDetails[5]) && cusID.equals(trainingDetails[6]))) {
+                //formatting date
+                if (formattedDate.equals(trainingDetails[3]) && trainingtime[0].equals(trainingDetails[4]) &&  trainingtime[1].equals(trainingDetails[5]) && cusID.equals(trainingDetails[6])) {
                     notFound = true;
                 }
             }
@@ -812,20 +811,24 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
 
         }
         return notFound;
+      
     }
 
-    
-    
-    
-    
+   
+
     
      //This method will update new staff details
-    private void updateBook(String userID, String fees, String trainingID) throws Exception {
+    private void updateBook() throws Exception {
         File trainingFile = new File(trainingSlotsDB);
         ArrayList<String> trainingArray = new ArrayList<>();  //This is for temporary array to hold the staff data
                  //To check whether inserted record exists
         try {
          
+              String cusID = (String)chkCustomerID.getSelectedItem();
+              String[] fees = txtFees.getText().split("RM",2);
+              String trainingID = (String) chkTrainingID.getSelectedItem();        
+                       
+            
           try ( FileReader fr = new FileReader(trainingFile)) {    
                 Scanner readFile = new Scanner(fr);
                 String detailLine;
@@ -843,8 +846,8 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
                                 + detailArr[3]+ ":"
                                 + detailArr[4] + ":"
                                 + detailArr[5]+ ":"
-                                + userID + ":"
-                                + fees + ":" 
+                                + cusID + ":"
+                                + fees[1] + ":" 
                                 + detailArr[8]);
                     } else {
                         //search other doesnt match and add the line
@@ -864,6 +867,9 @@ public class CentreManager_ManageBookingTrainingSession extends javax.swing.JFra
              if (invalidate.runValidate(txtFees, false)){
                  throw new Exception("Invalid payment format");
                  // To check whether inserted booking record exists
+             }else if(recordExist(txtTrainingDate.getText(), txtTrainingTime.getText(), (String) chkCustomerID.getSelectedItem())){    
+                System.out.println("im working");
+                throw new Exception("Record exists");          
             }else {                  
              boolean hasUpdated = false;
                 //this is to set the bufferd write to write the data into temporary array again back to text file        

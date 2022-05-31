@@ -470,6 +470,7 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnManageMouseEntered
 
     private void btnManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageActionPerformed
+            this.dispose(); 
             openFrame openFrame = new openFrame();
             openFrame.openManagerManageSchedule();       
     }//GEN-LAST:event_btnManageActionPerformed
@@ -666,6 +667,8 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
               if (chkTrainerStartTime.getSelectedIndex() >= chkTrainerEndTime.getSelectedIndex()) {
                 throw new Exception("Invalid Start Time or End Time!");
               }
+                    
+      
             try {
                 trainingSessionID = deciFormat.format(newTrainingID);
                 formattedDate= dateFormat.format(trainingDate);

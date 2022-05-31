@@ -71,16 +71,17 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         btnRegisterUser = new javax.swing.JButton();
         btnManageUser = new javax.swing.JButton();
         btnLoginLog = new javax.swing.JButton();
-        btnManageFeedback = new javax.swing.JButton();
-        btnUpdateProfile = new javax.swing.JButton();
+        btnViewPayment = new javax.swing.JButton();
+        btnViewFeedback = new javax.swing.JButton();
+        btnViewUser = new javax.swing.JButton();
         pnlBtn1 = new javax.swing.JPanel();
-        btnTrainingBooking = new javax.swing.JButton();
         pnlProfilePic = new javax.swing.JPanel();
         lblProfilePic = new javax.swing.JLabel();
         lblBtnTitle = new javax.swing.JLabel();
         pnlBtn2 = new javax.swing.JPanel();
         btnViewSession = new javax.swing.JButton();
-        btnManageTraining = new javax.swing.JButton();
+        btnSchedule = new javax.swing.JButton();
+        btnTrainingBooking = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,7 +132,7 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         btnRegisterUser.setBackground(new java.awt.Color(51, 51, 255));
         btnRegisterUser.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnRegisterUser.setForeground(new java.awt.Color(37, 42, 52));
-        btnRegisterUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/registeruser.png"))); // NOI18N
+        btnRegisterUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/register.png"))); // NOI18N
         btnRegisterUser.setBorder(null);
         btnRegisterUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegisterUser.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -189,71 +190,71 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         });
         pnlBtn3.add(btnLoginLog);
 
-        btnManageFeedback.setBackground(new java.awt.Color(102, 0, 255));
-        btnManageFeedback.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnManageFeedback.setForeground(new java.awt.Color(37, 42, 52));
-        btnManageFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/managefeedbac.png"))); // NOI18N
-        btnManageFeedback.setBorder(null);
-        btnManageFeedback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnManageFeedback.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnViewPayment.setBackground(new java.awt.Color(0, 204, 204));
+        btnViewPayment.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnViewPayment.setForeground(new java.awt.Color(37, 42, 52));
+        btnViewPayment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/payment.png"))); // NOI18N
+        btnViewPayment.setBorder(null);
+        btnViewPayment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnViewPayment.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnManageFeedbackMouseEntered(evt);
+                btnViewPaymentMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnManageFeedbackMouseExited(evt);
+                btnViewPaymentMouseExited(evt);
             }
         });
-        btnManageFeedback.addActionListener(new java.awt.event.ActionListener() {
+        btnViewPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageFeedbackActionPerformed(evt);
+                btnViewPaymentActionPerformed(evt);
             }
         });
-        pnlBtn3.add(btnManageFeedback);
+        pnlBtn3.add(btnViewPayment);
 
-        btnUpdateProfile.setBackground(new java.awt.Color(0, 204, 204));
-        btnUpdateProfile.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnUpdateProfile.setForeground(new java.awt.Color(37, 42, 52));
-        btnUpdateProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/updateprofile.png"))); // NOI18N
-        btnUpdateProfile.setBorder(null);
-        btnUpdateProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUpdateProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnViewFeedback.setBackground(new java.awt.Color(102, 0, 255));
+        btnViewFeedback.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnViewFeedback.setForeground(new java.awt.Color(37, 42, 52));
+        btnViewFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/feedback.png"))); // NOI18N
+        btnViewFeedback.setBorder(null);
+        btnViewFeedback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnViewFeedback.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnUpdateProfileMouseEntered(evt);
+                btnViewFeedbackMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnUpdateProfileMouseExited(evt);
+                btnViewFeedbackMouseExited(evt);
             }
         });
-        btnUpdateProfile.addActionListener(new java.awt.event.ActionListener() {
+        btnViewFeedback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateProfileActionPerformed(evt);
+                btnViewFeedbackActionPerformed(evt);
             }
         });
-        pnlBtn3.add(btnUpdateProfile);
+        pnlBtn3.add(btnViewFeedback);
+
+        btnViewUser.setBackground(new java.awt.Color(255, 51, 51));
+        btnViewUser.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnViewUser.setForeground(new java.awt.Color(37, 42, 52));
+        btnViewUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/users.png"))); // NOI18N
+        btnViewUser.setBorder(null);
+        btnViewUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnViewUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnViewUserMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnViewUserMouseExited(evt);
+            }
+        });
+        btnViewUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewUserActionPerformed(evt);
+            }
+        });
+        pnlBtn3.add(btnViewUser);
 
         pnlBtn1.setBackground(new java.awt.Color(68, 68, 68));
         pnlBtn1.setLayout(new java.awt.GridLayout(1, 1, 5, 5));
-
-        btnTrainingBooking.setBackground(new java.awt.Color(102, 0, 102));
-        btnTrainingBooking.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnTrainingBooking.setForeground(new java.awt.Color(37, 42, 52));
-        btnTrainingBooking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/trainingbooking.png"))); // NOI18N
-        btnTrainingBooking.setBorder(null);
-        btnTrainingBooking.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnTrainingBooking.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnTrainingBookingMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTrainingBookingMouseExited(evt);
-            }
-        });
-        btnTrainingBooking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTrainingBookingActionPerformed(evt);
-            }
-        });
-        pnlBtn1.add(btnTrainingBooking);
 
         pnlProfilePic.setBackground(new java.awt.Color(10, 25, 47));
         pnlProfilePic.setPreferredSize(new java.awt.Dimension(200, 200));
@@ -306,26 +307,46 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         });
         pnlBtn2.add(btnViewSession);
 
-        btnManageTraining.setBackground(new java.awt.Color(255, 102, 0));
-        btnManageTraining.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnManageTraining.setForeground(new java.awt.Color(37, 42, 52));
-        btnManageTraining.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/managebooking.png"))); // NOI18N
-        btnManageTraining.setBorder(null);
-        btnManageTraining.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnManageTraining.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSchedule.setBackground(new java.awt.Color(0, 51, 153));
+        btnSchedule.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnSchedule.setForeground(new java.awt.Color(37, 42, 52));
+        btnSchedule.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/scheduling.png"))); // NOI18N
+        btnSchedule.setBorder(null);
+        btnSchedule.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSchedule.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnManageTrainingMouseEntered(evt);
+                btnScheduleMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnManageTrainingMouseExited(evt);
+                btnScheduleMouseExited(evt);
             }
         });
-        btnManageTraining.addActionListener(new java.awt.event.ActionListener() {
+        btnSchedule.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageTrainingActionPerformed(evt);
+                btnScheduleActionPerformed(evt);
             }
         });
-        pnlBtn2.add(btnManageTraining);
+        pnlBtn2.add(btnSchedule);
+
+        btnTrainingBooking.setBackground(new java.awt.Color(102, 0, 102));
+        btnTrainingBooking.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnTrainingBooking.setForeground(new java.awt.Color(37, 42, 52));
+        btnTrainingBooking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageSrc/trainingbooking.png"))); // NOI18N
+        btnTrainingBooking.setBorder(null);
+        btnTrainingBooking.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTrainingBooking.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTrainingBookingMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTrainingBookingMouseExited(evt);
+            }
+        });
+        btnTrainingBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrainingBookingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -354,20 +375,20 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
                         .addComponent(pnlProfilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(146, Short.MAX_VALUE)
-                .addComponent(lblBtnTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 1047, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pnlBtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnTrainingBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlBtn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(129, 129, 129))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlBtn2, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-                    .addComponent(pnlBtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(122, 122, 122)
+                .addComponent(lblBtnTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 1047, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(543, Short.MAX_VALUE)
-                    .addComponent(pnlBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(84, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,18 +410,17 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
                         .addComponent(pnlProfilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(lblBtnTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(pnlBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(314, Short.MAX_VALUE)
-                    .addComponent(pnlBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(35, Short.MAX_VALUE)))
+                .addComponent(lblBtnTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnTrainingBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlBtn2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                    .addComponent(pnlBtn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -413,7 +433,7 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
         );
 
         pack();
@@ -435,34 +455,22 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogOutMouseEntered
 
-    private void btnManageTrainingMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageTrainingMouseEntered
-      lblBtnTitle.setText("Manage Booking Training Sessions");
-    }//GEN-LAST:event_btnManageTrainingMouseEntered
+    private void btnViewFeedbackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewFeedbackMouseEntered
+        lblBtnTitle.setText("View Feedback");
+    }//GEN-LAST:event_btnViewFeedbackMouseEntered
 
-    private void btnManageTrainingMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageTrainingMouseExited
-      lblBtnTitle.setText("");
-    }//GEN-LAST:event_btnManageTrainingMouseExited
-
-    private void btnManageTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageTrainingActionPerformed
-         this.dispose();
-         openFrame openFrame = new openFrame();
-         openFrame.openManagerManageTrainingSession();
-    }//GEN-LAST:event_btnManageTrainingActionPerformed
-
-    private void btnManageFeedbackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageFeedbackMouseEntered
-        lblBtnTitle.setText("Manage Feedback");
-    }//GEN-LAST:event_btnManageFeedbackMouseEntered
-
-    private void btnManageFeedbackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageFeedbackMouseExited
+    private void btnViewFeedbackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewFeedbackMouseExited
        lblBtnTitle.setText("");
-    }//GEN-LAST:event_btnManageFeedbackMouseExited
+    }//GEN-LAST:event_btnViewFeedbackMouseExited
 
-    private void btnManageFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFeedbackActionPerformed
-    
-    }//GEN-LAST:event_btnManageFeedbackActionPerformed
+    private void btnViewFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewFeedbackActionPerformed
+        this.dispose();    
+        openFrame openFrame = new openFrame();
+        openFrame.openManagerViewFeedback();
+    }//GEN-LAST:event_btnViewFeedbackActionPerformed
 
     private void btnRegisterUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterUserMouseEntered
-            lblBtnTitle.setText("Manage Customer");
+            lblBtnTitle.setText("Regiser User");
 
     }//GEN-LAST:event_btnRegisterUserMouseEntered
 
@@ -478,7 +486,7 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
     }//GEN-LAST:event_btnRegisterUserActionPerformed
 
     private void btnManageUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageUserMouseEntered
-       lblBtnTitle.setText("Manage Admin");
+       lblBtnTitle.setText("Manage User");
 
     }//GEN-LAST:event_btnManageUserMouseEntered
 
@@ -493,17 +501,19 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         openFrame.openManagerManageUser();   
     }//GEN-LAST:event_btnManageUserActionPerformed
 
-    private void btnUpdateProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateProfileMouseEntered
-        lblBtnTitle.setText("Update Profile");
-    }//GEN-LAST:event_btnUpdateProfileMouseEntered
+    private void btnViewPaymentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewPaymentMouseEntered
+        lblBtnTitle.setText("View Payment");
+    }//GEN-LAST:event_btnViewPaymentMouseEntered
 
-    private void btnUpdateProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateProfileMouseExited
+    private void btnViewPaymentMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewPaymentMouseExited
          lblBtnTitle.setText("");
-    }//GEN-LAST:event_btnUpdateProfileMouseExited
+    }//GEN-LAST:event_btnViewPaymentMouseExited
 
-    private void btnUpdateProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProfileActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateProfileActionPerformed
+    private void btnViewPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPaymentActionPerformed
+         this.dispose();
+         openFrame openFrame = new openFrame();
+         openFrame.openManagerViewPayment();
+    }//GEN-LAST:event_btnViewPaymentActionPerformed
 
     private void btnTrainingBookingMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrainingBookingMouseEntered
        lblBtnTitle.setText("Book Training Session");
@@ -520,7 +530,7 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
     }//GEN-LAST:event_btnTrainingBookingActionPerformed
 
     private void btnViewSessionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewSessionMouseEntered
-        lblBtnTitle.setText("View Booked Training Session");
+        lblBtnTitle.setText("View Training Sessions");
     }//GEN-LAST:event_btnViewSessionMouseEntered
 
     private void btnViewSessionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewSessionMouseExited
@@ -528,7 +538,9 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
     }//GEN-LAST:event_btnViewSessionMouseExited
 
     private void btnViewSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSessionActionPerformed
-        // TODO add your handling code here:
+         this.dispose();
+         openFrame openFrame = new openFrame();
+         openFrame.openManagerViewTrainingSession();
     }//GEN-LAST:event_btnViewSessionActionPerformed
 
     private void btnLoginLogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginLogMouseEntered
@@ -544,6 +556,34 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
          openFrame openFrame = new openFrame();
          openFrame.openLoginActivity();
     }//GEN-LAST:event_btnLoginLogActionPerformed
+
+    private void btnScheduleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnScheduleMouseEntered
+        lblBtnTitle.setText("Schedule Training Sessions");
+    }//GEN-LAST:event_btnScheduleMouseEntered
+
+    private void btnScheduleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnScheduleMouseExited
+       lblBtnTitle.setText("");
+    }//GEN-LAST:event_btnScheduleMouseExited
+
+    private void btnScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleActionPerformed
+         this.dispose();
+         openFrame openFrame = new openFrame();
+         openFrame.openScheduleTrainingSlots();
+    }//GEN-LAST:event_btnScheduleActionPerformed
+
+    private void btnViewUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewUserMouseEntered
+       lblBtnTitle.setText("View Users");
+    }//GEN-LAST:event_btnViewUserMouseEntered
+
+    private void btnViewUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewUserMouseExited
+       lblBtnTitle.setText("");
+    }//GEN-LAST:event_btnViewUserMouseExited
+
+    private void btnViewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewUserActionPerformed
+         this.dispose();
+         openFrame openFrame = new openFrame();
+         openFrame.openManagerViewUsers();
+    }//GEN-LAST:event_btnViewUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -679,18 +719,23 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
    
      
      public void initGUI() {
-              
-        try {
+       try {
+              //setting the frame name
+        this.setTitle("Centre Manager Main Menu");
+         
+     
             //This sets the button to not focus
             btnLogOut.setFocusable(false);
             btnTrainingBooking.setFocusable(false);
             btnRegisterUser.setFocusable(false);
             btnManageUser.setFocusable(false);
-            btnUpdateProfile.setFocusable(false);
-            btnManageTraining.setFocusable(false);
-            btnManageFeedback.setFocusable(false);
+            btnViewPayment.setFocusable(false);
+            btnSchedule.setFocusable(false);
+            btnViewFeedback.setFocusable(false);
             btnLoginLog.setFocusable(false);
             btnViewSession.setFocusable(false);
+            btnViewPayment.setFocusable(false);
+            btnViewUser.setFocusable(false);
             txtUsername.setFocusable(false);
             
             
@@ -737,13 +782,14 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnLoginLog;
-    private javax.swing.JButton btnManageFeedback;
-    private javax.swing.JButton btnManageTraining;
     private javax.swing.JButton btnManageUser;
     private javax.swing.JButton btnRegisterUser;
+    private javax.swing.JButton btnSchedule;
     private javax.swing.JButton btnTrainingBooking;
-    private javax.swing.JButton btnUpdateProfile;
+    private javax.swing.JButton btnViewFeedback;
+    private javax.swing.JButton btnViewPayment;
     private javax.swing.JButton btnViewSession;
+    private javax.swing.JButton btnViewUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBtnTitle;

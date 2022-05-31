@@ -4,6 +4,14 @@
  */
 package ags_systemmanagement;
 
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.Style;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import java.awt.Desktop;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -31,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CentreManager_ViewUser extends javax.swing.JFrame {
     private final String projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt";
-    private final String pdfSource = System.getProperty("user.dir") + "\\src\\pdf\\User.pdf";    
+    private final String pdfDir = System.getProperty("user.dir") + "\\src\\pdf\\ManagerUser.pdf";    
     private boolean filter = false;
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     /**
@@ -65,6 +73,7 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField();
         btnClear2 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUserRecords = new javax.swing.JTable();
 
@@ -143,6 +152,23 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(153, 153, 255));
+        btnSave.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(102, 0, 102));
+        btnSave.setText("Save PDF");
+        btnSave.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSaveMouseEntered(evt);
+            }
+        });
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         jScrollPane1.setBackground(new java.awt.Color(204, 204, 204));
 
         tblUserRecords.setBackground(new java.awt.Color(255, 255, 255));
@@ -201,6 +227,10 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 36, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,8 +252,10 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
                         .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnClear2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(44, 44, 44)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,9 +268,7 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE)
         );
 
         pack();
@@ -292,6 +322,18 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
     private void tblUserRecordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserRecordsMouseClicked
 
     }//GEN-LAST:event_tblUserRecordsMouseClicked
+
+    private void btnSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveMouseEntered
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        try {
+            saveUserRecords();
+        } catch (IOException ex) {
+            Logger.getLogger(CentreManager_ViewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,7 +459,7 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
                 }
                 
                 
-                model.addRow(new Object[] {userid, userrole, userfullname, userusername, userpassword, gender, formatTableDate, phonenum, email, banknum, bankname, status});
+                model.addRow(new Object[] {userid, userrole, userfullname, userusername, userpassword, gender, formatTableDate, phonenum, email, bankname, banknum, status});
                 
             }
         } catch (FileNotFoundException ex) {
@@ -452,10 +494,93 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
     }
     
     
-           //This method is for initial start of the frame
+      private void saveUserRecords() throws IOException, FileNotFoundException{
+               
+            PdfWriter wr = new PdfWriter(pdfDir);
+            PdfDocument pdffile = new PdfDocument(wr);
+            Document doct = new Document(pdffile);
+            Style titlestyle = new Style();
+            titlestyle.setBold().setFontSize(18f).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER);
+            
+            String title = "User Records";
+            Paragraph doctitle = new Paragraph(title).addStyle(titlestyle);
+            
+            float columnWidth[] = {50f,50f,50f,50f,50f,50f,50f,50f,50f,50f,50f};
+            Table tbl = new Table(columnWidth);
+          
+            doct.add(doctitle);
+            tbl.addCell("User ID").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+            tbl.addCell("User Role").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+            tbl.addCell("Full Name").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+            tbl.addCell("Username").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+            //tbl.addCell("Password").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("Gender").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);            
+            tbl.addCell("Date of Birth").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+            tbl.addCell("Phone Number").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+            tbl.addCell("Email").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+           tbl.addCell("Bank Name").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+           tbl.addCell("Bank Acc Numr").setFontColor(new DeviceRgb(23, 23, 23));
+            tbl.addCell("User Status").setFontColor(new DeviceRgb(23, 23, 23)).setFontSize(6);
+           
+            
+            for(int i = 0; i < tblUserRecords.getRowCount(); i++){
+              
+                String userID = tblUserRecords.getValueAt(i, 0).toString();
+                String userrole = tblUserRecords.getValueAt(i, 1).toString();
+                String fullname = tblUserRecords.getValueAt(i, 2).toString();
+                String username = tblUserRecords.getValueAt(i, 3).toString();
+                //String password = tblUserRecords.getValueAt(i, 4).toString();
+                String gender = tblUserRecords.getValueAt(i, 5).toString();
+                String dob = tblUserRecords.getValueAt(i, 6).toString();
+                String phonenum = tblUserRecords.getValueAt(i, 7).toString();
+                String email = tblUserRecords.getValueAt(i, 8).toString();
+                String bankname= tblUserRecords.getValueAt(i, 9).toString();
+                String banknum = tblUserRecords.getValueAt(i, 10).toString();
+                String status= tblUserRecords.getValueAt(i, 11).toString();
+                 
+                              
+                tbl.addCell(userID);
+                tbl.addCell(userrole);
+                tbl.addCell(fullname);
+                tbl.addCell(username);
+                //tbl.addCell(password);
+                tbl.addCell(gender);
+                tbl.addCell(dob);
+                tbl.addCell(phonenum);
+                tbl.addCell(email);
+                tbl.addCell(bankname);
+                tbl.addCell(banknum);
+                tbl.addCell(status);
+                
+
+            }
+            
+           
+          //write into the pdf
+           doct.add(tbl);
+           doct.close();
+          JOptionPane.showMessageDialog(null, "User Records Printed Successfully in PDF!", "Records Printed!", JOptionPane.INFORMATION_MESSAGE);
+       
+       if (Desktop.isDesktopSupported()) {
+          try {
+              File myFile = new File(pdfDir);             
+              Desktop.getDesktop().open(myFile);
+          } catch (IOException ex) {
+              // no application registered for PDFs
+          }
+         }
+
+    }
+      
+    
+    
+      //This method is for initial start of the frame
     public void initGUI() {
      
         try {
+              //setting the frame name
+             this.setTitle("View User");
+          
             //This will padding for the textfields
             txtFilter.setBorder(BorderFactory.createCompoundBorder(txtFilter.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
             
@@ -463,6 +588,7 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
             btnGoBack.setFocusable(false);
             btnFilter.setFocusable(false);
             btnClear2.setFocusable(false);
+            btnSave.setFocusable(false);
             tblUserRecords.setFocusable(false);
             tblUserRecords.setDefaultEditor(Object.class, null);
             
@@ -517,6 +643,7 @@ public class CentreManager_ViewUser extends javax.swing.JFrame {
     private javax.swing.JButton btnClear2;
     private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnGoBack;
+    private javax.swing.JButton btnSave;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblName;

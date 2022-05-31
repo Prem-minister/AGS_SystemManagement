@@ -1052,7 +1052,9 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
   
      //This method is for initial start of the frame
     public void initGUI() {
-     
+       //setting the frame name
+        this.setTitle("Register New User");
+         
         //This will padding for the textfields
         txtNewUsername.setBorder(BorderFactory.createCompoundBorder(txtNewUsername.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
         txtPassword.setBorder(BorderFactory.createCompoundBorder(txtPassword.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));

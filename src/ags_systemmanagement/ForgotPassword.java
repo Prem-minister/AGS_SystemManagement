@@ -673,7 +673,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         lblLoginLogo.setIcon(new ImageIcon(imgLogin));
         
         //setting the frame name
-        this.setTitle("Forgot Passowrd Page");
+        this.setTitle("Forgot Passowrd");
           
         //This sets the items not focusable
         btnBack.setFocusable(false);
