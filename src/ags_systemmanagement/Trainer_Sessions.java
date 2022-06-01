@@ -4,6 +4,21 @@
  */
 package ags_systemmanagement;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author User
@@ -13,10 +28,26 @@ public class Trainer_Sessions extends javax.swing.JFrame {
     /**
      * Creates new form Trainer_Sessions
      */
-    public Trainer_Sessions() {
+    Trainer T;
+    
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    Date today = new Date();
+    String[] Training_ID;
+    
+    public Trainer_Sessions(Trainer T) {
         initComponents();
+        setTrainer(T);
+        GUI();
     }
 
+    public void setTrainer(Trainer T){
+        this.T = T;
+    }
+    
+    public Trainer_Sessions(){
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,102 +60,106 @@ public class Trainer_Sessions extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         T_Sessions_SearchBtn = new javax.swing.JButton();
-        Trainer_Sessions_Name = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         T_Sessions_table = new javax.swing.JTable();
-        T_Sessions_BackBtn = new javax.swing.JLabel();
         T_Sessions_FeedbackBtn = new javax.swing.JButton();
         T_Sessions_PaymentBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        DatePick = new com.toedter.calendar.JDateChooser();
+        view_ALL = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(681, 521));
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/searchIcon.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Sessions");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 19, 918, -1));
 
         T_Sessions_SearchBtn.setBackground(new java.awt.Color(0, 255, 255));
         T_Sessions_SearchBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         T_Sessions_SearchBtn.setText("Search");
-
-        Trainer_Sessions_Name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        Trainer_Sessions_Name.setText("Search by name");
-        Trainer_Sessions_Name.addActionListener(new java.awt.event.ActionListener() {
+        T_Sessions_SearchBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        T_Sessions_SearchBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Trainer_Sessions_NameActionPerformed(evt);
+                T_Sessions_SearchBtnActionPerformed(evt);
             }
         });
+        jPanel1.add(T_Sessions_SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 85, 118, 33));
 
         T_Sessions_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "TrainingID", "TrainerID", "Trainer Name", "Date", "Start Time", "End Time", "Customer ID", "FEES", "Status", "Rating", "Customer Feedback"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(T_Sessions_table);
 
-        T_Sessions_BackBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 161, 965, 386));
 
         T_Sessions_FeedbackBtn.setBackground(new java.awt.Color(255, 255, 0));
         T_Sessions_FeedbackBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         T_Sessions_FeedbackBtn.setText("Add Feedback");
+        T_Sessions_FeedbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        T_Sessions_FeedbackBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Sessions_FeedbackBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(T_Sessions_FeedbackBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(547, 85, 118, 33));
 
         T_Sessions_PaymentBtn.setBackground(new java.awt.Color(255, 255, 51));
         T_Sessions_PaymentBtn.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         T_Sessions_PaymentBtn.setText("Add Payment");
+        T_Sessions_PaymentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        T_Sessions_PaymentBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Sessions_PaymentBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(T_Sessions_PaymentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(881, 85, -1, 33));
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .add(28, 28, 28)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(Trainer_Sessions_Name, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 204, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(T_Sessions_SearchBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(31, 31, 31)
-                        .add(T_Sessions_FeedbackBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(T_Sessions_PaymentBtn))
-                    .add(jScrollPane1))
-                .add(31, 31, 31))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(T_Sessions_BackBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(18, 18, 18)
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 589, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(19, 19, 19)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(T_Sessions_BackBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(Trainer_Sessions_Name, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(T_Sessions_SearchBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(T_Sessions_FeedbackBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(T_Sessions_PaymentBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(27, 27, 27)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 386, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
+        jButton1.setBackground(new java.awt.Color(0, 51, 102));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 19, -1, -1));
+        jPanel1.add(DatePick, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 85, 189, 31));
+
+        view_ALL.setBackground(new java.awt.Color(255, 255, 0));
+        view_ALL.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        view_ALL.setText("View All Data");
+        view_ALL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        view_ALL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view_ALLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(view_ALL, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 85, 118, 33));
+        jPanel1.add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 550, -1, -1));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,16 +169,192 @@ public class Trainer_Sessions extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Trainer_Sessions_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_Sessions_NameActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Trainer_Sessions_NameActionPerformed
+        this.setVisible(false);
+        Trainer_MainMenu TM = new Trainer_MainMenu();
+        
+        TM.setVisible(true);
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TM.setLocation(dim.width/2-TM.getSize().width/2, dim.height/2-TM.getSize().height/2);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void T_Sessions_FeedbackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Sessions_FeedbackBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_Feedback TFB = new Trainer_Feedback(T);
+        TFB.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TFB.setLocation(dim.width/2-TFB.getSize().width/2, dim.height/2-TFB.getSize().height/2);
+    }//GEN-LAST:event_T_Sessions_FeedbackBtnActionPerformed
+
+    private void T_Sessions_PaymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Sessions_PaymentBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_Payment Tp = new Trainer_Payment(T);
+        Tp.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        Tp.setLocation(dim.width/2-Tp.getSize().width/2, dim.height/2-Tp.getSize().height/2);
+    }//GEN-LAST:event_T_Sessions_PaymentBtnActionPerformed
+
+    private void T_Sessions_SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Sessions_SearchBtnActionPerformed
+        // TODO add your handling code here:
+        if(DatePick.getDate() == null){
+            
+            System.out.println("DATE NOT SELECTED");
+        } else {
+            String selected = formatter.format(DatePick.getDate());
+            System.out.println("DATE" + selected);
+            loadData(selected);  
+        }
+    }//GEN-LAST:event_T_Sessions_SearchBtnActionPerformed
+
+    private void view_ALLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_ALLActionPerformed
+        // TODO add your handling code here:
+        try{
+            BufferedReader r = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
+            String line, line2;
+            String[] userData;
+            String[] TID;
+            int count = 0;
+            while((line2 = r.readLine()) !=null) count++;
+            r.close();
+            System.out.println(count);
+            
+            TID = new String [(count)];
+            
+            
+            BufferedReader rdd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
+            
+            //Clear table data
+            DefaultTableModel md = (DefaultTableModel) T_Sessions_table.getModel();
+            md.setRowCount(0);
+            
+            int i=0;
+            //adding data to the jtable
+            while((line = rdd.readLine()) != null){
+                userData = line.split(":");
+                if(userData[1].equals(T.user_ID) ){
+                    
+                    Object[] row = {userData[0], userData[1], userData[2], userData[3], userData[4], userData[5], userData[6], userData[7], userData[8]};
+                    md.addRow(row);
+                    TID[i] = userData[0];
+                    i++;
+                }
+                Arrays.fill(userData, null);
+            }
+            
+            //closing file
+            rdd.close();
+            
+            //reading feeedback text file
+            BufferedReader readFB = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt"));
+            String[] data;
+            if(new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt").exists()){
+                while ((line = readFB.readLine()) != null) {
+                    data = line.split(":");
+                    for(int p=0; p<TID.length; p++){
+                        if(data[1].equals(TID[p])){
+                            md.setValueAt(data[2], p, 9);
+                            md.setValueAt(data[3], p, 10);
+                        }
+                    }
+
+                }
+            }
+            readFB.close();
+            
+            
+        }catch(IOException e){
+            
+        }
+    }//GEN-LAST:event_view_ALLActionPerformed
+
+    
+    public void loadData(String date){
+        try{
+            BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
+            String line, line2;
+            String[] userData;
+            int count = 0;
+            while((line2 = rd.readLine()) !=null) count++;
+            rd.close();
+            System.out.println(count);
+            
+            Training_ID = new String [(count)];
+            
+            System.out.println("eee");
+            
+            BufferedReader rdd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
+            
+            //Clear table data
+            DefaultTableModel md = (DefaultTableModel) T_Sessions_table.getModel();
+            md.setRowCount(0);
+            
+            int i=0;
+            //adding data to the jtable
+            while((line = rdd.readLine()) != null){
+                System.out.println("hello");
+
+                userData = line.split(":");
+                if(userData[1].equals(T.user_ID) && userData[3].equals(date)){
+                    
+                    Object[] row = {userData[0], userData[1], userData[2], userData[3], userData[4], userData[5], userData[6], userData[7], userData[8]};
+                    md.addRow(row);
+                    Training_ID[i] = userData[0];
+                    i++;
+                }
+                Arrays.fill(userData, null);
+            }
+            
+            //closing file
+            rdd.close();
+            
+            //reading feeedback text file
+            BufferedReader readFB = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\CustomerFeedback.txt"));
+            String[] data;
+            while ((line = readFB.readLine()) != null) {
+                data = line.split(":");
+                for(int p=0; p<Training_ID.length; p++){
+                    if(data[1].equals(Training_ID[p])){
+                        md.setValueAt(data[2], p, 9);
+                        md.setValueAt(data[3], p, 10);
+                    }
+                }
+                
+            }
+            
+            readFB.close();
+            
+     
+            
+            // show message if no training in that day
+            if(Training_ID[0] == null){
+                JOptionPane.showMessageDialog(null, "No Training have been scheduled today!", "No Record", 1);
+            }
+            
+            
+            //cancel class section
+//            for(int x=0; x<Training_ID.length; x++)
+//            {
+//                SessionID_Combo.addItem(Training_ID[x]);
+//            }
+            
+            
+        } catch(IOException e){
+            System.out.println("Problem in reading Files");
+        }
+        
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -178,16 +389,49 @@ public class Trainer_Sessions extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    public void GUI(){
+        
+        //setting the selectable date to be after today only
+        DatePick.setDate(today);
+        
+        loadData(formatter.format(DatePick.getDate()));
+        
+        //adding closing confirmation 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {
+                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+
+                        if(cache.delete()){
+                            System.out.print("Cache Deleted!");
+                            dispose();
+                        } else {
+                            System.out.print("Cache not deleted");
+                        }
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });   
+        
+        this.setSize(1030, 580);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel T_Sessions_BackBtn;
+    private com.toedter.calendar.JDateChooser DatePick;
     private javax.swing.JButton T_Sessions_FeedbackBtn;
     private javax.swing.JButton T_Sessions_PaymentBtn;
     private javax.swing.JButton T_Sessions_SearchBtn;
     private javax.swing.JTable T_Sessions_table;
-    private javax.swing.JTextField Trainer_Sessions_Name;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton view_ALL;
     // End of variables declaration//GEN-END:variables
 }

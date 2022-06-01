@@ -4,17 +4,47 @@
  */
 package ags_systemmanagement;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Arrays;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ko ee
  */
-public class Trainer_Profile extends javax.swing.JFrame {
+public class Trainer_Profile extends JFrame implements KeyListener {
+    
+    Trainer T;
 
     /**
      * Creates new form Trainer_Profile
      */
-    public Trainer_Profile() {
+    public Trainer_Profile(Trainer U) {
         initComponents();
+        setTrainer(U);
+        GUI();
+        
+        
+    }
+
+    private Trainer_Profile() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public void setTrainer(Trainer T) {
+        this.T = T; 
+        System.out.println(this.T.user_name);
     }
 
     /**
@@ -45,12 +75,12 @@ public class Trainer_Profile extends javax.swing.JFrame {
         T_Upd_Personal = new javax.swing.JButton();
         T_Upd_Bank = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         BankLbl2 = new javax.swing.JLabel();
         T_Reset_Pass = new javax.swing.JPasswordField();
         T_Reset_Confirm = new javax.swing.JPasswordField();
         BankLbl3 = new javax.swing.JLabel();
         T_ResetBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(681, 521));
@@ -148,17 +178,24 @@ public class Trainer_Profile extends javax.swing.JFrame {
 
         T_Upd_Personal.setBackground(new java.awt.Color(0, 255, 255));
         T_Upd_Personal.setText("Update");
+        T_Upd_Personal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Upd_PersonalActionPerformed(evt);
+            }
+        });
 
         T_Upd_Bank.setBackground(new java.awt.Color(0, 255, 255));
         T_Upd_Bank.setText("Update");
+        T_Upd_Bank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_Upd_BankActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("password reset");
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         BankLbl2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         BankLbl2.setForeground(new java.awt.Color(255, 255, 255));
@@ -173,6 +210,20 @@ public class Trainer_Profile extends javax.swing.JFrame {
         T_ResetBtn.setBackground(new java.awt.Color(255, 0, 0));
         T_ResetBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         T_ResetBtn.setText("RESET");
+        T_ResetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_ResetBtnActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(0, 51, 102));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -227,14 +278,14 @@ public class Trainer_Profile extends javax.swing.JFrame {
                                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(58, 58, 58)
                                         .addComponent(jLabel4))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jButton1)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(T_ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -302,13 +353,13 @@ public class Trainer_Profile extends javax.swing.JFrame {
                     .addComponent(T_Reset_Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(T_ResetBtn)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(26, 26, 26))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -324,9 +375,10 @@ public class Trainer_Profile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
     private void T_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_NameActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_T_NameActionPerformed
 
     private void T_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_EmailActionPerformed
@@ -348,6 +400,223 @@ public class Trainer_Profile extends javax.swing.JFrame {
     private void T_BankNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_BankNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_T_BankNoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:'
+        this.setVisible(false);
+        Trainer_MainMenu TM = new Trainer_MainMenu();
+        TM.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TM.setLocation(dim.width/2-TM.getSize().width/2, dim.height/2-TM.getSize().height/2);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void T_ResetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_ResetBtnActionPerformed
+        // TODO add your handling code here:
+        String reset_pass = T.getReset_pass();
+        String confirm_pass = T.getConfirm_pass();
+        // Checking whether the pass and confirmation pass match
+        try{
+            if (reset_pass == null || reset_pass.isEmpty()) {
+                // Alert Dialog to if password not match
+                JOptionPane.showMessageDialog(null, "Password Cannot be blank!, Try again!", "Password Blank", HEIGHT);
+            } else if(!reset_pass.equals(confirm_pass)) {
+                System.out.println(String.valueOf(reset_pass));
+                JOptionPane.showMessageDialog(null, "Password and Confirmation Password not match, Try again!", "Password Mismatch", HEIGHT);
+            } else {
+                if(reset_pass.equals(confirm_pass)){
+                    //setting user_password
+                    T.setUser_password(String.valueOf(reset_pass));
+
+                    //need to update txt file
+                    //Reading user db
+
+                        BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
+
+                        String[] user;
+                        String line;
+
+                        //Writting a temp file
+                        BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
+                        //updating file with new bank information for the correct id
+                        //while loop for each line in user.txt
+                        while((line = rd.readLine())!= null){
+                            //splitting the userdata
+                            user = line.split(":");
+                            //comparing the editting user 
+                            if(user[0].equals(T.user_ID)){
+                                for(int i=0; i<user.length; i++){
+                                    if(i!= 4){
+                                        wr.write(user[i] + ":");
+                                    } else {
+                                        System.out.print(T.user_password);
+                                        wr.write(T.user_password+ ":");
+                                    }
+                                }
+                                wr.write("\n");
+                            } else {
+                                for(int i=0; i<user.length; i++){
+                                    wr.write(user[i] + ":");
+                                }
+                                wr.write("\n");
+                            }
+                            //clearing array
+                            Arrays.fill(user,null);
+                        }
+
+                        rd.close();
+                        wr.close();
+
+                        File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt");
+                        File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
+
+                        //deleting the old user file and renaming the temp file to new user file
+                        fileToDelete.delete();
+                        fileToChangeName.renameTo(fileToDelete);
+
+                        // Dialog to says password have been resetted
+                        JOptionPane.showMessageDialog(null, "Password Has Been Resetted!", "Password Resetted", 1);
+
+
+                }
+            }
+        } catch(Exception e){
+            
+        }
+        
+    }//GEN-LAST:event_T_ResetBtnActionPerformed
+
+    private void T_Upd_BankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Upd_BankActionPerformed
+        // TODO add your handling code here:
+        String B_Name = T_BankName.getText();
+        String B_No = T_BankNo.getText();
+        
+        try{
+            if(!B_Name.isBlank() && !B_No.isBlank()){
+                T.setBankName(B_Name);
+                T.setBankNo(B_No);
+                
+                //Reading user db
+                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
+                
+                String[] user;
+                String line;
+                
+                //Writting a temp file
+                BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
+                //updating file with new bank information for the correct id
+                //while loop for each line in user.txt
+                while((line = rd.readLine())!= null){
+                    //splitting the userdata
+                    user = line.split(":");
+                    //comparing the editting user 
+                    if(user[0].equals(T.user_ID)){
+                        for(int i=0; i<user.length; i++){
+                            if(i!= 10 && i!=11){
+                                wr.write(user[i] + ":");
+                            } else {
+                                if(i==10){
+                                    wr.write(T.BankName + ":");
+                                } else {
+                                    wr.write(T.BankNo + ":");
+                                }
+                            }
+                        }
+                        wr.write("\n");
+                    } else {
+                        for(int i=0; i<user.length; i++){
+                            wr.write(user[i] + ":");
+                        }
+                        wr.write("\n");
+                    }
+                    //clearing array
+                    Arrays.fill(user,null);
+                }
+                
+                rd.close();
+                wr.close();
+                
+                File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt");
+                File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
+                
+                //deleting the old user file and renaming the temp file to new user file
+                fileToDelete.delete();
+                fileToChangeName.renameTo(fileToDelete);
+                
+                JOptionPane.showMessageDialog(null, "Bank Details have been Updated", "Bank Info", 1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Some Fields is Blank! Please Enter all info ", "Fail To Upadte", 2);
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e, "Error", 2);
+        }
+        
+        
+        
+    }//GEN-LAST:event_T_Upd_BankActionPerformed
+    // when user click update profile button
+    private void T_Upd_PersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_Upd_PersonalActionPerformed
+        // TODO add your handling code here:
+        try{
+            if(!T.getUser_name().isBlank() && !T.getUser_email().isBlank() && !T.getUser_contact().isBlank() && !T.getUser_DOB().isBlank()){
+                //Reading user db
+                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
+                
+                String[] user;
+                String line;
+                
+                //Writting a temp file
+                BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
+                //updating file with new bank information for the correct id
+                //while loop for each line in user.txt
+                while((line = rd.readLine())!= null){
+                    //splitting the userdata
+                    user = line.split(":");
+                    //comparing the editting user 
+                    if(user[0].equals(T.user_ID)){
+                        for(int i=0; i<user.length; i++){
+                            if(i!= 3 && i!=6 && i!=7 && i!=8){
+                                wr.write(user[i] + ":");
+                            } else {
+                                if(i==3){
+                                    wr.write(T.user_name + ":");
+                                } else if(i==6){
+                                    wr.write(T.user_DOB + ":");
+                                } else if(i==7){
+                                    wr.write(T.user_contact + ":");
+                                } else {
+                                    wr.write(T.user_email + ":");
+                                }
+                            }
+                        }
+                        wr.write("\n");
+                    } else {
+                        for(int i=0; i<user.length; i++){
+                            wr.write(user[i] + ":");
+                        }
+                        wr.write("\n");
+                    }
+                    //clearing array
+                    Arrays.fill(user,null);
+                }
+                
+                rd.close();
+                wr.close();
+                
+                File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt");
+                File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
+                
+                //deleting the old user file and renaming the temp file to new user file
+                fileToDelete.delete();
+                fileToChangeName.renameTo(fileToDelete);
+                
+                JOptionPane.showMessageDialog(null, "User Details have been Updated", "User Info", 1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Some Fields is Blank! Please Enter all info ", "Fail To Upadte", 2);
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e, "Error", 2);
+        }
+    }//GEN-LAST:event_T_Upd_PersonalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,6 +652,54 @@ public class Trainer_Profile extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    public void GUI(){
+        // Adding Key listener to fields
+        T_Name.addKeyListener(this);
+        T_Email.addKeyListener(this);
+        T_Phone.addKeyListener(this);
+        T_BankName.addKeyListener(this);
+        T_BankNo.addKeyListener(this);
+        T_DoB.addKeyListener(this);
+        
+        // Add
+        
+        T_Reset_Pass.addKeyListener(this);
+        T_Reset_Confirm.addKeyListener(this);
+        
+        if(T!=null) {
+            T_Name.setText(T.user_name);
+            T_Email.setText(T.user_email);
+            T_Phone.setText(T.user_contact);
+            T_BankName.setText(T.BankName);
+            T_BankNo.setText(T.BankNo);
+            T_DoB.setText(T.user_DOB);
+        }
+        
+        
+        //adding closing confirmation 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {
+                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+
+                        if(cache.delete()){
+                            System.out.print("Cache Deleted!");
+                            dispose();
+                        } else {
+                            System.out.print("Cache not deleted");
+                        }
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BankLbl;
@@ -404,11 +721,66 @@ public class Trainer_Profile extends javax.swing.JFrame {
     private javax.swing.JPasswordField T_Reset_Pass;
     private javax.swing.JButton T_Upd_Bank;
     private javax.swing.JButton T_Upd_Personal;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    // Update what user typed
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
+        //checking whether the source is T_Name
+        if(e.getSource() == T_Name){
+            T.setUser_name(T_Name.getText());
+        }
+        
+        if(e.getSource() == T_Phone){
+            T.setUser_contact(T_Phone.getText());
+        }
+        
+        if(e.getSource() == T_Email){
+            T.setUser_email(T_Email.getText());
+        }
+        
+        if(e.getSource() == T_BankName){
+            T.setBankName(T_BankName.getText());
+        }
+        
+        if(e.getSource() == T_BankNo){
+            T.setBankNo(T_BankNo.getText());
+        }
+        
+        if(e.getSource() == T_DoB){
+            T.setUser_DOB(T_DoB.getText());
+        }
+        
+        if(e.getSource() == T_Reset_Pass){
+            System.out.print(String.valueOf(T_Reset_Pass.getPassword()));
+            T.setReset_pass(String.valueOf(T_Reset_Pass.getPassword()));
+        }
+        
+        if(e.getSource() == T_Reset_Confirm){
+            T.setConfirm_pass(String.valueOf(T_Reset_Confirm.getPassword()));
+        }
+    }
 }

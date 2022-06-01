@@ -4,19 +4,41 @@
  */
 package ags_systemmanagement;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
  */
 public class Trainer_MainMenu extends javax.swing.JFrame {
 
+    public Trainer U;
+    private String projectDir, userID;
     /**
      * Creates new form Trainer_MainMenu
+     * @throws java.io.IOException
      */
     public Trainer_MainMenu() {
         initComponents();
+        GUI();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,6 +116,11 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         Trainer_LogOutBtn.setBackground(new java.awt.Color(255, 0, 0));
         Trainer_LogOutBtn.setForeground(new java.awt.Color(255, 255, 255));
         Trainer_LogOutBtn.setText("Log Out");
+        Trainer_LogOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Trainer_LogOutBtnActionPerformed(evt);
+            }
+        });
 
         T_MM_Date.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         T_MM_Date.setForeground(new java.awt.Color(255, 255, 0));
@@ -167,16 +194,72 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
 
     private void Trainer_SessionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_SessionsBtnActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_Sessions TSe = new Trainer_Sessions(U);
+        TSe.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TSe.setLocation(dim.width/2-TSe.getSize().width/2, dim.height/2-TSe.getSize().height/2);
     }//GEN-LAST:event_Trainer_SessionsBtnActionPerformed
 
     private void Trainer_ProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_ProfileBtnActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_Profile tp = new Trainer_Profile(U);
+        tp.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        tp.setLocation(dim.width/2-tp.getSize().width/2, dim.height/2-tp.getSize().height/2);
     }//GEN-LAST:event_Trainer_ProfileBtnActionPerformed
 
     private void Trainer_ScheduleBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_ScheduleBtn1ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        Trainer_Schedule TS = new Trainer_Schedule(U);
+        TS.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        TS.setLocation(dim.width/2-TS.getSize().width/2, dim.height/2-TS.getSize().height/2);
     }//GEN-LAST:event_Trainer_ScheduleBtn1ActionPerformed
 
+    private void Trainer_LogOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Trainer_LogOutBtnActionPerformed
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+            
+            if(cache.delete()){
+                System.out.print("Cache Deleted!");
+                this.dispose();
+                openFrame openFrame = new openFrame();
+                openFrame.openLogin();
+            } else {
+                System.out.print("Cache not deleted");
+            }
+            
+        }
+    }//GEN-LAST:event_Trainer_LogOutBtnActionPerformed
+
+     //This method is to get userID and display it in textfield
+    private void getUserID() {
+       String[] userDetails;
+        try {
+            // This sets the directory of the project
+            projectDir = System.getProperty("user.dir") + "\\src\\db_TxtFiles\\";
+            // This sets the file which going to be accessed
+            File cacheFile = new File(projectDir + "UserCache.txt");
+            if (!cacheFile.exists()) {
+                cacheFile.createNewFile();
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(cacheFile));
+            String line;
+            while((line = reader.readLine()) != null){
+                String[] data = line.split(":");
+                userID = data[1];
+            }
+            reader.close();
+        } catch (Exception ex) {
+            System.out.println("Error" + ex);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -186,6 +269,7 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -207,9 +291,76 @@ public class Trainer_MainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Trainer_MainMenu().setVisible(true);
+                    new Trainer_MainMenu().setVisible(true);           
             }
         });
+    }
+    
+    public void GUI(){
+        setTitle("Main Menu");
+        setResizable(false);
+        
+        System.out.print("test");
+        
+        //getting todays date
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date today = new Date();
+        //setting the date in the mainmenu label
+        T_MM_Date.setText(formatter.format(today));
+        
+        //getting Logged in User
+        getUserID();
+        System.out.print(userID);
+        
+        
+        String[] userData = null;
+        String line;
+        if(!userID.isEmpty()){
+            //getting all user infor for that logged in user
+            try{
+                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
+
+                while((line = rd.readLine()) != null){
+                    userData = line.split(":");
+                    if(userData[0].equals(userID)){
+                        break;
+                    }
+                    //clear userdata if it is not the correct user
+                    Arrays.fill(userData, null);
+                }
+                rd.close();
+                if(userData[0] != null){
+                    U = new Trainer(userData[0], userData[3], userData[4], userData[5], userData[6], userData[7], userData[8], userData[10], userData[11]);
+                }
+            } catch(IOException e){
+                
+            }
+        }
+        
+        
+        
+        
+        //adding closing confirmation 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (selection == JOptionPane.YES_OPTION) {
+                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
+
+                        if(cache.delete()){
+                            System.out.print("Cache Deleted!");
+                            dispose();
+                        } else {
+                            System.out.print("Cache not deleted");
+                        }
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

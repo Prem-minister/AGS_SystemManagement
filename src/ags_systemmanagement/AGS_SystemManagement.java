@@ -17,6 +17,7 @@ public class AGS_SystemManagement {
      * @param args the command line arguments test
      */
     public static void main(String[] args) {
+
           //CentreManager_ScheduleTraining frame = new CentreManager_ScheduleTraining();
           //CentreManager_MainMenu frame = new CentreManager_MainMenu();
           Login frame = new Login();
@@ -32,6 +33,7 @@ public class AGS_SystemManagement {
           //CentreManager_ViewFeedback frame = new CentreManager_ViewFeedback();
           // CentreManager_ViewTrainingSession frame = new CentreManager_ViewTrainingSession();
           //CentreManager_ViewUser frame = new CentreManager_ViewUser();
+
           Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
           frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
           frame.setVisible(true);
