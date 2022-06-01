@@ -263,6 +263,11 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
         lblProfilePic.setMaximumSize(new java.awt.Dimension(100, 100));
         lblProfilePic.setMinimumSize(new java.awt.Dimension(100, 100));
         lblProfilePic.setPreferredSize(new java.awt.Dimension(100, 100));
+        lblProfilePic.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblProfilePicMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlProfilePicLayout = new javax.swing.GroupLayout(pnlProfilePic);
         pnlProfilePic.setLayout(pnlProfilePicLayout);
@@ -584,6 +589,12 @@ public class CentreManager_MainMenu extends javax.swing.JFrame { //This variable
          openFrame openFrame = new openFrame();
          openFrame.openManagerViewUsers();
     }//GEN-LAST:event_btnViewUserActionPerformed
+
+    private void lblProfilePicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilePicMouseClicked
+         this.dispose();
+         openFrame openFrame = new openFrame();
+         openFrame.openUpdateManagerProfile();
+    }//GEN-LAST:event_lblProfilePicMouseClicked
 
     /**
      * @param args the command line arguments

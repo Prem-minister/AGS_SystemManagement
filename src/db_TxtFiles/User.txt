@@ -4,3 +4,4 @@ USR0032:Centre Trainer:rhhhhh:11221:23:Male:2022-05-02:020-2020200:3@gmail.com:t
 USR0033:Centre Trainer:tes:Testie11:1:Female:2022-05-03:030-3030303:testie2@gmai.com:true:Maybank:0330449220333333
 USR0035:Customer:ko ee:r4:1:Male:2022-05-04:020-2020202:re@gmail.com:true:-:-
 USR0036:Centre Trainer:rhhhhh:11221:23:Male:2022-05-02:020-2020200:3@gmail.com:true:Affin Bank / Affin Islamic Bank:3223432432423434
+USR0037:Centre Manager:premsharaan:prem:test:Male:2005-07-14:010-1001010:prem@gmail.com:true:-:-

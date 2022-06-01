@@ -19,11 +19,11 @@ public class AGS_SystemManagement {
     public static void main(String[] args) {
           //CentreManager_ScheduleTraining frame = new CentreManager_ScheduleTraining();
           //CentreManager_MainMenu frame = new CentreManager_MainMenu();
-          //Login frame = new Login();
+          Login frame = new Login();
           //ForgotPassword frame = new ForgotPassword();
           //CentreManager_RegisterNewUser frame = new CentreManager_RegisterNewUser();
           //Customer_MainMenu frame = new Customer_MainMenu();
-          CentreManager_BookingTrainingSession frame = new CentreManager_BookingTrainingSession();
+          //CentreManager_BookingTrainingSession frame = new CentreManager_BookingTrainingSession();
           //CentreManager_ManageUser frame = new CentreManager_ManageUser();
           //CentreManager_LoginActivity frame = new CentreManager_LoginActivity();
           //CentreManager_ManageBookingTrainingSession frame  = new CentreManager_ManageBookingTrainingSession();

@@ -938,7 +938,6 @@ public class CentreManager_ManageUser extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-
     }
     
     
@@ -1563,7 +1562,7 @@ public class CentreManager_ManageUser extends javax.swing.JFrame {
             //Load default profile image for user
             loadDefaultImage();
         } catch (IOException ex) {
-            Logger.getLogger(CentreManager_RegisterNewUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CentreManager_ManageUser.class.getName()).log(Level.SEVERE, null, ex);
         }
               
         //Hide additional details textfields
