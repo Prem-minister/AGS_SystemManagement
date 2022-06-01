@@ -125,6 +125,95 @@ class deleteSession {
             frame.setVisible(true);
             frame.setResizable(false);
     } 
+     
+   public void openManagerManageUser() {
+            CentreManager_ManageUser frame  = new CentreManager_ManageUser();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+   
+      public void openLoginActivity() {
+            CentreManager_LoginActivity frame  = new CentreManager_LoginActivity();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+  
+      
+      public void openManagerManageBookingSession() {
+            CentreManager_ManageBookingTrainingSession frame  = new CentreManager_ManageBookingTrainingSession();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+   
+      
+     public void openManagerManageSchedule() {
+            CentreManager_ManageSchedule frame  = new CentreManager_ManageSchedule();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+     
+     
+     public void openForgotPassword() {
+            ForgotPassword frame  = new ForgotPassword();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+   
+     
+    public void openManagerViewPayment() {
+            CentreManager_ViewPayment frame  = new CentreManager_ViewPayment();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+    
+    public void openManagerViewFeedback() {
+            CentreManager_ViewFeedback frame  = new CentreManager_ViewFeedback();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+   
+      
+    public void openManagerViewTrainingSession() {
+            CentreManager_ViewTrainingSession frame = new CentreManager_ViewTrainingSession();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+    
+       public void openManagerViewUsers() {
+            CentreManager_ViewUser frame = new CentreManager_ViewUser();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+    
+    
+     
+       public void openUpdateManagerProfile() {
+            CentreManager_UpdateProfile frame = new CentreManager_UpdateProfile();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+            frame.setVisible(true);
+            frame.setResizable(false);
+    } 
+    
+    
  }
 
 
@@ -223,11 +312,25 @@ class UserFullNameValidation extends StringValidation {
 class UserUsernameValidation extends StringValidation {
        public UserUsernameValidation() {
         super();
-        setPopup("Entered invalid  staff username!", "Username can only contains of letters, numbers and escaped symbols.");
+        setPopup("Entered invalid staff username!", "Username can only contains of letters, numbers and escaped symbols.");
         setRegex("^[-a-zA-Z0-9!@#$%^&*()\\{\\}\\[\\]\"\';\\\\/?|.,><~`_+=]+");
         setNegateRegex("[^-a-zA-Z0-9!@#$%^&*()\\{\\}\\[\\]\"\';\\\\/?|.,><~`_+=]");
     }
 }
+
+
+// This will handles the subclass for filter validation
+class userFilterValidation extends StringValidation {
+    
+    public userFilterValidation() {
+        super();
+        setPopup("Invalid filter format", "Filter can only contains letters, numbers, and spacing.");
+        setRegex("^[a-zA-Z0-9 ]+");
+        setNegateRegex("[^a-zA-Z0-9 ]");
+    }
+}
+
+
 
 
 // This will handles the subclass for password validation
@@ -287,12 +390,11 @@ class UserEmailValidation extends StringValidation {
 
 
 // This subclass handles fees validation
-class TrainingFeesValidation extends StringValidation {
-    
+class TrainingFeesValidation extends StringValidation {  
     public TrainingFeesValidation() {
         super();
-        setPopup("Entered invalid fees format!", "Payment must contains RM and Numbers only. (eg. RM1.00)");
-        setRegex("MYR+[0-9]+\\.[0-9]{2}$");
+        setPopup("Entered invalid fees format!", "Payment must contains 'RM' and Numbers only. (eg. RM50.10)");
+        setRegex("RM+[0-9]+\\.[0-9]{2}$");
     }
     
     public boolean runValidate(JTextField txt, boolean dispenseMessage){
@@ -311,3 +413,4 @@ class TrainingFeesValidation extends StringValidation {
     }
     
 }
+

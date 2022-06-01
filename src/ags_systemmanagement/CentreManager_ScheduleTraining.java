@@ -83,21 +83,21 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
             //This is to retrieve the content from the lines in the text file and set the content in to the jtable
             for (int i = 0; i < tableLines.length; i++) {         
                 String detailsline = tableLines[i].toString().trim();
-                String[] staffDataRow = detailsline.split(":");
-                      String trainingID = staffDataRow[0];
-                      String trainerName = staffDataRow[2];
-                      Date date = dateFormat.parse(staffDataRow[3]);
+                String[] trainingDataRow = detailsline.split(":");
+                      String trainingID = trainingDataRow[0];
+                      String trainerName = trainingDataRow[2];
+                      Date date = dateFormat.parse(trainingDataRow[3]);
                       String formatTableDate = dateFormatTable.format(date);
-                      String startTime = staffDataRow[4];
-                      String endTime = staffDataRow[5];
-                      String status = staffDataRow[6];
+                      String startTime = trainingDataRow[4];
+                      String endTime = trainingDataRow[5];
+                      String status = trainingDataRow[6];
                       if ("*".equals(status)){
                          status = "Not Booked";                   
                       }else{                         
                          status = "Booked";
                       }
-                   if(staffDataRow[3].compareTo(todayFormattedDate) >= 0){
-                       System.out.println(staffDataRow[3] + " " + todayFormattedDate);
+                   if(trainingDataRow[3].compareTo(todayFormattedDate) >= 0){
+                       System.out.println(trainingDataRow[3] + " " + todayFormattedDate);
                        model.addRow(new Object[] {trainingID, trainerName, formatTableDate, startTime,endTime, status});
                    }
             }
@@ -137,6 +137,7 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         chkTrainerEndTime = new javax.swing.JComboBox<>();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
+        btnManage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -271,7 +272,7 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
 
         chkTrainerStartTime.setBackground(new java.awt.Color(255, 255, 255));
         chkTrainerStartTime.setForeground(new java.awt.Color(0, 0, 0));
-        chkTrainerStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "10.00 a.m", "11.00 a.m", "12.00 a.m", "1.00  p.m", "2.00  p.m", "3.00  p.m", "4.00  p.m", "5.00  p.m", "6.00  p.m", "7.00  p.m", "8.00  p.m", "9.00  p.m", "10.00 p.m" }));
+        chkTrainerStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "10.00 a.m", "11.00 a.m", "12.00 a.m", "1.00 p.m", "2.00 p.m", "3.00 p.m", "4.00 p.m", "5.00 p.m", "6.00 p.m", "7.00 p.m", "8.00 p.m", "9.00 p.m", "10.00 p.m" }));
         chkTrainerStartTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkTrainerStartTimeActionPerformed(evt);
@@ -297,6 +298,23 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         txtName.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         txtName.setPreferredSize(new java.awt.Dimension(89, 22));
 
+        btnManage.setBackground(new java.awt.Color(204, 255, 204));
+        btnManage.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnManage.setForeground(new java.awt.Color(0, 51, 51));
+        btnManage.setText("Manage Schedule");
+        btnManage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        btnManage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnManage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnManageMouseEntered(evt);
+            }
+        });
+        btnManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -305,26 +323,23 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
                 .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitle)
-                    .addComponent(lblSystemName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSystemName, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(550, 550, 550)
+                .addComponent(btnManage, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblTrainerID)
-                        .addGap(103, 103, 103))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblTime)
-                                .addComponent(lblEndTime)
-                                .addComponent(lblDate)
-                                .addComponent(lblName)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTime)
+                        .addComponent(lblEndTime)
+                        .addComponent(lblDate)
+                        .addComponent(lblName)
+                        .addComponent(lblTrainerID)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(chkTrainerID, 0, 262, Short.MAX_VALUE)
                     .addComponent(dateTraining, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
@@ -344,7 +359,9 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnManage, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(lblSystemName)
@@ -379,7 +396,7 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -391,7 +408,7 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -450,6 +467,16 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         enableBtn();
        getTrainerName();
     }//GEN-LAST:event_chkTrainerIDActionPerformed
+
+    private void btnManageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnManageMouseEntered
+
+    private void btnManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageActionPerformed
+            this.dispose(); 
+            openFrame openFrame = new openFrame();
+            openFrame.openManagerManageSchedule();       
+    }//GEN-LAST:event_btnManageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -643,12 +670,14 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
               if (chkTrainerStartTime.getSelectedIndex() >= chkTrainerEndTime.getSelectedIndex()) {
                 throw new Exception("Invalid Start Time or End Time!");
               }
+                    
+      
             try {
                 trainingSessionID = deciFormat.format(newTrainingID);
                 formattedDate= dateFormat.format(trainingDate);
                 FileWriter fw = new FileWriter(trainingSlotsDB, true);
                 BufferedWriter bw  = new BufferedWriter(fw);
-                bw.write(userPrefixID + trainingSessionID + ":" + trainerID + ":" + trainerName+ ":" + formattedDate + ":" + trainingStartTime + ":" +  trainingEndTime + ":" +  "*"  + "\n");
+                bw.write(userPrefixID + trainingSessionID + ":" + trainerID + ":" + trainerName+ ":" + formattedDate + ":" + trainingStartTime + ":" +  trainingEndTime + ":" +  "*"  + ":"+ "*" + "unpaid"  +"\n");
                 JOptionPane.showMessageDialog(null, "New Training Session has be addedd successfully", "Training Session successfully added!", JOptionPane.INFORMATION_MESSAGE);
                 bw.close();
                 trainingIDIncrementor();
@@ -686,6 +715,7 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         btnAdd.setFocusable(false);
         btnClear.setFocusable(false);
         btnGoBack.setFocusable(false);
+        btnManage.setFocusable(false);
         tblTrainingSession.setFocusable(false);
         
         //This disbables the fields
@@ -717,6 +747,8 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
         //Increment the training session ID
         trainingIDIncrementor();
         
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
         
         //To handle the closing window
         addWindowListener(new WindowAdapter() {
@@ -731,7 +763,6 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
             }
         });
        
-      
     }
 
 
@@ -739,6 +770,7 @@ public class CentreManager_ScheduleTraining extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnGoBack;
+    private javax.swing.JButton btnManage;
     private javax.swing.JComboBox<String> chkTrainerEndTime;
     private javax.swing.JComboBox<String> chkTrainerID;
     private javax.swing.JComboBox<String> chkTrainerStartTime;

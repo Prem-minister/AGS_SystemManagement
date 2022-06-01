@@ -71,7 +71,7 @@ public class Login extends javax.swing.JFrame {
     }
  
     
-        //Store the records of the session of the user as a log file
+      //Store the records of the session of the user as a log file
      private void storeLog() {
         try {
             DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH.mm.ss");
@@ -84,7 +84,7 @@ public class Login extends javax.swing.JFrame {
             }
             FileWriter fw = new FileWriter(projectDir + "LogFile.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(UserID + ":" + UserUsername + ":" + UserPassword + ":" + UserFullName + ":" + UserEmail + ":" + UserPhoneNumber + ":"+ dateTime + "\n");
+            bw.write(UserID + ":" + UserRole + ":" + UserUsername + ":" + UserFullName + ":" + dateTime + "\n");
             bw.close();
         } catch (Exception ex) {
 
@@ -169,7 +169,6 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnBack = new javax.swing.JButton();
         lblLoginLogo = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
@@ -194,23 +193,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(136, 146, 176));
         jLabel2.setText("Please provide your username and password");
-
-        btnBack.setBackground(new java.awt.Color(17, 34, 64));
-        btnBack.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(100, 255, 218));
-        btnBack.setText("Go Back");
-        btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnBackMouseEntered(evt);
-            }
-        });
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
 
         lblUsername.setFont(new java.awt.Font("Tahoma", 3, 15)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(100, 255, 218));
@@ -284,6 +266,9 @@ public class Login extends javax.swing.JFrame {
         lblForgotPass.setText("Forgot Password?");
         lblForgotPass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblForgotPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblForgotPassMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblForgotPassMouseEntered(evt);
             }
@@ -297,12 +282,10 @@ public class Login extends javax.swing.JFrame {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("AGS Management System");
 
+
+        cbxUserRole.setBackground(new java.awt.Color(255, 255, 255));
+        cbxUserRole.setForeground(new java.awt.Color(0, 0, 0));
         cbxUserRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---none---", "Customer", "Centre Trainer", "Centre Manager" }));
-        cbxUserRole.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxUserRoleActionPerformed(evt);
-            }
-        });
 
         lblUserRole.setFont(new java.awt.Font("Tahoma", 3, 15)); // NOI18N
         lblUserRole.setForeground(new java.awt.Color(100, 255, 218));
@@ -312,7 +295,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(278, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -329,9 +312,6 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(cbxUserRole, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblLoginLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(393, 393, 393))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(6, 6, 6)
@@ -342,18 +322,15 @@ public class Login extends javax.swing.JFrame {
                             .addGap(613, 613, 613)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 796, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(267, 267, 267))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(582, 582, 582)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(267, 267, 267))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(635, 635, 635))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(102, 102, 102)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTitle)
@@ -379,7 +356,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblForgotPass)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -390,19 +367,11 @@ public class Login extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 919, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 808, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBackMouseEntered
-
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-       clearCache();
-    }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsernameMouseClicked
 
@@ -466,9 +435,13 @@ public class Login extends javax.swing.JFrame {
        this.lblForgotPass.setForeground(Color.GRAY);
     }//GEN-LAST:event_lblForgotPassMouseExited
 
-    private void cbxUserRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUserRoleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxUserRoleActionPerformed
+
+    private void lblForgotPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgotPassMouseClicked
+       this.dispose();
+       openFrame openFrame = new openFrame();
+       openFrame.openForgotPassword();
+    }//GEN-LAST:event_lblForgotPassMouseClicked
+
                                     
 
     /**
@@ -539,16 +512,17 @@ public class Login extends javax.swing.JFrame {
                 userDetails = userInput.split(":");
 
                 // Check every line for the credential to be matched
-                if (tempUserRole.equals(userDetails[1]) && tempUsername.equals(userDetails[3]) && tempPassword.equals(userDetails[4])) {
+                if (tempUserRole.equals(userDetails[1]) && tempUsername.equals(userDetails[3]) && tempPassword.equals(userDetails[4]) && "true".equals(userDetails[9]) ) {
                     //UserID = userDetails[0].replace("USR", "");
                     UserID = userDetails[0];
                     UserRole = userDetails[1];
                     UserFullName = userDetails[2];
                     UserUsername = userDetails[3];
                     UserPassword = userDetails[4];
-                    UserEmail = userDetails [5];
-                    UserPhoneNumber = userDetails[6];
+                    UserEmail = userDetails [8];
+                    UserPhoneNumber = userDetails[7];
                     userVerified = true;
+   
                 }
             }
 
@@ -573,11 +547,9 @@ public class Login extends javax.swing.JFrame {
         lblLoginLogo.setIcon(new ImageIcon(imgLogin));
         
         //setting the frame name
-        this.setTitle("Login Page");
+        this.setTitle("Login");
           
-        //This sets the items not focusable
-        btnBack.setFocusable(false);
-        
+    
         //Disabling the login button
         btnLogin.setEnabled(false);
         btnLogin.setBackground(Color.GRAY);
@@ -663,7 +635,6 @@ public class Login extends javax.swing.JFrame {
    
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnLogin;
     private javax.swing.JComboBox<String> cbxUserRole;
     private javax.swing.JCheckBox chkBoxShow;

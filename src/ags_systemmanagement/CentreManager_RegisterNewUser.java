@@ -668,8 +668,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
    
         // This is a new exception class
     public void emptyInputFields() throws Exception {
-        UserEmailValidation invalidate = new UserEmailValidation();
-        
+        UserEmailValidation invalidate = new UserEmailValidation();        
         if (chkUserRole.getSelectedIndex() == 0) {
             throw new Exception("Empty user role");
         }
@@ -691,7 +690,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
         }
         
         if (userDOB.getDate()== null) {
-            throw new Exception("Empty user email");
+            throw new Exception("Empty user dob");
         }
         
         if ("".equals(txtEmail.getText())) {
@@ -714,8 +713,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
     
     
      //This method raise message for empty fields, password comparison and username validation.
-    private void validateInput() {
-        
+    private void validateInput() { 
          if (chkUserRole.getSelectedIndex()== 0 && "".equals(txtNewUsername.getText()) && "".equals(txtFullName.getText()) && "".equals(txtNumber.getText()) && "".equals(txtEmail.getText()) && chkGender.getSelectedIndex() == 0 && userDOB.getDate()== null) {
             JOptionPane.showMessageDialog(null, "Invalid input! Please input all the fields to proceed.", "Invalid insertion detected!", JOptionPane.WARNING_MESSAGE);
         } else if (chkUserRole.getSelectedIndex() == 0) {
@@ -750,7 +748,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
     }
     
      // This method handles all validation related to the fields
-    private void staffInputCharacterValidator() {
+    private void userInputCharacterValidator() {
         txtNewUsername.getDocument().addDocumentListener(new userDocumentListener() {
             UserUsernameValidation invalidate = new UserUsernameValidation();
 
@@ -1014,7 +1012,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
                 if(userUserRole == "Centre Trainer"){
                    bw.write(userID + ":" + userUserRole +":"+ userFullName + ":" + userUsername+ ":"+ userPassword +  ":" + userGender + ":" + formattedDob + ":" + userNumber + ":" + userEmail + ":" +"true"+ ":" + bankName + ":"+ bankNum + "\n");
                 }else{
-                   bw.write(userID + ":" + userUserRole +":"+ userFullName + ":" + userUsername+ ":"+ userPassword +  ":" + userGender + ":" + formattedDob + ":" +userNumber + ":" + userEmail + ":" +"true"+"\n");
+                   bw.write(userID + ":" + userUserRole +":"+ userFullName + ":" + userUsername+ ":"+ userPassword +  ":" + userGender + ":" + formattedDob + ":" +userNumber + ":" + userEmail + ":" +"true"+ ":" + "-" + ":"+ "-" +"\n");
                 }
                 JOptionPane.showMessageDialog(null, userFullName + " has been successfully registered!", "User account successfully created!", JOptionPane.INFORMATION_MESSAGE);
                 bw.close();
@@ -1054,7 +1052,9 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
   
      //This method is for initial start of the frame
     public void initGUI() {
-     
+       //setting the frame name
+        this.setTitle("Register New User");
+         
         //This will padding for the textfields
         txtNewUsername.setBorder(BorderFactory.createCompoundBorder(txtNewUsername.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
         txtPassword.setBorder(BorderFactory.createCompoundBorder(txtPassword.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 4)));
@@ -1107,7 +1107,7 @@ public class CentreManager_RegisterNewUser extends javax.swing.JFrame {
             }
         });
 
-        staffInputCharacterValidator();
+        userInputCharacterValidator();
     }
 
     
