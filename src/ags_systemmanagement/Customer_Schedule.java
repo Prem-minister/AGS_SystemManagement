@@ -4,21 +4,6 @@
  */
 package ags_systemmanagement;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author User
@@ -28,24 +13,9 @@ public class Customer_Schedule extends javax.swing.JFrame {
     /**
      * Creates new form Customer_Schedule
      */
-    Customer C;
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    Date today = new Date();
-    String[] Training_ID;
-    
-    public Customer_Schedule(Customer C) {
+    public Customer_Schedule() {
         initComponents();
-        setCustomer(C);
-        GUI();
-        
     }
-    
-    private void setCustomer(Customer C){
-        this.C = C;
-    }
-    
-    public Customer_Schedule(){}
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,13 +28,11 @@ public class Customer_Schedule extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        C_Schedule_BackBtn = new javax.swing.JLabel();
         C_Schedule_Date = new com.toedter.calendar.JDateChooser();
         C_Schedule_SearchBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         C_Schedule_Table = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        C_Add_Feedback = new javax.swing.JButton();
-        C_Schedule_SearchBtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,108 +42,62 @@ public class Customer_Schedule extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Mimetypes-schedule-icon.png"))); // NOI18N
-        jLabel1.setText("SESSIONS");
+        jLabel1.setText("SCHEDULE");
+
+        C_Schedule_BackBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
 
         C_Schedule_SearchBtn.setBackground(new java.awt.Color(0, 255, 255));
         C_Schedule_SearchBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         C_Schedule_SearchBtn.setForeground(new java.awt.Color(255, 51, 51));
         C_Schedule_SearchBtn.setText("Search");
-        C_Schedule_SearchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                C_Schedule_SearchBtnActionPerformed(evt);
-            }
-        });
 
         C_Schedule_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Training ID", "Trainer ID", "Trainer Name", "Date ", "Start Time", "End Time", "customer ID", "Fees ", "Fees Status", "Rating", "Trainer Feedback"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(C_Schedule_Table);
-
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        C_Add_Feedback.setBackground(new java.awt.Color(255, 0, 0));
-        C_Add_Feedback.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        C_Add_Feedback.setForeground(new java.awt.Color(0, 255, 255));
-        C_Add_Feedback.setText("Add Feedback");
-        C_Add_Feedback.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                C_Add_FeedbackActionPerformed(evt);
-            }
-        });
-
-        C_Schedule_SearchBtn1.setBackground(new java.awt.Color(0, 255, 255));
-        C_Schedule_SearchBtn1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        C_Schedule_SearchBtn1.setForeground(new java.awt.Color(255, 51, 51));
-        C_Schedule_SearchBtn1.setText("View All Session");
-        C_Schedule_SearchBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                C_Schedule_SearchBtn1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(C_Schedule_BackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(C_Schedule_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(C_Schedule_SearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(C_Schedule_SearchBtn1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(C_Add_Feedback, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(C_Schedule_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(C_Schedule_SearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(C_Schedule_BackBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(C_Schedule_Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(C_Schedule_SearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(C_Add_Feedback, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(C_Schedule_SearchBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(C_Schedule_Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(C_Schedule_SearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,104 +113,6 @@ public class Customer_Schedule extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        Customer_MainMenu CM = new Customer_MainMenu();
-        
-        CM.setVisible(true);
-        
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        CM.setLocation(dim.width/2-CM.getSize().width/2, dim.height/2-CM.getSize().height/2);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void C_Schedule_SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C_Schedule_SearchBtnActionPerformed
-        // TODO add your handling code here:
-        if(C_Schedule_Date.getDate() == null){
-            
-            System.out.println("DATE NOT SELECTED");
-        } else {
-            String selected = formatter.format(C_Schedule_Date.getDate());
-            System.out.println("DATE" + selected);
-            loadData(selected);  
-        }
-    }//GEN-LAST:event_C_Schedule_SearchBtnActionPerformed
-
-    private void C_Add_FeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C_Add_FeedbackActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        Customer_ProvideFeedback CFB = new Customer_ProvideFeedback(C);
-        CFB.setVisible(true);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        CFB.setLocation(dim.width/2-CFB.getSize().width/2, dim.height/2-CFB.getSize().height/2);
-    }//GEN-LAST:event_C_Add_FeedbackActionPerformed
-
-    private void C_Schedule_SearchBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C_Schedule_SearchBtn1ActionPerformed
-        // TODO add your handling code here:
-        // view all sessions for particular user
-        try{
-            BufferedReader r = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-            String line, line2;
-            String[] userData;
-            String[] TID;
-            int count = 0;
-            while((line2 = r.readLine()) !=null) count++;
-            r.close();
-            System.out.println(count);
-            
-            TID = new String [(count)];
-            
-            
-            BufferedReader rdd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-            
-            //Clear table data
-            DefaultTableModel md = (DefaultTableModel) C_Schedule_Table.getModel();
-            md.setRowCount(0);
-            
-            int i=0;
-            //adding data to the jtable
-            while((line = rdd.readLine()) != null){
-                userData = line.split(":");
-                if(userData[6].equals(C.user_ID) ){
-                    
-                    Object[] row = {userData[0], userData[1], userData[2], userData[3], userData[4], userData[5], userData[6], userData[7], userData[8]};
-                    md.addRow(row);
-                    TID[i] = userData[0];
-                    i++;
-                }
-                Arrays.fill(userData, null);
-            }
-            
-            //closing file
-            rdd.close();
-            
-            //reading feeedback text file
-            BufferedReader readFB = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt"));
-            String[] data;
-            if(new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt").exists()){
-                while ((line = readFB.readLine()) != null) {
-                    data = line.split(":");
-                    for(int p=0; p<TID.length; p++){
-                        if(data[1].equals(TID[p])){
-                            md.setValueAt(data[2], p, 9);
-                            md.setValueAt(data[3], p, 10);
-                        }
-                    }
-
-                }
-            }
-            readFB.close();
-            
-            
-        }catch(IOException e){
-            
-        }
-        
-        
-        
-        
-    }//GEN-LAST:event_C_Schedule_SearchBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,115 +148,14 @@ public class Customer_Schedule extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void loadData(String date){
-        try{
-            BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-            String line, line2;
-            String[] userData;
-            int count = 0;
-            while((line2 = rd.readLine()) !=null) count++;
-            rd.close();
-            System.out.println(count);
-            
-            Training_ID = new String [(count)];
-            
-            
-            BufferedReader rdd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-            
-            //Clear table data
-            DefaultTableModel md = (DefaultTableModel) C_Schedule_Table.getModel();
-            md.setRowCount(0);
-            
-            int i=0;
-            //adding data to the jtable
-            while((line = rdd.readLine()) != null){
-                userData = line.split(":");
-                if(userData[6].equals(C.user_ID) && userData[3].equals(date)){
-                    
-                    Object[] row = {userData[0], userData[1], userData[2], userData[3], userData[4], userData[5], userData[6], userData[7], userData[8]};
-                    md.addRow(row);
-                    Training_ID[i] = userData[0];
-                    i++;
-                }
-                Arrays.fill(userData, null);
-            }
-            
-            //closing file
-            rdd.close();
-            
-            //reading feeedback text file
-            BufferedReader readFB = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt"));
-            String[] data;
-            if(new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Feedback.txt").exists()){
-                while ((line = readFB.readLine()) != null) {
-                    data = line.split(":");
-                    for(int p=0; p<Training_ID.length; p++){
-                        if(data[1].equals(Training_ID[p])){
-                            md.setValueAt(data[2], p, 9);
-                            md.setValueAt(data[3], p, 10);
-                        }
-                    }
-
-                }
-            }
-            readFB.close();
-            
-     
-            
-            // show message if no training in that day
-            if(Training_ID[0] == null){
-                JOptionPane.showMessageDialog(null, "No Training have been scheduled today!", "No Record", 1);
-            }
-            
-            
-            //cancel class section
-//            for(int x=0; x<Training_ID.length; x++)
-//            {
-//                SessionID_Combo.addItem(Training_ID[x]);
-//            }
-            
-            
-        } catch(IOException e){
-            System.out.println("Problem in reading Files");
-        }
-        
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton C_Add_Feedback;
+    private javax.swing.JLabel C_Schedule_BackBtn;
     private com.toedter.calendar.JDateChooser C_Schedule_Date;
     private javax.swing.JButton C_Schedule_SearchBtn;
-    private javax.swing.JButton C_Schedule_SearchBtn1;
     private javax.swing.JTable C_Schedule_Table;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
-    private void GUI() {
-        C_Schedule_Date.setDate(today);
-        
-        loadData(formatter.format(C_Schedule_Date.getDate()));
-        
-        //adding closing confirmation 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (selection == JOptionPane.YES_OPTION) {
-                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
-
-                        if(cache.delete()){
-                            System.out.print("Cache Deleted!");
-                            dispose();
-                        } else {
-                            System.out.print("Cache not deleted");
-                        }
-                } else {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                }
-            }
-        });   
-    }
 }

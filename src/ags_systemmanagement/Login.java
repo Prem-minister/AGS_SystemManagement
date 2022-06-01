@@ -198,7 +198,9 @@ public class Login extends javax.swing.JFrame {
         lblUsername.setForeground(new java.awt.Color(100, 255, 218));
         lblUsername.setText("USERNAME");
 
+        txtUsername.setBackground(new java.awt.Color(255, 255, 255));
         txtUsername.setFont(new java.awt.Font("Lao Sangam MN", 0, 16)); // NOI18N
+        txtUsername.setForeground(new java.awt.Color(0, 0, 0));
         txtUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         txtUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -223,7 +225,9 @@ public class Login extends javax.swing.JFrame {
         lblPassword.setForeground(new java.awt.Color(100, 255, 218));
         lblPassword.setText("PASSWORD");
 
+        txtPassword.setBackground(new java.awt.Color(255, 255, 255));
         txtPassword.setFont(new java.awt.Font("Lao Sangam MN", 0, 16)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(0, 0, 0));
         txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -248,6 +252,7 @@ public class Login extends javax.swing.JFrame {
 
         btnLogin.setBackground(new java.awt.Color(100, 255, 218));
         btnLogin.setFont(new java.awt.Font("Beirut", 1, 15)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(0, 0, 0));
         btnLogin.setText("Login");
         btnLogin.setBorder(null);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -281,7 +286,6 @@ public class Login extends javax.swing.JFrame {
         lblTitle.setForeground(new java.awt.Color(204, 204, 204));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("AGS Management System");
-
 
         cbxUserRole.setBackground(new java.awt.Color(255, 255, 255));
         cbxUserRole.setForeground(new java.awt.Color(0, 0, 0));
@@ -435,13 +439,11 @@ public class Login extends javax.swing.JFrame {
        this.lblForgotPass.setForeground(Color.GRAY);
     }//GEN-LAST:event_lblForgotPassMouseExited
 
-
     private void lblForgotPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgotPassMouseClicked
        this.dispose();
        openFrame openFrame = new openFrame();
        openFrame.openForgotPassword();
     }//GEN-LAST:event_lblForgotPassMouseClicked
-
                                     
 
     /**

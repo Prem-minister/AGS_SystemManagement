@@ -4,46 +4,17 @@
  */
 package ags_systemmanagement;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.Arrays;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author User
  */
-public class Customer_Profile extends javax.swing.JFrame implements KeyListener {
+public class Customer_Profile extends javax.swing.JFrame {
 
     /**
      * Creates new form Customer_Profile
      */
-    
-    Customer C;
-    
-    public Customer_Profile(Customer C) {
+    public Customer_Profile() {
         initComponents();
-        setCustomer(C);
-        GUI();
-    }
-    
-    public Customer_Profile(){
-        
-    }
-    
-    public void setCustomer(Customer C) {
-        this.C = C; 
-        System.out.println(this.C.user_name);
     }
 
     /**
@@ -72,8 +43,8 @@ public class Customer_Profile extends javax.swing.JFrame implements KeyListener 
         C_Reset_Pass = new javax.swing.JPasswordField();
         C_Reset_Confirm = new javax.swing.JPasswordField();
         T_ResetBtn = new javax.swing.JButton();
-        C_Upd_Personal = new javax.swing.JButton();
-        C_Profile_BackBtn = new javax.swing.JButton();
+        T_Upd_Personal = new javax.swing.JButton();
+        C_Pro_Backbtn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,27 +125,12 @@ public class Customer_Profile extends javax.swing.JFrame implements KeyListener 
         T_ResetBtn.setBackground(new java.awt.Color(255, 0, 0));
         T_ResetBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         T_ResetBtn.setText("RESET");
-        T_ResetBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                T_ResetBtnActionPerformed(evt);
-            }
-        });
 
-        C_Upd_Personal.setBackground(new java.awt.Color(0, 255, 255));
-        C_Upd_Personal.setText("Update");
-        C_Upd_Personal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                C_Upd_PersonalActionPerformed(evt);
-            }
-        });
+        T_Upd_Personal.setBackground(new java.awt.Color(0, 255, 255));
+        T_Upd_Personal.setText("Update");
 
-        C_Profile_BackBtn.setBackground(new java.awt.Color(0, 51, 102));
-        C_Profile_BackBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
-        C_Profile_BackBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                C_Profile_BackBtnActionPerformed(evt);
-            }
-        });
+        C_Pro_Backbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
+        C_Pro_Backbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,49 +143,53 @@ public class Customer_Profile extends javax.swing.JFrame implements KeyListener 
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
+                                .addComponent(C_Pro_Backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(C_DoBLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(C_DoB, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(C_PhoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(C_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(C_EmailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(C_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(C_NameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(C_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(C_Upd_Personal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(C_NewPass_lbl)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(200, 200, 200)
-                                .addComponent(T_ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(C_ConfirmPass_lbl)
+                                        .addGap(22, 22, 22)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(C_DoBLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(C_DoB, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(C_PhoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(C_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(C_EmailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(C_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(C_NameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(C_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(T_Upd_Personal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(C_Reset_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(C_Reset_Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(C_NewPass_lbl)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addGap(29, 29, 29)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                                .addGap(200, 200, 200)
+                                                .addComponent(T_ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(C_ConfirmPass_lbl)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(C_Reset_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(C_Reset_Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))))))))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(C_Profile_BackBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,10 +231,10 @@ public class Customer_Profile extends javax.swing.JFrame implements KeyListener 
                     .addComponent(C_DoBLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(C_DoB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(C_Upd_Personal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(C_Profile_BackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addComponent(T_Upd_Personal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(C_Pro_Backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,154 +266,6 @@ public class Customer_Profile extends javax.swing.JFrame implements KeyListener 
     private void C_DoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C_DoBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_C_DoBActionPerformed
-
-    private void C_Profile_BackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C_Profile_BackBtnActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        Customer_MainMenu CM = new Customer_MainMenu();
-        CM.setVisible(true);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        CM.setLocation(dim.width/2-CM.getSize().width/2, dim.height/2-CM.getSize().height/2);
-        
-        
-    }//GEN-LAST:event_C_Profile_BackBtnActionPerformed
-
-    private void C_Upd_PersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C_Upd_PersonalActionPerformed
-        // TODO add your handling code here:
-        try{
-            if(!C.getUser_name().isBlank() && !C.getUser_email().isBlank() && !C.getUser_contact().isBlank() && !C.getUser_DOB().isBlank()){
-                //Reading user db
-                BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
-                
-                String[] user;
-                String line;
-                
-                //Writting a temp file
-                BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
-                //updating file with new bank information for the correct id
-                //while loop for each line in user.txt
-                while((line = rd.readLine())!= null){
-                    //splitting the userdata
-                    user = line.split(":");
-                    //comparing the editting user 
-                    if(user[0].equals(C.user_ID)){
-                        for(int i=0; i<user.length; i++){
-                            if(i!= 3 && i!=6 && i!=7 && i!=8){
-                                wr.write(user[i] + ":");
-                            } else {
-                                if(i==3){
-                                    wr.write(C.user_name + ":");
-                                } else if(i==6){
-                                    wr.write(C.user_DOB + ":");
-                                } else if(i==7){
-                                    wr.write(C.user_contact + ":");
-                                } else {
-                                    wr.write(C.user_email + ":");
-                                }
-                            }
-                        }
-                        wr.write("\n");
-                    } else {
-                        for(int i=0; i<user.length; i++){
-                            wr.write(user[i] + ":");
-                        }
-                        wr.write("\n");
-                    }
-                    //clearing array
-                    Arrays.fill(user,null);
-                }
-                
-                rd.close();
-                wr.close();
-                
-                File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt");
-                File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
-                
-                //deleting the old user file and renaming the temp file to new user file
-                fileToDelete.delete();
-                fileToChangeName.renameTo(fileToDelete);
-                
-                JOptionPane.showMessageDialog(null, "User Details have been Updated", "User Info", 1);
-            } else {
-                JOptionPane.showMessageDialog(null, "Some Fields is Blank! Please Enter all info ", "Fail To Upadte", 2);
-            }
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e, "Error", 2);
-        }
-    }//GEN-LAST:event_C_Upd_PersonalActionPerformed
-
-    private void T_ResetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_ResetBtnActionPerformed
-        // TODO add your handling code here:
-        String reset_pass = C.getReset_pass();
-        String confirm_pass = C.getConfirm_pass();
-        // Checking whether the pass and confirmation pass match
-        try{
-            if (reset_pass == null || reset_pass.isEmpty()) {
-                // Alert Dialog to if password not match
-                JOptionPane.showMessageDialog(null, "Password Cannot be blank!, Try again!", "Password Blank", HEIGHT);
-            } else if(!reset_pass.equals(confirm_pass)) {
-                System.out.println(String.valueOf(reset_pass));
-                JOptionPane.showMessageDialog(null, "Password and Confirmation Password not match, Try again!", "Password Mismatch", HEIGHT);
-            } else {
-                if(reset_pass.equals(confirm_pass) && !reset_pass.isEmpty()){
-                    //setting user_password ONLY if both reset and confirm pass match and not empty
-                    C.setUser_password(String.valueOf(reset_pass));
-
-                    //Updating user file
-
-                        BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt"));
-
-                        String[] user;
-                        String line;
-
-                        //Writting a temp file
-                        BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
-                        //updating file with new bank information for the correct id
-                        //while loop for each line in user.txt
-                        while((line = rd.readLine())!= null){
-                            //splitting the userdata
-                            user = line.split(":");
-                            //comparing the editting user 
-                            if(user[0].equals(C.user_ID)){
-                                for(int i=0; i<user.length; i++){
-                                    if(i!= 4){
-                                        wr.write(user[i] + ":");
-                                    } else {
-                                        System.out.print(C.user_password);
-                                        wr.write(C.user_password+ ":");
-                                    }
-                                }
-                                wr.write("\n");
-                            } else {
-                                for(int i=0; i<user.length; i++){
-                                    wr.write(user[i] + ":");
-                                }
-                                wr.write("\n");
-                            }
-                            //clearing array
-                            Arrays.fill(user,null);
-                        }
-
-                        rd.close();
-                        wr.close();
-
-                        File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\User.txt");
-                        File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
-
-                        //deleting the old user file and renaming the temp file to new user file
-                        fileToDelete.delete();
-                        fileToChangeName.renameTo(fileToDelete);
-
-                        // Dialog to says password have been resetted
-                        JOptionPane.showMessageDialog(null, "Password Has Been Resetted!", "Password Resetted", 1);
-
-
-                }
-            }
-        } catch(Exception e){
-            
-        }
-    }//GEN-LAST:event_T_ResetBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,59 +301,6 @@ public class Customer_Profile extends javax.swing.JFrame implements KeyListener 
             }
         });
     }
-    
-    
-    public void GUI(){
-        
-        
-        //adding event handling for user details
-        C_Name.addKeyListener(this);
-        C_Email.addKeyListener(this);
-        C_Phone.addKeyListener(this);
-        C_DoB.addKeyListener(this);
-        
-        //event handling for reset password
-        C_Reset_Pass.addKeyListener(this);
-        C_Reset_Confirm.addKeyListener(this);
-        
-        
-        
-        
-        if(C!=null){
-            C_Name.setText(C.user_name);
-            C_Email.setText(C.user_email);
-            C_Phone.setText(C.user_contact);
-            C_DoB.setText(C.user_DOB);
-        }
-        
-        
-        
-        
-        //adding closing confirmation 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (selection == JOptionPane.YES_OPTION) {
-                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
-
-                        if(cache.delete()){
-                            System.out.print("Cache Deleted!");
-                            dispose();
-                        } else {
-                            System.out.print("Cache not deleted");
-                        }
-                } else {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                }
-            }
-        });
-        
-    }
-    
-    
-  
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel C_ConfirmPass_lbl;
@@ -554,59 +313,14 @@ public class Customer_Profile extends javax.swing.JFrame implements KeyListener 
     private javax.swing.JLabel C_NewPass_lbl;
     private javax.swing.JTextField C_Phone;
     private javax.swing.JLabel C_PhoneLbl;
-    private javax.swing.JButton C_Profile_BackBtn;
+    private javax.swing.JLabel C_Pro_Backbtn;
     private javax.swing.JPasswordField C_Reset_Confirm;
     private javax.swing.JPasswordField C_Reset_Pass;
-    private javax.swing.JButton C_Upd_Personal;
     private javax.swing.JButton T_ResetBtn;
+    private javax.swing.JButton T_Upd_Personal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        if(e.getSource() == C_Name){
-            C.setUser_name(C_Name.getText());
-        }
-        
-        if(e.getSource() == C_Email){
-            C.setUser_email(C_Email.getText());
-        }
-        
-        if(e.getSource() == C_Phone){
-            C.setUser_contact(C_Phone.getText());
-        }
-        
-        if(e.getSource() == C_DoB){
-            C.setUser_DOB(C_DoB.getText());
-        }
-        
-        if(e.getSource() == C_Reset_Pass){
-            C.setReset_pass(String.valueOf(C_Reset_Pass.getPassword()));
-        }
-        
-        if(e.getSource() == C_Reset_Confirm){
-            C.setConfirm_pass(String.valueOf(C_Reset_Confirm.getPassword()));
-        }
-
-
-    }
-
-
-
-
-
 }

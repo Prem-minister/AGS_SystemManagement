@@ -4,20 +4,6 @@
  */
 package ags_systemmanagement;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Prem Sharaan
@@ -27,21 +13,11 @@ public class Customer_ProvideFeedback extends javax.swing.JFrame {
     /**
      * Creates new form CustomerProvideFeedback
      */
-    Customer C;
-    String[] Training_ID;
-    
-    public Customer_ProvideFeedback(Customer C) {
+    public Customer_ProvideFeedback() {
         initComponents();
-        setCustomer(C);
-        GUI();
+        
     }
 
-    private void setCustomer(Customer C) {
-        this.C = C;
-    }
-    
-    public Customer_ProvideFeedback() {}
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,29 +27,28 @@ public class Customer_ProvideFeedback extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Rating = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         btnGoBack = new javax.swing.JButton();
+        lblSelectedPic = new javax.swing.JLabel();
         lblTrainingSession = new javax.swing.JLabel();
+        txtTrainSessID = new javax.swing.JTextField();
         lblCentreTrainer = new javax.swing.JLabel();
         txtCentreTrainer = new javax.swing.JTextField();
         lblDate = new javax.swing.JLabel();
         lblFeedback = new javax.swing.JLabel();
+        txtDate = new javax.swing.JTextField();
+        lblTime = new javax.swing.JLabel();
+        txtTime = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtFeedback = new javax.swing.JTextArea();
         btnUpdate = new javax.swing.JButton();
-        Selected_TrainID_FB = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        lblTrainerPic = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setBackground(new java.awt.Color(10, 25, 47));
         jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -106,10 +81,21 @@ public class Customer_ProvideFeedback extends javax.swing.JFrame {
         lblTrainingSession.setForeground(new java.awt.Color(100, 255, 218));
         lblTrainingSession.setText("Training Session ID:");
 
+        txtTrainSessID.setBackground(new java.awt.Color(255, 255, 255));
+        txtTrainSessID.setFont(new java.awt.Font("Avenir Next", 0, 15)); // NOI18N
+        txtTrainSessID.setForeground(new java.awt.Color(51, 51, 51));
+        txtTrainSessID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204), 2));
+        txtTrainSessID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTrainSessIDActionPerformed(evt);
+            }
+        });
+
         lblCentreTrainer.setFont(new java.awt.Font("Corsiva Hebrew", 0, 18)); // NOI18N
         lblCentreTrainer.setForeground(new java.awt.Color(100, 255, 218));
         lblCentreTrainer.setText("Centre Trainer:");
 
+        txtCentreTrainer.setBackground(new java.awt.Color(255, 255, 255));
         txtCentreTrainer.setFont(new java.awt.Font("Avenir Next", 0, 15)); // NOI18N
         txtCentreTrainer.setForeground(new java.awt.Color(51, 51, 51));
         txtCentreTrainer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204), 2));
@@ -126,12 +112,47 @@ public class Customer_ProvideFeedback extends javax.swing.JFrame {
 
         lblDate.setFont(new java.awt.Font("Corsiva Hebrew", 0, 18)); // NOI18N
         lblDate.setForeground(new java.awt.Color(100, 255, 218));
-        lblDate.setText("Rating:");
+        lblDate.setText("Date:");
 
         lblFeedback.setFont(new java.awt.Font("Corsiva Hebrew", 0, 18)); // NOI18N
         lblFeedback.setForeground(new java.awt.Color(100, 255, 218));
-        lblFeedback.setText("Feedback:");
+        lblFeedback.setText("Feedback");
 
+        txtDate.setBackground(new java.awt.Color(255, 255, 255));
+        txtDate.setFont(new java.awt.Font("Avenir Next", 0, 15)); // NOI18N
+        txtDate.setForeground(new java.awt.Color(51, 51, 51));
+        txtDate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204), 2));
+        txtDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDateFocusLost(evt);
+            }
+        });
+        txtDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDateActionPerformed(evt);
+            }
+        });
+
+        lblTime.setFont(new java.awt.Font("Corsiva Hebrew", 0, 18)); // NOI18N
+        lblTime.setForeground(new java.awt.Color(100, 255, 218));
+        lblTime.setText("Time:");
+
+        txtTime.setBackground(new java.awt.Color(255, 255, 255));
+        txtTime.setFont(new java.awt.Font("Avenir Next", 0, 15)); // NOI18N
+        txtTime.setForeground(new java.awt.Color(51, 51, 51));
+        txtTime.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 204), 2));
+        txtTime.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTimeFocusLost(evt);
+            }
+        });
+        txtTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimeActionPerformed(evt);
+            }
+        });
+
+        txtFeedback.setBackground(new java.awt.Color(255, 255, 255));
         txtFeedback.setColumns(20);
         txtFeedback.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         txtFeedback.setForeground(new java.awt.Color(51, 51, 51));
@@ -156,139 +177,97 @@ public class Customer_ProvideFeedback extends javax.swing.JFrame {
             }
         });
 
-        Selected_TrainID_FB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Selected_TrainID_FBActionPerformed(evt);
-            }
-        });
-
-        jRadioButton1.setBackground(new java.awt.Color(0, 51, 102));
-        Rating.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("1");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton2.setBackground(new java.awt.Color(0, 51, 102));
-        Rating.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("2");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton3.setBackground(new java.awt.Color(0, 51, 102));
-        Rating.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText("3");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton4.setBackground(new java.awt.Color(0, 51, 102));
-        Rating.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton4.setText("4");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton5.setBackground(new java.awt.Color(0, 51, 102));
-        Rating.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jRadioButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton5.setText("5");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(169, 169, 169)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitle)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(383, 383, 383)
-                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(75, 75, 75)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblCentreTrainer, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtCentreTrainer, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblTrainingSession, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtTrainSessID, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(222, 222, 222)
+                                        .addComponent(lblTrainerPic, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(224, 224, 224)
+                                        .addComponent(lblSelectedPic, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(188, 188, 188)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(lblFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTrainingSession, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCentreTrainer, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(25, 25, 25)
-                                .addComponent(jRadioButton2)
-                                .addGap(25, 25, 25)
-                                .addComponent(jRadioButton3)
-                                .addGap(25, 25, 25)
-                                .addComponent(jRadioButton4)
-                                .addGap(25, 25, 25)
-                                .addComponent(jRadioButton5))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
-                            .addComponent(txtCentreTrainer)
-                            .addComponent(Selected_TrainID_FB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(59, 59, 59)))
-                .addGap(304, 304, 304))
+                        .addComponent(lblTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(161, 161, 161))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(368, 368, 368)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(lblTitle)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitle)
                     .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTrainingSession, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Selected_TrainID_FB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCentreTrainer, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCentreTrainer, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(196, 196, 196))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtTrainSessID, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblTrainingSession, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblCentreTrainer, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCentreTrainer, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(49, 49, 49)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(37, 37, 37)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblTrainerPic, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblSelectedPic, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(142, 142, 142))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -297,198 +276,61 @@ public class Customer_ProvideFeedback extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1328, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public String getSelectedButton(){
-        String selected = "";
-        if(jRadioButton1.isSelected()){
-            selected = jRadioButton1.getText();
-        } else if(jRadioButton2.isSelected()){
-            selected = jRadioButton2.getText();
-        } else if(jRadioButton3.isSelected()){
-            selected = jRadioButton3.getText();
-        } else if(jRadioButton4.isSelected()){
-            selected = jRadioButton4.getText();
-        } else if(jRadioButton5.isSelected()){
-            selected = jRadioButton5.getText();
-        }
-        
-        return selected;
-    }
-    
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnGoBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGoBackMouseEntered
         // TODO add your handling code here:
-        try{
-            
-            if(new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\CustomerFeedback.txt").exists()){
-                BufferedReader r = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\CustomerFeedback.txt"));
-                String line;
-                String[] data;
-                String LastLine ="";
-                while((line = r.readLine()) != null){
-                   LastLine = line;
-                }
-                r.close();
+    }//GEN-LAST:event_btnGoBackMouseEntered
 
-                String[] data123 = LastLine.split(":");
-                String idd = data123[0];
-                String[] id = idd.split("B");
-                int id_adding = Integer.parseInt(id[1]);
-                id_adding = id_adding +1;
+    private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
 
-                BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\CustomerFeedback.txt", true));
-                if(!txtFeedback.getText().isBlank())
-                {
-                    wr.write("FB" + id_adding + ":" + Selected_TrainID_FB.getSelectedItem() + ":" + getSelectedButton() + ":" + txtFeedback.getText()+ ":" + C.user_ID + "\n");
-                    JOptionPane.showMessageDialog(null, "Successfully added feedback", "Feedback Added", 1);
-                    btnUpdate.setEnabled(false);
-                } else{
-                    JOptionPane.showMessageDialog(null, "Feedback Message cannot be blank", "Missing fields", 1);
-                }
+    }//GEN-LAST:event_btnGoBackActionPerformed
 
-                wr.close();
-            } else { 
-                try{
-                    BufferedWriter wrr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\CustomerFeedback.txt"));
-                    if(!txtFeedback.getText().isBlank())
-                    {
-                        wrr.write("FB1" + ":" + Selected_TrainID_FB.getSelectedItem() + ":" + getSelectedButton() + ":" + txtFeedback.getText()+ ":" + C.user_ID + "\n");
-                        JOptionPane.showMessageDialog(null, "Successfully added feedback", "Feedback Added", 1);
-                        btnUpdate.setEnabled(false);
-                    } else{
-                        JOptionPane.showMessageDialog(null, "Feedback Message cannot be blank", "Missing fields", 1);
-                    }
-                    wrr.close();
-                } catch(IOException e) {
-                    System.out.print(e);
-                }
-            }
-        } catch (IOException e){
-            
-        }
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnUpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseEntered
+    private void txtTrainSessIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTrainSessIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateMouseEntered
-
-    private void txtCentreTrainerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCentreTrainerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCentreTrainerActionPerformed
+    }//GEN-LAST:event_txtTrainSessIDActionPerformed
 
     private void txtCentreTrainerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCentreTrainerFocusLost
 
     }//GEN-LAST:event_txtCentreTrainerFocusLost
 
-    private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
-        this.setVisible(false);
-        Customer_Schedule CS = new Customer_Schedule(C);
-        
-        CS.setVisible(true);
-        
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        CS.setLocation(dim.width/2-CS.getSize().width/2, dim.height/2-CS.getSize().height/2);
-    }//GEN-LAST:event_btnGoBackActionPerformed
-
-    private void btnGoBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGoBackMouseEntered
+    private void txtCentreTrainerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCentreTrainerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGoBackMouseEntered
+    }//GEN-LAST:event_txtCentreTrainerActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void txtDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDateFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_txtDateFocusLost
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
+    }//GEN-LAST:event_txtDateActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void txtTimeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimeFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_txtTimeFocusLost
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void txtTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_txtTimeActionPerformed
 
-    private void Selected_TrainID_FBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Selected_TrainID_FBActionPerformed
+    private void btnUpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseEntered
         // TODO add your handling code here:
-        // Check if there is any existing feedback 
-        try{
-            BufferedReader readFB = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\CustomerFeedback.txt"));
-            int i =0;
-            String line;
-            String[] Data;
-            while ((line = readFB.readLine()) != null) {
-               Data = line.split(":");
-               if(Data[1].equals(Selected_TrainID_FB.getSelectedItem())){
-                   txtFeedback.setText(Data[3]);
-                   btnUpdate.setEnabled(false);
-                   //need to add radio btn
-                   switch(Data[2]){
-                       case "1" : jRadioButton1.setSelected(true); break;
-                       case "2" : jRadioButton2.setSelected(true); break;
-                       case "3" : jRadioButton3.setSelected(true); break;
-                       case "4" : jRadioButton4.setSelected(true); break;
-                       case "5" : jRadioButton5.setSelected(true); break;
-                       
-                   }
-                   Arrays.fill(Data, null);
+    }//GEN-LAST:event_btnUpdateMouseEntered
 
-                   break;
-                } else {
-                   btnUpdate.setEnabled(true);
-                   txtFeedback.setText("");
-                   
-                   jRadioButton1.setSelected(false); 
-                    jRadioButton2.setSelected(false); 
-                    jRadioButton3.setSelected(false); 
-                    jRadioButton4.setSelected(false); 
-                    jRadioButton5.setSelected(false);
-                    
-                    Arrays.fill(Data, null);
-               }
-                
-
-            }
-            
-            readFB.close();
-            
-            BufferedReader readTRR = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-
-            i =0;
-            String[] temp_Data;
-                               System.out.println("hello in readTRR");
-
-            while ((line = readTRR.readLine()) != null) {
-               temp_Data = line.split(":");
-               System.out.println(line);
-
-               if(temp_Data[0].equals(Selected_TrainID_FB.getSelectedItem())){
-                   txtCentreTrainer.setText(temp_Data[2]);
-                   i++;
-               }
-                
-                Arrays.fill(temp_Data, null);
-
-            }
-            
-            readTRR.close();
-            
-        } catch(IOException e){
-            
-        }
-    }//GEN-LAST:event_Selected_TrainID_FBActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -527,85 +369,25 @@ public class Customer_ProvideFeedback extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void GUI(){
-        
-        try{
-             //GETTING ALL SESSIONS FROM THIS TRAINER
-            BufferedReader getCount = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-            String line, line2;
-            String[] Data;
-            int count = 0;
-            while((line2 = getCount.readLine()) !=null) count++;
-            getCount.close();
-            System.out.println(count);
-            
-            Training_ID = new String [(count)];
-            
-             
-             
-            BufferedReader readFB = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-
-            
-            
-            int i =0;
-            while ((line = readFB.readLine()) != null) {
-               Data = line.split(":");
-               System.out.print("testing in side while");
-               if(Data[6].equals(C.user_ID)){
-                   Training_ID[i] = Data[0];
-                   Selected_TrainID_FB.addItem(Training_ID[i]);
-                   i++;
-               }
-                
-                Arrays.fill(Data, null);
-
-            }
-            
-            readFB.close();
-         } catch(IOException e){
-             
-         }
-        
-        //adding closing confirmation 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (selection == JOptionPane.YES_OPTION) {
-                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
-
-                        if(cache.delete()){
-                            System.out.print("Cache Deleted!");
-                            dispose();
-                        } else {
-                            System.out.print("Cache not deleted");
-                        }
-                } else {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                }
-            }
-        });   
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup Rating;
-    private javax.swing.JComboBox<String> Selected_TrainID_FB;
     private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCentreTrainer;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblFeedback;
+    private javax.swing.JLabel lblSelectedPic;
+    private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblTrainerPic;
     private javax.swing.JLabel lblTrainingSession;
     private javax.swing.JTextField txtCentreTrainer;
+    private javax.swing.JTextField txtDate;
     private javax.swing.JTextArea txtFeedback;
+    private javax.swing.JTextField txtTime;
+    private javax.swing.JTextField txtTrainSessID;
     // End of variables declaration//GEN-END:variables
 }
