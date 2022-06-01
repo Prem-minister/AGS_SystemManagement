@@ -312,6 +312,7 @@ public class Trainer_Payment extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Saving payment record 
         String Selected_TID = (String) T_Payment_SessionCbox.getSelectedItem();
+        System.out.println(Selected_TID);
         Double r_fee = Double.parseDouble(T_Payment_Fees.getText());
 
         Double p_amt = 0.00;
@@ -345,30 +346,26 @@ public class Trainer_Payment extends javax.swing.JFrame {
         } else if (df.format(p_amt).equals(df.format(r_fee))) {
             status = "paid";
         }
+        System.out.print(status);
         String LastLine = "";
         //write to Payment.txt
         if(new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Payment.txt").exists()) {
                 try{
-                    BufferedReader r = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Payment.txt"));
-                    if(r.readLine()==null){
-                        BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Payment.txt", true));
-                        wr.write("PID1" + ":" + Selected_TID + ":" + df.format(r_fee) + ":" + df.format(p_amt)+ ":" + selected + ":" + address + "\n");
-                        JOptionPane.showMessageDialog(null, "Successfully added Payment", "Feedback Added", 1);
-                        wr.close();
-                        r.close();
-                        backToSession();
-                    } else {
-                        String line;
+                    BufferedReader r_payment = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Payment.txt"));
+                    String line;
                         String[] data;
                             
-                        while((line = r.readLine()) != null){
-                           LastLine = line;
+                        while((line = r_payment.readLine()) != null){
+                            LastLine = line;
                         }
-                        r.close();
-                        
+                        System.out.println(LastLine);
                         String[] data123 = LastLine.split(":");
+                        System.out.print(data123[0]);
                         String idd = data123[0];
+//                        System.out.print(idd);
                         String[] id = idd.split("D");
+                        r_payment.close();
+
                         int id_adding = Integer.parseInt(id[1]);
                         id_adding = id_adding +1;
                         
@@ -388,22 +385,24 @@ public class Trainer_Payment extends javax.swing.JFrame {
                         while((line_t = rd.readLine())!= null){
                             //splitting the training data
                             training = line_t.split(":");
+                            System.out.print(Selected_TID + training[0]);
+
                             //comparing the editting user 
                             if(training[0].equals(Selected_TID)){
                                 for(int i=0; i<training.length; i++){
                                     if(i!=8){
-                                        wr.write(training[i] + ":");
+                                        w.write(training[i] + ":");
                                     } else {
-                                        wr.write( status + ":");
+                                        w.write( status + ":");
                                     }
                                 
                                 }
                                 w.write("\n");
                             } else {
                                 for(int i=0; i<training.length; i++){
-                                    wr.write(training[i] + ":");
+                                    w.write(training[i] + ":");
                                 }
-                                wr.write("\n");
+                                w.write("\n");
                             }
                             //clearing array
                             Arrays.fill(training,null);
@@ -423,15 +422,68 @@ public class Trainer_Payment extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Successfully added Payment", "Payment Added", 1);
 
                             backToSession();
-                        }
+                        
                 }catch(IOException e){
-                    System.out.println("Error in adding payment");
+                    System.out.println("Error in adding payment" + e);
                 }
+                    
         } else {
             try{
                 BufferedWriter wr = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Payment.txt", true));
                 wr.write("PID1" + ":" + Selected_TID + ":" + df.format(r_fee) + ":" + df.format(p_amt)+ ":" + selected + ":" + address + "\n");
+                
+                // updating status
+                        BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
+                
+                        String[] training;
+                        String line_t;
+                
+                //Writting a temp file
+                        BufferedWriter w = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt"));
+                        //while loop for each line in TrainingSlots.txt
+                        while((line_t = rd.readLine())!= null){
+                            //splitting the training data
+                            training = line_t.split(":");
+                            System.out.print(Selected_TID + training[0]);
+
+                            //comparing the editting user 
+                            if(training[0].equals(Selected_TID)){
+                                for(int i=0; i<training.length; i++){
+                                    if(i!=8){
+                                        w.write(training[i] + ":");
+                                    } else {
+                                        w.write( status + ":");
+                                    }
+                                
+                                }
+                                w.write("\n");
+                            } else {
+                                for(int i=0; i<training.length; i++){
+                                    w.write(training[i] + ":");
+                                }
+                                w.write("\n");
+                            }
+                            //clearing array
+                            Arrays.fill(training,null);
+                        }
+                
+                            rd.close();
+                            w.close();
+                            
+
+                            File fileToDelete = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt");
+                            File fileToChangeName = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Temp.txt");
+
+                            //deleting the old user file and renaming the temp file to new user file
+                            fileToDelete.delete();
+                            fileToChangeName.renameTo(fileToDelete);
+                
+                
+                
                 JOptionPane.showMessageDialog(null, "Successfully added Payment", "Feedback Added", 1);
+                
+                
+                
                 wr.close();
                 backToSession();
             } catch(IOException e){
@@ -499,28 +551,32 @@ public class Trainer_Payment extends javax.swing.JFrame {
         int i=0;
         while(i<Line.length) {
             String[] data = Line[i].split(":");
-            
+            System.out.print("inside while loop in display Data");
+            System.out.print(data[0]);
             if(data[0].equals(T_Payment_SessionCbox.getSelectedItem())){
+                
                 if(data[8].equals("paid")){
+                    System.out.print("Inside Paid if");
                     T_Payment_Fees.setText("0.00");
                     T_Payment_SaveBtn.setEnabled(false);
                 } else if(data[8].equals("partially_paid")){
                     //load the payment files and search for record    
+                    
                     try{
                         BufferedReader readPM = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\Payment.txt"));
-
+                        System.out.println("Inside Partially paid if");
                         String[] payment_details;
                         String p_line;
 
                         int x =0;
-                        while((p_line = readPM.readLine()) != null) {
+                        while((p_line = readPM.readLine()) != null) { 
                             payment_details = p_line.split(":");
                             if(payment_details[1].equals(data[0])){
                                 x++;
                             }
-                            Arrays.fill(data, null);
+                            Arrays.fill(payment_details, null);
                         }
-
+                            System.out.print(x);                        
                         user_payment_record = new String[(x)];
 
                         readPM.close();
@@ -536,7 +592,7 @@ public class Trainer_Payment extends javax.swing.JFrame {
                                 x++;
                             }
 
-                            Arrays.fill(data, null);
+                            Arrays.fill(payment_details, null);
                         }
 
                         readP.close();
@@ -547,14 +603,20 @@ public class Trainer_Payment extends javax.swing.JFrame {
 
                     //getting  how much they paid.
                     int y=0;
-                    if(user_payment_record != null){
+                    if(user_payment_record.length!=0){
+                        System.out.println(user_payment_record.length);
+                        amount_paid = 0.00;
                         while(y<user_payment_record.length){
                             String[] paid_data = user_payment_record[y].split(":");
-
+                            System.out.print(paid_data[3]);
+                            System.out.println(amount_paid);
                             amount_paid += Double.parseDouble(paid_data[3]);
-
+                            System.out.println(amount_paid);
+                            
                             y++;
                         }
+                        
+                        System.out.print(amount_paid);
                         
                         //setting remaining fees to Textfield
                         T_Payment_Fees.setText(df.format(amount_paid));
@@ -583,9 +645,7 @@ public class Trainer_Payment extends javax.swing.JFrame {
             String[] Data;
             int count = 0;
             while((line2 = getCount.readLine()) !=null) count++;
-            getCount.close();
-            System.out.println(count);
-            
+            getCount.close();            
             Training_ID = new String [(count)];
             Line = new String [(count)];
              
