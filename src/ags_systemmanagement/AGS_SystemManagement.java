@@ -23,12 +23,12 @@ public class AGS_SystemManagement {
           //ForgotPassword frame = new ForgotPassword();
           //CentreManager_RegisterNewUser frame = new CentreManager_RegisterNewUser();
           //Customer_MainMenu frame = new Customer_MainMenu();
-          //CentreManager_BookingTrainingSession frame = new CentreManager_BookingTrainingSession();
+          CentreManager_BookingTrainingSession frame = new CentreManager_BookingTrainingSession();
           //CentreManager_ManageUser frame = new CentreManager_ManageUser();
-          // CentreManager_LoginActivity frame = new CentreManager_LoginActivity();
+          //CentreManager_LoginActivity frame = new CentreManager_LoginActivity();
           //CentreManager_ManageBookingTrainingSession frame  = new CentreManager_ManageBookingTrainingSession();
           //CentreManager_ManageSchedule frame = new CentreManager_ManageSchedule();
-          CentreManager_ViewPayment frame = new CentreManager_ViewPayment();
+          //CentreManager_ViewPayment frame = new CentreManager_ViewPayment();
           //CentreManager_ViewFeedback frame = new CentreManager_ViewFeedback();
          // CentreManager_ViewTrainingSession frame = new CentreManager_ViewTrainingSession();
           //CentreManager_ViewUser frame = new CentreManager_ViewUser();
