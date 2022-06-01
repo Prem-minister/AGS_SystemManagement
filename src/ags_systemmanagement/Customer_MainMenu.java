@@ -80,7 +80,7 @@ public class Customer_MainMenu extends javax.swing.JFrame {
         C_Schedule_Label.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         C_Schedule_Label.setForeground(new java.awt.Color(255, 255, 255));
         C_Schedule_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        C_Schedule_Label.setText("Training Schedule");
+        C_Schedule_Label.setText("Training Sessions");
 
         C_ScheduleBtn1.setBackground(new java.awt.Color(204, 204, 204));
         C_ScheduleBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/timeTableIcon.png"))); // NOI18N
@@ -174,6 +174,11 @@ public class Customer_MainMenu extends javax.swing.JFrame {
 
     private void C_ScheduleBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C_ScheduleBtn1ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        Customer_Schedule CS = new Customer_Schedule(U);
+        CS.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        CS.setLocation(dim.width/2-CS.getSize().width/2, dim.height/2-CS.getSize().height/2);  
     }//GEN-LAST:event_C_ScheduleBtn1ActionPerformed
 
     
