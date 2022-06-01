@@ -4,25 +4,6 @@
  */
 package ags_systemmanagement;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author User
@@ -32,29 +13,10 @@ public class Trainer_Schedule extends javax.swing.JFrame {
     /**
      * Creates new form Trainer_Schedule
      */
-    
-    Trainer T;
-    //getting today date 
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    Date today = new Date();
-    String[] Training_ID;
-    
-    
-    public Trainer_Schedule(Trainer T) {
+    public Trainer_Schedule() {
         initComponents();
-        setTrainer(T);
-        GUI();
-    }
-    
-    public Trainer_Schedule(){
-        
     }
 
-    
-    public void setTrainer(Trainer T){
-        this.T = T;
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,14 +26,13 @@ public class Trainer_Schedule extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        DAY = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        T_Schedule_BackBtn = new javax.swing.JLabel();
+        T_Schedule_Date = new com.toedter.calendar.JDateChooser();
+        T_Schedule_SearchBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         T_Schedule_Table = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        DatePick = new com.toedter.calendar.JDateChooser();
-        button1 = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,77 +44,61 @@ public class Trainer_Schedule extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Mimetypes-schedule-icon.png"))); // NOI18N
         jLabel1.setText("SCHEDULE");
 
+        T_Schedule_BackBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
+
+        T_Schedule_SearchBtn.setBackground(new java.awt.Color(0, 255, 255));
+        T_Schedule_SearchBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        T_Schedule_SearchBtn.setForeground(new java.awt.Color(255, 51, 51));
+        T_Schedule_SearchBtn.setText("Search");
+
         T_Schedule_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Session_ID", "Trainer_ID", "Trainer_Name", "Date", "Start Time", "End Time", "Customer ID", "Fees", "Status"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(T_Schedule_Table);
-
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ags_systemmanagement/rsc/Back-icon.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        button1.setLabel("SEARCH");
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DatePick, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addContainerGap()
+                        .addComponent(T_Schedule_BackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 46, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(T_Schedule_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(T_Schedule_SearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DatePick, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(T_Schedule_BackBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(T_Schedule_Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(T_Schedule_SearchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,39 +109,11 @@ public class Trainer_Schedule extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        Trainer_MainMenu TM = new Trainer_MainMenu();
-        
-        TM.setVisible(true);
-        
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        TM.setLocation(dim.width/2-TM.getSize().width/2, dim.height/2-TM.getSize().height/2);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        // TODO add your handling code here:
-        if(DatePick.getDate() == null){
-            
-            System.out.println("DATE NOT SELECTED");
-        } else {
-            String selected = formatter.format(DatePick.getDate());
-            System.out.println("DATE" + selected);
-            loadData(selected);  
-        }
-        
-        
-        
-    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,103 +149,12 @@ public class Trainer_Schedule extends javax.swing.JFrame {
             }
         });
     }
-    
-    //searching for selected date data
-    public void loadData(String date){
-        try{
-            BufferedReader rd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-            String line, line2;
-            String[] userData;
-            int count = 0;
-            while((line2 = rd.readLine()) !=null) count++;
-            rd.close();
-            System.out.println(count);
-            
-            Training_ID = new String [(count)];
-            
-            System.out.println("eee");
-            
-            BufferedReader rdd = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\TrainingSlots.txt"));
-            
-            //Clear table data
-            DefaultTableModel md = (DefaultTableModel) T_Schedule_Table.getModel();
-            md.setRowCount(0);
-            
-            int i=0;
-            //adding data to the jtable
-            while((line = rdd.readLine()) != null){
-                System.out.println("hello");
-
-                userData = line.split(":");
-                if(userData[1].equals(T.user_ID) && userData[3].equals(date)){
-                    System.out.println("heloo123");
-                    Object[] row = {userData[0], userData[1], userData[2], userData[3], userData[4], userData[5], userData[6], userData[7], userData[8]};
-                    md.addRow(row);
-                    Training_ID[i] = userData[0];
-                    i++;
-                }
-                Arrays.fill(userData, null);
-            }
-            
-            //closing file
-            rdd.close();
-            
-            // show message if no training in that day
-            if(Training_ID[0] == null){
-                JOptionPane.showMessageDialog(null, "No Training have been scheduled today!", "No Record", 1);
-            }
-            
-            
-            //cancel class section
-//            for(int x=0; x<Training_ID.length; x++)
-//            {
-//                SessionID_Combo.addItem(Training_ID[x]);
-//            }
-            
-            
-        } catch(IOException e){
-            System.out.println("Problem in reading Files");
-        }
-        
-    }
-    
-     public void GUI(){
-        //setting the selectable date to be after today only
-        DatePick.setMinSelectableDate(today);
-        DatePick.setDate(today);
-        
-        loadData(formatter.format(DatePick.getDate()));
-        
-        
-         
-        //adding closing confirmation, log out and clear cache file 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                int selection = JOptionPane.showConfirmDialog(null, "Want to exit? Exit will also log you out", "Closing App ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (selection == JOptionPane.YES_OPTION) {
-                    File cache = new File(System.getProperty("user.dir") + "\\src\\db_TxtFiles\\UserCache.txt");
-
-                        if(cache.delete()){
-                            System.out.print("Cache Deleted!");
-                            dispose();
-                        } else {
-                            System.out.print("Cache not deleted");
-                        }
-                } else {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                }
-            }
-        });   
-    }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup DAY;
-    private com.toedter.calendar.JDateChooser DatePick;
+    private javax.swing.JLabel T_Schedule_BackBtn;
+    private com.toedter.calendar.JDateChooser T_Schedule_Date;
+    private javax.swing.JButton T_Schedule_SearchBtn;
     private javax.swing.JTable T_Schedule_Table;
-    private java.awt.Button button1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

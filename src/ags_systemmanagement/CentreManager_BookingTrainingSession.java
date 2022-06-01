@@ -106,8 +106,6 @@ public class CentreManager_BookingTrainingSession extends javax.swing.JFrame {
                        model.addRow(new Object[] {trainingID, trainerName, formatTableDate, startTime,endTime, status});
                    }
             }
-            fr.close();
-            br.close();
         } catch (Exception ex) {
             Logger.getLogger(CentreManager_ScheduleTraining.class.getName()).log(Level.SEVERE, null, ex);
         }
